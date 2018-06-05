@@ -1,0 +1,84 @@
+In deze samenvatting is vooral gelet op de belangrijke onderdelen van Scrum voor specifiek ons project.
+
+HET PRINCIPE
+Scrum werkt met iteraties. Een iteratie is een korte periode van een paar dagen (in ons geval) die tot een resultaat leidt (bij ons denk ik een deel van het product) dat ook écht af is. Zo’n iteratie wordt een sprint genoemd. Er zijn drie rollen binnen Scrum, twee lijsten die worden bijgehouden en 4 meetings per sprint.
+
+De Scrum spelregels:
+
+Er is één Product Owner, die verantwoordelijk is voor het succes van het product, en mandaat heeft om beslissingen te nemen.
+Er is één Scrum Master, die zorgt dat de Scrum spelregels en principes worden gevolgd, zodat iedereen zich optimaal kan concentreren op zijn taak: het product maken.
+Er is één Development Team, dat in staat is om zelfstandig het product te ontwikkelen, met alles wat daarbij hoort om het in productie te nemen.
+Scrum wordt gedaan in sprints: aaneengesloten iteraties van twee à drie weken. Korter is beter. Sprints beginnen en eindigen op vaste dagen.
+Alle eisen en wensen aan het product worden bijgehouden op de Product Backlog, die wordt beheerd door de Product Owner. De Product Backlog is altijd geprioriteerd op waarde voor de business, en de items op de Product Backlog zijn ingeschat door het team.
+De voortgang van het opleveren van items op de Product Backlog wordt door de Product Owner per sprint bijgehouden in de Release Burndown Chart.
+Een sprint begint met een Sprint Planning deel 1, waarin wordt bepaald wat in welke volgorde in deze sprint wordt aangepakt. Dat is over het algemeen de bovenkant van de Product Backlog.
+Vervolgens wordt in Sprint Planning deel 2, door het team in aanwezigheid van de Product Owner, bepaald hoe en hoeveel van het werk wordt gedaan, en het vertrouwen uitgesproken dat dat gaat lukken in deze sprint.
+Iedere sprint wordt het werk voor die sprint van de Product Backlog naar de Sprint Backlog verplaatst, en door het team in kleinere delen zichtbaar gemaakt.
+Het team houdt de voortgang bij door middel van een Sprint Burndown Chart.
+De Product Owner en het Development Team hebben afspraken gemaakt zodanig dat er een gemeenschappelijk beeld is over wat het betekent als een Product Backlog item af is. Dat is vastgelegd in de Definition of Done. ‘Done’ betekent: zo goed dat het in productie genomen kan worden.
+Iedere dag houdt het team een Daily Scrum meeting, waarin het team de werkzaamheden met elkaar doorneemt, door middel van een aantal standaardvragen. Deze meeting is openbaar; het publiek mag meeluisteren.
+'Aan het eind van de sprint laat het team de resultaten zien aan de Product Owner en stakeholders, om vervolgens feedback te ontvangen. Dit heet de Sprint Review. Het team levert alleen de resultaten die ‘done’ zijn.
+Na de Sprint Review houdt het team een Sprint Retrospective om even stil te staan en te bespreken wat er goed ging, en afspraken te maken over wat er beter kan.
+De 5 principes:
+
+Toewijding: Iedereen neemt zijn verantwoordelijkheid om tot het best mogelijke product te komen.
+Focus: Iedereen beperkt zich tot het belangrijkste dat moet gebeuren, en werkt dus aan één product, één sprint, één Backlog item tegelijk, in één team.
+Openheid: Transparantie is belangrijk om ervoor te zorgen dat je zo veel mogelijk kansen creëert om te leren. Fouten maken is niet erg. Zorg dat je met zijn allen van de fouten leert.
+Respect: Heb respect voor elkaar, iedereen heeft zijn eigen ervaring en achtergrond. Wees wel open, maar doe het op een opbouwende manier. Toon interesse in elkaar.
+Moed: Om tot verbeteringen te komen, en veranderingen door te voeren is moed nodig, een beetje lef kan geen kwaad: ‘Beter achteraf om vergiffenis vragen, dan vooraf om toestemming.
+
+DE ROLLEN
+De rollen die verdeeld worden zijn de Product Owner, de Scrum master, en het Development team.
+
+De Product Owner
+De Product Owner is verantwoordelijk voor het ‘wat’ en vertegenwoordigt alle belanghebbenden. Wat gaan we maken? Hoeveel mag het kosten? En wanneer is het klaar? Hij of zij is degene die bepaalt of iets daadwerkelijk voldoende functionaliteit bevat om in productie te kunnen worden genomen. Om dit alles goed te kunnen bepalen is het essentieel dat de Product Owner ook het ‘waarom’ kan verwoorden. 
+
+Het is de verantwoordelijkheid van de Product Owner om iedereen met een belang in het product te vertegenwoordigen en de belangen tussen al deze mensen of partijen af te wegen en constant te beslissen wat het belangrijkst is. Met de kennis van alle belanghebbenden binnen het project, en van hun belangen, sorteert de Product Owner de Product Backlog. Dat is de primaire verantwoordelijkheid van de Product Owner: zorgen dat er een goede Product Backlog is en deze prioriteren op waarde. De Product Owner kan na elke sprint beslissen om het wel of niet uit te leveren, oftewel te releasen. Releasen wordt daarmee een tactische of strategische afweging, maar geen operationele. Het product is namelijk altijd ‘releasable’. (Voor ons is het waarschijnlijk ook nuttig om bij te houden wat de eisen zijn van het vak vanuit de studie. Dus deadlines en eisen voor die deadlines.)
+
+De Product Owner is verder verantwoordelijk om met het Development Team te sparren over de implementatie van de eisen en wensen van de stakeholders. 
+
+Het Development Team
+Het eigenlijke werk wordt gedaan door het team, ook wel Development Team genoemd. De mensen die het werk ook daadwerkelijk doen. Een Development Team, en dus ook ieder teamlid, is volledig toegewijd. Het team werkt samen om de doelen die door de Product Owner zijn gesteld te halen, sprint na sprint. Het team bepaalt zelf hoe ze dat doen, en dus ook wie wat doet, en geeft zelf schattingen af. Niemand vertelt het team hoe ze de gestelde doelen moet behalen, en dus ook niet hoe lang ze over een bepaalde taak of feature mogen doen. Eigen verantwoordelijkheid voor je eigen werk.
+
+De Scrum Master
+De Scrum Master is ervoor om te zorgen dat Scrum goed wordt toegepast. Oftewel: de Scrum Master zorgt ervoor dat de spelregels in acht worden genomen. De Scrum Master is als olie in de machine, en zorgt ervoor dat alles zo soepel mogelijk draait. Belemmeringen die het team ondervindt worden door hem of haar uit de weg geruimd. Ook legt de Scrum Master Scrum en de consequenties van het gebruik ervan aan alle betrokkenen uit. Dus ook aan het management. Hij of zij is proactief naar buiten toe en faciliterend voor het team en de Product Owner. Zo kan een Scrum Master helpen bij het organiseren van de bijeenkomsten, zaken regelen voor het team en de Product Owner bijstaan bij het formuleren van de eisen en wensen.
+
+Kortom, de vier verantwoordelijkheden:
+steun voor Scrum organiseren;
+bewaken van spelregels;
+wegnemen van belemmeringen;
+bewerkstelligen van veranderingen in de organisatie.
+
+DE LIJSTEN
+Alle wensen en eisen die het product beschrijven worden bijgehouden op een lijst: de Product Backlog. Deze lijst wordt door de Product Owner beheerd, en is altijd gesorteerd op waarde voor de business, en voorzien van schattingen door het team. Voortgang van de realisatie van het product of de release wordt door de Product Owner bijgehouden in een Release Burndown Chart.
+
+Bij iedere sprint wordt het bovenste deel van de Product Backlog verplaatst naar de Sprint Backlog die door het team in kleinere delen wordt gesplitst om het werk gedurende de sprint te kunnen verdelen en de voortgang te kunnen volgen. Hierbij houdt het Development Team ook een Sprint Burndown Chart bij.
+
+Product Backlog
+Alle eisen en wensen op de Product Backlog moeten altijd door de Product Owner geprioriteerd zijn op business waarde en voorzien zijn van een schatting van de inspanning door het Development Team. Deze Backlog moet constant bijgehouden en verfijnd worden. Aan de hand van deze Backlog worden de volgende sprints bepaald. Alle informatie die nodig is, zou dus al aanwezig moeten zijn.
+
+Op een Product Backlog onder andere:
+
+Wensen: mensen-wensen, features, functional requirements of hoe je ze ook wilt noemen. Dingen die mensen willen. User Stories.
+Eisen: systeemeisen, non-functional requirements, qualities, ISO9126 software eisen en zo. Bijvoorbeeld ‘Inloggen binnen 2 sec’, ‘Profielpagina over 128 bit SSL’ of ‘Database restore binnen 10 minuten’.
+Problemen: bugs, issues. Problemen gevonden door gebruikers in productie (of eventueel acceptatie).
+
+Een mooie manier om items op de Product Backlog te beschrijven is User Stories. Ook wel kortweg stories genoemd. Een User Story is een compacte manier om een wens van een gebruiker te formuleren. Een voorbeeld van een User Story is:
+Als een winkelende iPhone-gebruiker in de Albert Heijn
+wil ik mijn boodschappen in volgorde gepresenteerd krijgen
+zodat ik geen twee keer door hetzelfde pad hoef te lopen.
+
+MEETINGS
+Er zijn vier meetings in iedere sprint. Van tevoren is een maximale hoeveelheid tijd voor de meeting gereserveerd, daar wordt nooit overheen gegaan. Als vuistregel duurt een meeting niet langer dan twee uur voor een sprint van twee weken.
+
+De eerste meeting aan het begin van een sprint is de Sprint Planning. Die bestaat uit twee delen: het eerste deel dient om te bepalen welke items in deze sprint worden opgepakt en wat er opgeleverd kan worden. Het tweede deel is ervoor om te kijken hoe het werk kan worden opgesplitst en om te bepalen wat er door het team kan worden opgeleverd aan het eind van de sprint. (Hier kan de opdrachtgever aanwezig bij zijn.)
+
+Aan het begin van iedere dag houdt het (hele) team een werkoverleg, kort en staand. Tijdens deze Daily Scrum praat het team over de invulling van de dag, en hoe er wordt samengewerkt. Het is geen rapportage aan wie dan ook. 
+
+Aan het eind van de sprint wordt het werk door het team aan de Product Owner en de belanghebbenden (Opdrachtgevers) getoond, met als doel om feedback te krijgen. Deze meeting wordt vaak de ‘demo’ genoemd, maar dat doet de meeting tekort. De demo is het middel, het doel is feedback. De meeting heet dan ook Sprint Review.
+
+Uiteindelijk trekt het team zich terug voor een laatste meeting: de Sprint Retrospective. Hier kijkt het team terug naar de afgelopen periode, en kijkt hoe ze zichzelf kan verbeteren. Het benoemt de zaken die goed gaan, en bespreekt de zaken die beter kunnen. Het team onderzoekt de oorzaken en oplossingen, en maakt afspraken over te ondernemen acties.
+
+
+
+
