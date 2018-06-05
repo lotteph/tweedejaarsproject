@@ -14,7 +14,7 @@ def get_LL(postalCode,data) :
             return [i[-2],i[-3]]
 
 LL = get_LL("2152",read_file())
-secret_key = "59e1462995d5ab68f2c1f29478f98081"
+secret_key = ""
 
 longitude = LL[0]
 latitude = LL[1]
