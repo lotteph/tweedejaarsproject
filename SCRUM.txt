@@ -3,7 +3,7 @@ In deze samenvatting is vooral gelet op de belangrijke onderdelen van Scrum voor
 HET PRINCIPE
 Scrum werkt met iteraties. Een iteratie is een korte periode van een paar dagen (in ons geval) die tot een resultaat leidt (bij ons denk ik een deel van het product) dat ook écht af is. Zo’n iteratie wordt een sprint genoemd. Er zijn drie rollen binnen Scrum, twee lijsten die worden bijgehouden en 4 meetings per sprint.
 
-De Scrum spelregels:
+De Scrum spelregels: 
 
 Er is één Product Owner, die verantwoordelijk is voor het succes van het product, en mandaat heeft om beslissingen te nemen.
 Er is één Scrum Master, die zorgt dat de Scrum spelregels en principes worden gevolgd, zodat iedereen zich optimaal kan concentreren op zijn taak: het product maken.
