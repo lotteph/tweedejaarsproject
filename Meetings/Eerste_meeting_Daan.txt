@@ -1,0 +1,25 @@
+Eerste meeting Daan Bloembergen - 05/06/18
+
+Linear regression is een goede start
+Python programmeren is de voorkeur
+
+Aantal datasets waar we data uit kunnen halen (misschien automatisch, anders copy pasten)
+pvoutput is een database waar mensen hun gegevens van solar panels kunnen uploaden
+
+We kunnen ook naar bronnen voor andere landen gaan kijken.
+
+Voorspelling maken aan de hand van de data van pvoutput. Aan de hand van de weersvoorspelling een voorspelling maken van de opbrengst van een zonnepaneel.
+
+Kijken naar variabelen als bewolking en global horizontal irradiation, en duur zonneschijn.
+
+Global horizontal irradiation, kijken naar hoeveel procent je nog overhoudt (kijken naar hoe zonnepanelen staan)
+
+Historische data van zonnepaneel installaties en weersverwachtingen om voorspellingen te doen.
+
+pvoutput heeft API toegang, maar beperkt aantal queries
+
+We kunnen ook met python de website scrapen
+
+Kijken naar onzekerheiden, wat heeft de invloed van minder nauwkeurigheid en wat gebeurt er als we bepaalde dingen als data weghalen.
+
+Gebruikersdata anoniem laten
