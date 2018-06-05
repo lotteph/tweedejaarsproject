@@ -1,0 +1,16 @@
+Plan van aanpak 05/06
+
+Eindproduct volgens Daan was wel goed verwoord: met informatie van de zonnepanelen 
+en het weer een model maken dat toekomstige energieopwekking kan voorspellen gebaseerd 
+op de weersverwachting. 
+
+-Data van PVOutput verzamelen
+-Kijken of ergens anders ook informatie van zonnepanelen te vinden is
+-Weerdata verzamelen
+-Kijken welke parameters interessant zijn om te gaan gebruiken
+-Data cleanen
+
+Taakverdeling: 
+Ruth & Lotte: PVOutput uitzoeken
+Caitlin: andere manieren voor zonnepaneeldata zoeken
+Bas: programma voor weer opvragen afmaken
