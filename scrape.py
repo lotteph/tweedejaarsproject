@@ -3,12 +3,13 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import datetime
 import time
+import calendar
 
-BEGIN_MONTH = 11
+BEGIN_MONTH = 1
 BEGIN_YEAR = 2017
 
-END_MONTH = 12
-END_YEAR = 2017
+END_MONTH = 1
+END_YEAR = 2018
 
 
 FILE = "training.csv"
@@ -51,13 +52,13 @@ def add_data(data, panel, file):
 
 def retrieve_data(begin_date, end_date, panel, file, second):
 	url = "https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date + "&id=54314&sid=49389&t=m&gs=0&v=3"
-	second_url = "https://pvoutput.org/list.jsp?p=1&id=54314&sid=49389&gs=0&df=" + begin_date + "&dt=" + end_date +" &v=3&o=date&d=desc"
+	second_url = "https://pvoutput.org/list.jsp?p=1&id=54314&sid=49389&gs=0&df=" + begin_date + "&dt=" + end_date +"&v=3&o=date&d=desc"
 	page = urlopen(url)
 	soup = BeautifulSoup(page, "html.parser")
 	data = soup.findAll('tr', attrs={'class': ['e2', 'o2']})
 	add_data(data, panel, file)
 	if second == True:
-		second_page = urlopen(url)
+		second_page = urlopen(second_url)
 		second_soup = BeautifulSoup(second_page, "html.parser")
 		data = second_soup.findAll('tr', attrs={'class': ['e2', 'o2']})
 		add_data(data, panel, file)
@@ -67,22 +68,29 @@ def main():
 	m = BEGIN_MONTH
 	if m < 10:
 		begin = str(y)+"0"+str(m)+"01"
-		end = str(y)+"0"+str(m)+"31"
+		end_d = calendar.monthrange(y, m)
+		end = str(y)+"0"+str(m)+str(end_d[1])
 	else:
 		begin = str(y)+str(m)+"01"
-		end = str(y)+str(m)+"31"
+		end_d = calendar.monthrange(y, m)
+		end = str(y)+str(m)+str(end_d[1])
 	panel = panel_info(begin, end)
 	csv_file = open(FILE,'a')
 	csv_file.write(COLUMS)
 	while y != END_YEAR or m != END_MONTH:
+		end_d = calendar.monthrange(y, m)
 		if m < 10:
 			begin = str(y)+"0"+str(m)+"01"
-			end = str(y)+"0"+str(m)+"31"
+			end = str(y)+"0"+str(m)+str(end_d[1])
 		else:
 			begin = str(y)+str(m)+"01"
-			end = str(y)+str(m)+"31"
-		time.sleep(1)
-		retrieve_data(begin, end, panel, csv_file)
+			end = str(y)+str(m)+str(end_d[1])
+		if end_d[1] > 30:
+			time.sleep(1)
+			retrieve_data(begin, end, panel, csv_file, True)
+		else:
+			time.sleep(1)
+			retrieve_data(begin, end, panel, csv_file, False)
 		if m != 12:
 			m += 1
 		else:
