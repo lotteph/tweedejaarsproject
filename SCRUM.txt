@@ -1,7 +1,8 @@
 In deze samenvatting is vooral gelet op de belangrijke onderdelen van Scrum
 voorspecifiek ons project.
 
-HET PRINCIPE Scrum werkt met iteraties. Een iteratie is een korte periode van
+HET PRINCIPE
+Scrum werkt met iteraties. Een iteratie is een korte periode van
 een paar dagen (in ons geval) die tot een resultaat leidt (bij ons denk ik een
 deel van het product) dat ook écht af is. Zo’n iteratie wordt een sprint
 genoemd. Er zijn drie rollen binnen Scrum, twee lijsten die worden bijgehouden
@@ -9,52 +10,62 @@ en 4 meetings per sprint.
 
 De Scrum spelregels:
 
-Er is één Product Owner, die verantwoordelijk is voor het succes van het
-product, en mandaat heeft om beslissingen te nemen. Er is één Scrum Master, die
-zorgt dat de Scrum spelregels en principes worden gevolgd, zodat iedereen zich
-optimaal kan concentreren op zijn taak: het product maken. Er is één Development
-Team, dat in staat is om zelfstandig het product te ontwikkelen, met alles wat
-daarbij hoort om het in productie te nemen. Scrum wordt gedaan in sprints:
-aaneengesloten iteraties van twee à drie weken. Korter is beter. Sprints
-beginnen en eindigen op vaste dagen. Alle eisen en wensen aan het product worden
-bijgehouden op de Product Backlog, die wordt beheerd door de Product Owner. De
-Product Backlog is altijd geprioriteerd op waarde voor de business, en de items
-op de Product Backlog zijn ingeschat door het team. De voortgang van het
+- Er is één Product Owner, die verantwoordelijk is voor het succes van het
+product, en mandaat heeft om beslissingen te nemen.
+- Er is één Scrum Master, die zorgt dat de Scrum spelregels en principes worden
+gevolgd, zodat iedereen zich optimaal kan concentreren op zijn taak: het product
+maken.
+- Er is één Development Team, dat in staat is om zelfstandig het product te
+ontwikkelen, met alles wat daarbij hoort om het in productie te nemen.
+- Scrum wordt gedaan in sprints: aaneengesloten iteraties van twee à drie weken.
+Korter is beter. Sprints beginnen en eindigen op vaste dagen.
+- Alle eisen en wensen aan het product worden bijgehouden op de Product Backlog,
+die wordt beheerd door de Product Owner. De Product Backlog is altijd
+geprioriteerd op waarde voor de business, en de items
+op de Product Backlog zijn ingeschat door het team.
+- De voortgang van het
 opleveren van items op de Product Backlog wordt door de Product Owner per sprint
-bijgehouden in de Release Burndown Chart. Een sprint begint met een Sprint
-Planning deel 1, waarin wordt bepaald wat in welke volgorde in deze sprint wordt
-aangepakt. Dat is over het algemeen de bovenkant van de Product Backlog.
-Vervolgens wordt in Sprint Planning deel 2, door het team in aanwezigheid van de
+bijgehouden in de Release Burndown Chart.
+- Een sprint begint met een Sprint Planning deel 1, waarin wordt bepaald wat in
+welke volgorde in deze sprint wordt aangepakt. Dat is over het algemeen de bovenkant van de Product Backlog.
+- Vervolgens wordt in Sprint Planning deel 2, door het team in aanwezigheid van de
 Product Owner, bepaald hoe en hoeveel van het werk wordt gedaan, en het
-vertrouwen uitgesproken dat dat gaat lukken in deze sprint. Iedere sprint wordt
-het werk voor die sprint van de Product Backlog naar de Sprint Backlog
-verplaatst, en door het team in kleinere delen zichtbaar gemaakt. Het team houdt
-de voortgang bij door middel van een Sprint Burndown Chart. De Product Owner en
-het Development Team hebben afspraken gemaakt zodanig dat er een
+vertrouwen uitgesproken dat dat gaat lukken in deze sprint.
+- Iedere sprint wordt het werk voor die sprint van de Product Backlog naar de Sprint Backlog
+verplaatst, en door het team in kleinere delen zichtbaar gemaakt.
+- Het team houdt de voortgang bij door middel van een Sprint Burndown Chart.
+- De Product Owner en het Development Team hebben afspraken gemaakt zodanig dat er een
 gemeenschappelijk beeld is over wat het betekent als een Product Backlog item af
 is. Dat is vastgelegd in de Definition of Done. ‘Done’ betekent: zo goed dat het
-in productie genomen kan worden. Iedere dag houdt het team een Daily Scrum
-meeting, waarin het team de werkzaamheden met elkaar doorneemt, door middel van
+in productie genomen kan worden.
+- Iedere dag houdt het team een Daily Scrum meeting, waarin het team de werkzaamheden met elkaar doorneemt, door middel van
 een aantal standaardvragen. Deze meeting is openbaar; het publiek mag
-meeluisteren. 'Aan het eind van de sprint laat het team de resultaten zien aan
+meeluisteren.
+- Aan het eind van de sprint laat het team de resultaten zien aan
 de Product Owner en stakeholders, om vervolgens feedback te ontvangen. Dit heet
-de Sprint Review. Het team levert alleen de resultaten die ‘done’ zijn. Na de
-Sprint Review houdt het team een Sprint Retrospective om even stil te staan en
+de Sprint Review. Het team levert alleen de resultaten die ‘done’ zijn.
+- Na de Sprint Review houdt het team een Sprint Retrospective om even stil te staan en
 te bespreken wat er goed ging, en afspraken te maken over wat er beter kan. De 5
 principes:
 
-Toewijding: Iedereen neemt zijn verantwoordelijkheid om tot het best mogelijke
-product te komen. Focus: Iedereen beperkt zich tot het belangrijkste dat moet
+Toewijding:
+- Iedereen neemt zijn verantwoordelijkheid om tot het best mogelijke
+product te komen.
+- Focus: Iedereen beperkt zich tot het belangrijkste dat moet
 gebeuren, en werkt dus aan één product, één sprint, één Backlog item tegelijk,
-in één team. Openheid: Transparantie is belangrijk om ervoor te zorgen dat je zo
+in één team.
+- Openheid: Transparantie is belangrijk om ervoor te zorgen dat je zo
 veel mogelijk kansen creëert om te leren. Fouten maken is niet erg. Zorg dat je
-met zijn allen van de fouten leert. Respect: Heb respect voor elkaar, iedereen
+met zijn allen van de fouten leert.
+- Respect: Heb respect voor elkaar, iedereen
 heeft zijn eigen ervaring en achtergrond. Wees wel open, maar doe het op een
-opbouwende manier. Toon interesse in elkaar. Moed: Om tot verbeteringen te
+opbouwende manier. Toon interesse in elkaar.
+- Moed: Om tot verbeteringen te
 komen, en veranderingen door te voeren is moed nodig, een beetje lef kan geen
 kwaad: ‘Beter achteraf om vergiffenis vragen, dan vooraf om toestemming.
 
-DE ROLLEN De rollen die verdeeld worden zijn de Product Owner, de Scrum master,
+DE ROLLEN
+De rollen die verdeeld worden zijn de Product Owner, de Scrum master,
 en het Development team.
 
 De Product Owner De Product Owner is verantwoordelijk voor het ‘wat’ en
@@ -104,7 +115,8 @@ Kortom, de vier verantwoordelijkheden: steun voor Scrum organiseren; bewaken van
 spelregels; wegnemen van belemmeringen; bewerkstelligen van veranderingen in de
 organisatie.
 
-DE LIJSTEN Alle wensen en eisen die het product beschrijven worden bijgehouden
+DE LIJSTEN
+Alle wensen en eisen die het product beschrijven worden bijgehouden
 op een lijst: de Product Backlog. Deze lijst wordt door de Product Owner
 beheerd, en is altijd gesorteerd op waarde voor de business, en voorzien van
 schattingen door het team. Voortgang van de realisatie van het product of de
@@ -124,11 +136,13 @@ moeten zijn.
 
 Op een Product Backlog onder andere:
 
-Wensen: mensen-wensen, features, functional requirements of hoe je ze ook wilt
-noemen. Dingen die mensen willen. User Stories. Eisen: systeemeisen,
+- Wensen: mensen-wensen, features, functional requirements of hoe je ze ook wilt
+noemen. Dingen die mensen willen. User Stories.
+- Eisen: systeemeisen,
 non-functional requirements, qualities, ISO9126 software eisen en zo.
 Bijvoorbeeld ‘Inloggen binnen 2 sec’, ‘Profielpagina over 128 bit SSL’ of
-‘Database restore binnen 10 minuten’. Problemen: bugs, issues. Problemen
+‘Database restore binnen 10 minuten’.
+- Problemen: bugs, issues. Problemen
 gevonden door gebruikers in productie (of eventueel acceptatie).
 
 Een mooie manier om items op de Product Backlog te beschrijven is User Stories.
@@ -138,7 +152,8 @@ een winkelende iPhone-gebruiker in de Albert Heijn wil ik mijn boodschappen in
 volgorde gepresenteerd krijgen zodat ik geen twee keer door hetzelfde pad hoef
 te lopen.
 
-MEETINGS Er zijn vier meetings in iedere sprint. Van tevoren is een maximale
+MEETINGS
+Er zijn vier meetings in iedere sprint. Van tevoren is een maximale
 hoeveelheid tijd voor de meeting gereserveerd, daar wordt nooit overheen gegaan.
 Als vuistregel duurt een meeting niet langer dan twee uur voor een sprint van
 twee weken.
