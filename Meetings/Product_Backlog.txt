@@ -1,0 +1,9 @@
+Product Backlog version 1 06/06
+
+Priority	Product									Time estimation
+1			Extraction of data from solar panels	medium
+2			Extraction of data from weather			medium
+3			Extraction of important data features	medium
+4			Model									long
+5			Accuracy evaluation						short
+6			User interface 							short

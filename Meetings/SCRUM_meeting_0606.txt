@@ -1,6 +1,7 @@
 Eerste SCRUM meeting 06/06
 SCRUM planning deel 1 woew woeeww woooeeeww
 
+Algemene bespreking over de planning:
 Werken in 4 sprints van ongeveer 1 week. 
 
 Sprint 1: zo veel data, zo veel moeite
@@ -30,9 +31,16 @@ Sprint 4: hollen naar de finish
 -Code commenten
 -Puntjes op de i zetten
 
-Taken 06/06
+Daily Scrum meeting:
+Wat hebben we gedaan?
+Nvt
+
+Wat gaan we vandaag doen?
 Silke: Methodes uitzoeken
 Ruth: Zonnepaneeldata scrapen
 Bas: Weer api fixen
 Cait: Methodes uitzoeken & literatuur samenvatten
 Lotte: SCRUM documenten uitzoeken
+
+Welke obstakels staan in ons pad?
+Ruth: Data over de orientatie, tilt en locatie van de zonnepanelen staat op een andere pagina dus dat wordt nog lastig om te scrapen.
