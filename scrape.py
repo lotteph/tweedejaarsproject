@@ -14,7 +14,7 @@ END_YEAR = 2018
 
 FILE = "training.csv"
 
-COLUMS = "Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,Panel_brand,Orientation,Number_of_inverters,Inverter_brand,Inverter_size,Postcode,Install_date,Shading,Tilt\n"
+COLUMNS = "Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,Panel_brand,Orientation,Number_of_inverters,Inverter_brand,Inverter_size,Postcode,Install_date,Shading,Tilt\n"
 
 def panel_info(begin_date, end_date):
 	url = "https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date + "&id=54314&sid=49389&t=m&v=3"	
@@ -36,12 +36,28 @@ def add_data(data, panel, file):
 		cells = row.findAll('td')
 		counter = 0
 		for cell in cells:
-			if counter < 3:
+			if counter == 0:
 				text = cell.text
+				dt = datetime.strptime(text, '%d/%m/%y')
+				if dt.month < 10 and dt.day < 10:
+					text = str(dt.year)+"0"+str(dt.month)+"0"+str(dt.day)
+				elif dt.day < 10:
+					text = str(dt.year)+str(dt.month)+"0"+str(dt.day)
+				elif dt.month < 10:
+					text = str(dt.year)+"0"+str(dt.month)+str(dt.day)
+				else:
+					text = str(dt.year)+str(dt.month)+str(dt.day)
+				file.write(text + ",")
+			if 0 < counter < 3:
+				text = cell.text
+				text = text.replace("kWh/kW", "")
+				text = text.replace("kWh", "")
 				file.write(text + ",")
 			if counter == 3:
 				first = True
 				for item in panel:
+					item = item.replace("W", "")
+					item = item.replace(" Degrees", "")
 					if first == True:
 						first = False
 						file.write(item)
@@ -76,7 +92,7 @@ def main():
 		end = str(y)+str(m)+str(end_d[1])
 	panel = panel_info(begin, end)
 	csv_file = open(FILE,'a')
-	csv_file.write(COLUMS)
+	csv_file.write(COLUMNS)
 	while y != END_YEAR or m != END_MONTH:
 		end_d = calendar.monthrange(y, m)
 		if m < 10:
@@ -95,8 +111,9 @@ def main():
 			m += 1
 		else:
 			y += 1
-			m = 1	
-	csv_file.close()	
+			m = 1
+	csv_file.close()
+
 
 
 if __name__ == "__main__":
