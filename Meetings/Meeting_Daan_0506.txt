@@ -12,7 +12,7 @@ Voorspelling maken aan de hand van de data van pvoutput. Aan de hand van de weer
 
 Kijken naar variabelen als bewolking en global horizontal irradiation, en duur zonneschijn.
 
-Global horizontal irradiation, kijken naar hoeveel procent je nog overhoudt (kijken naar hoe zonnepanelen staan)
+Global horizontal irradiation, kijken naar hoeveel procent je nog overhoudt (bijv. met hoe zonnepanelen staan)
 
 Historische data van zonnepaneel installaties en weersverwachtingen om voorspellingen te doen.
 
