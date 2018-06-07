@@ -1,5 +1,5 @@
-Eerste SCRUM meeting 06/06
-SCRUM planning deel 1 woew woeeww woooeeeww
+Eerste Scrum meeting 06/06
+Scrum planning deel 1 woew woeeww woooeeeww
 
 Algemene bespreking over de planning:
 Werken in 4 sprints van ongeveer 1 week. 
@@ -9,7 +9,7 @@ Sprint 1: zo veel data, zo veel moeite
 -Data van het weer cleanen/pre-processen 
 -Weerdata van bepaalde tijd kunnen opvragen
 -Meer data over zonnepanelen verzamelen (informatie uit hover)
--SCRUM presentatie maken
+-Scrum presentatie maken
 -Kijken welke algoritmes we kunnen gaan gebruiken
 -SCRUM documenten aanmaken
 -Kijken welke parameters relevant zijn en de literatuur erover samenvatten

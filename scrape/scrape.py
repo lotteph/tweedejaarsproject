@@ -40,13 +40,13 @@ def add_data(data, panel, file):
 				text = cell.text
 				dt = datetime.strptime(text, '%d/%m/%y')
 				if dt.month < 10 and dt.day < 10:
-					text = str(dt.year)+"0"+str(dt.month)+"0"+str(dt.day)
+					text = str(dt.year) + "0" + str(dt.month) + "0" + str(dt.day)
 				elif dt.day < 10:
-					text = str(dt.year)+str(dt.month)+"0"+str(dt.day)
+					text = str(dt.year) + str(dt.month) + "0" + str(dt.day)
 				elif dt.month < 10:
-					text = str(dt.year)+"0"+str(dt.month)+str(dt.day)
+					text = str(dt.year) + "0" + str(dt.month) + str(dt.day)
 				else:
-					text = str(dt.year)+str(dt.month)+str(dt.day)
+					text = str(dt.year) + str(dt.month) + str(dt.day)
 				file.write(text + ",")
 			if 0 < counter < 3:
 				text = cell.text
@@ -62,7 +62,7 @@ def add_data(data, panel, file):
 						first = False
 						file.write(item)
 					else:
-						file.write(","+item)
+						file.write("," + item)
 				file.write("\n")
 			counter += 1
 
