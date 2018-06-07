@@ -7,8 +7,10 @@ import calendar
 import numpy as np
 import pandas as pd
 
+
 SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
-FACTORS = ['time','cloudCover','sunriseTime','sunsetTime','temperatureHigh','temperatureLow','temperatureMin','temperatureMax','visibility']
+FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
+
 
 def read_file():
 #Reads the postal code and coordinates file
@@ -24,17 +26,16 @@ def get_LL(postalCode,data) :
         if i[1] == postalCode:
             return [i[-2],i[-3]]
 
-<<<<<<< HEAD
 def get_features(longitude,latitude,date):
 #Gets a json_object with the weather of a given date on the given coordinate
     unix_date = mktime(date.timetuple())
     URL = "https://api.darksky.net/forecast/" + SECRET_KEY + "/" + str(latitude) + "," + str(longitude) + "," + str(int(unix_date)) +"?exclude=currently,minutely,hourly,alerts"
     r = requests.get(URL)
-    json_str = r.content.decode('utf8').replace("'", '"')
+    json_str = r.content.decode("utf8").replace("'", '"')
     json_object = json.loads(json_str)
     return json_object
 
-def get_year(longitude,latitude,year):
+def get_data(longitude,latitude,year):
 #Gets the weather of a calendar year
     if calendar.isleap(year):
         size = (364,len(FACTORS))
@@ -43,6 +44,7 @@ def get_year(longitude,latitude,year):
     data = np.zeros(size)
     nday = 0
     for month in range(1,13):
+        print('month: ', month)
         '''
         Comment the line below and uncomment the line
         below that to reduce the amount of API requests
@@ -50,7 +52,7 @@ def get_year(longitude,latitude,year):
         for day in range(1,calendar.monthrange(year,month)[1]+1):
         #for day in range(1,2):
             date = datetime.date(year,month,day)
-            features = get_features(longitude,latitude,date)['daily']['data'][0]
+            features = get_features(longitude,latitude,date)["daily"]["data"][0]
             toAdd = []
             for key in FACTORS:
                 if key in features.keys():
@@ -58,27 +60,34 @@ def get_year(longitude,latitude,year):
                 else:
                     toAdd.append(0)
             data[nday] = toAdd
-            print(nday)
             nday += 1
     return data
 
-
-def make_database():
-    result = get_year(longitude,latitude,2017)
+def make_database(file_name,year):
+    #Makes a weather database and saves it
+    result = get_data(longitude,latitude,year)
     res = pd.DataFrame(result,columns=FACTORS)
-    res.to_csv('Weather.csv')
+    res.to_csv(file_name)
 
 def normalize(colomn):
-    return colomn - np.mean(colomn)
+    #normalizes a colomn
+    return col - np.mean(col)
 
-=======
-LL = get_LL("2152",read_file())
-secret_key = ""
->>>>>>> 11c2aeb95556a34a181e038d3d26f167b1da9e96
+def normalize_data_base(db):
+    #normalizes a database
+    for col in db:
+        db[column] = normalize(db[col])
 
-[longitude, latitude] = get_LL("1078",read_file())
+def _main_(postal_code,year,file_name):
+    [longitude, latitude] = get_LL("1078",read_file())
+    db = []
+    if type(year) == int:
+        db.append(get_data(longitude,latitude,year))
+    elif type(year) == list:
+        for i in year:
+            print('year:',i)
+            db.append(get_data(longitude,latitude,i))
+    db = normalize_data_base(db)
+    res.to_csv(file_name)
 
-res = pd.read_csv('Weather.csv')
-for column in res:
-    res[column] = normalize(res[column])
-res.to_csv('Weather.csv')
+_main_(2152,[2016,2017],"Weather2017.csv")
