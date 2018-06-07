@@ -1,0 +1,33 @@
+Modelling algorithms: actually classification algorithms..
+
+LOGISTIC REGRESSION: not useful
+- for binary classification problems
+- looks like a big S
+
+Linear Discriminant Analysis: not useful
+- two-class classification problems
+- find clusters with mean an variance
+
+K-Nearest-Neighbour: maybe useful but probably less efficient and correct than
+linear regression
+- Mostly used for classification problems
+- New data point, which class?
+
+Neural Networks:
+...
+
+
+Feature detection:
+
+PCA:
+- reduce dimentions of the data
+(so from 3D define the surface of the data in 2D)
+- SCIKIT LEARN algorithm:
+http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
+
+Isomap:
+- non linear dimentionality reduction
+- uses k nearest neighbours to find neighbour path, calculates shortest path and
+finally computes lower dimentional embedding
+- SCIKIT LEARN algorithm:
+http://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html
