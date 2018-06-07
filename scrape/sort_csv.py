@@ -2,7 +2,7 @@ import pandas as pd
 import csv
 
 # The output file.
-OUTPUT = "2017_1078_Solarpanel.csv"
+OUTPUT = "2017_1103_Solarpanel.csv"
 
 # The input file
 INPUT = "temp.csv"

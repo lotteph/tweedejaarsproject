@@ -24,7 +24,7 @@ def panel_info(begin_date, end_date):
         to generate energy.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date
-        + "&id=54314&sid=49389&t=m&v=3")
+        + "&id=39869&sid=36420&t=m&gs=0&v=0")
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
     panel_info = soup.find("a", attrs={"class": "system1"})
@@ -97,9 +97,9 @@ def retrieve_data(begin_date, end_date, panel, file, second):
         both gets scraped in this case. 
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt="
-        + end_date + "&id=54314&sid=49389&t=m&gs=0&v=3")
+        + end_date + "&id=39869&sid=36420&t=m&gs=0&v=0")
     sec_url = ("https://pvoutput.org/list.jsp?p=1&id=54314&sid=49389&gs=0&df="
-        + begin_date + "&dt=" + end_date +"&v=3&o=date&d=desc")
+        + begin_date + "&dt=" + end_date +"&v=0&o=date&d=desc")
 
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
@@ -145,6 +145,7 @@ def main():
 
         if end_d[1] > 30:
             time.sleep(1)
+            # Change to False when there are no second pages.
             retrieve_data(begin, end, panel, csv_file, True)
         else:
             time.sleep(1)
