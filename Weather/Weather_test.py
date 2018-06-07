@@ -24,6 +24,7 @@ def get_LL(postalCode,data) :
         if i[1] == postalCode:
             return [i[-2],i[-3]]
 
+<<<<<<< HEAD
 def get_features(longitude,latitude,date):
 #Gets a json_object with the weather of a given date on the given coordinate
     unix_date = mktime(date.timetuple())
@@ -70,6 +71,10 @@ def make_database():
 def normalize(colomn):
     return colomn - np.mean(colomn)
 
+=======
+LL = get_LL("2152",read_file())
+secret_key = ""
+>>>>>>> 11c2aeb95556a34a181e038d3d26f167b1da9e96
 
 [longitude, latitude] = get_LL("1078",read_file())
 
