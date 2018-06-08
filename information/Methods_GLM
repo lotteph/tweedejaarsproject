@@ -1,0 +1,48 @@
+Regression Algorithms
+
+Ordinary Least Squares: Not useful
+    - minimizes the squared distance of points to the line
+    - cannot handle multicollinearity
+
+Ridge Regression: Useful
+    - OLS but with a penalty for weight -> solves multicollinearity
+    - same complexity as OLS
+    - only for linear models
+
+Lasso: Useful
+    - Ridge, but prefers solutions with fewer parameters
+    - Does parameter mineralization for us
+
+Multi-task Lasso: (Not / might be) useful
+    - Lasso but works on multiple regression problems jointly
+
+Elastic Net: Not useful
+    - Trained with prior regularizers
+    - allows for learning from spars models (few of the weights are non-0)
+    - maintains regularization properties
+
+Least Angle Regression: Not useful
+    - Good when number of dimensions > number of points
+    - works well in combination with other methods
+
+Bayesian Ridge Regression: Useful
+    - estimates a probabilistic model of the regression problem
+    - similar to classic Ridge
+    - adapts to the data at hand
+    - can include regularization parameters in the estimation procedure
+
+    - time consuming
+
+Logistic Regression: Not Useful
+    - is actually classification
+
+Stochastic Gradient Descent: Might be useful
+    - useful if number of samples is very large
+
+RANSAC: Useful
+    - discards outliers
+    - can also fit on non-linear regression problems
+
+Polynomial regression: useful
+    - Test multiple first order regression models
+    - Can convert to polynomials 
