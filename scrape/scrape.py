@@ -14,9 +14,8 @@ END_YEAR = 2018
 
 # The output file.
 FILE = "temp.csv"
-# https://pvoutput.org/list.jsp?df=20180501&dt=20180531&id=6694&sid=10308&t=m&gs=0&v=0
-# https://pvoutput.org/list.jsp?p=1&id=6694&sid=10308&gs=0&df=20180501&dt=20180531&v=0&o=date&d=desc
-
+# https://pvoutput.org/list.jsp?df=20180101&dt=20180131&id=19309&sid=17164&t=m&gs=0&v=0
+# https://pvoutput.org/list.jsp?p=1&id=19309&sid=17164&gs=0&df=20180101&dt=20180131&v=0&o=date&d=desc
 
 # The first row in the output file.
 COLUMNS = ("Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,"
@@ -27,7 +26,7 @@ def panel_info(begin_date, end_date):
         to generate energy.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date
-        + "&id=6694&sid=10308&t=m&gs=0&v=0")
+        + "&id=19309&sid=17164&t=m&gs=0&v=0")
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
     panel_info = soup.find("a", attrs={"class": "system1"})
@@ -100,8 +99,8 @@ def retrieve_data(begin_date, end_date, panel, file, second):
         both gets scraped in this case. 
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt="
-        + end_date + "&id=6694&sid=10308&t=m&gs=0&v=0")
-    sec_url = ("https://pvoutput.org/list.jsp?p=1&id=6694&sid=10308&gs=0&df="
+        + end_date + "&id=19309&sid=17164&t=m&gs=0&v=0")
+    sec_url = ("https://pvoutput.org/list.jsp?p=1&id=19309&sid=17164&gs=0&df="
         + begin_date + "&dt=" + end_date +"&v=0&o=date&d=desc")
 
     page = urlopen(url)
