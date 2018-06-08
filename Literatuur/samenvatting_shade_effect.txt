@@ -1,0 +1,8 @@
+A simple non-linear model for the effect of partial shade on PV Systems
+
+web: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5614450
+
+The effect of panel on panel shade is usually taken into account on big plants.
+
+Variations in solar radiation and ambient temperature influence the d=performance
+parameters. 

@@ -14,8 +14,11 @@ END_YEAR = 2018
 
 # The output file.
 FILE = "temp.csv"
+<<<<<<< HEAD
 # https://pvoutput.org/list.jsp?df=20180101&dt=20180131&id=19309&sid=17164&t=m&gs=0&v=0
 # https://pvoutput.org/list.jsp?p=1&id=19309&sid=17164&gs=0&df=20180101&dt=20180131&v=0&o=date&d=desc
+=======
+>>>>>>> 2142106e82e637f658444c207646b0f378c87b7c
 
 # The first row in the output file.
 COLUMNS = ("Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,"

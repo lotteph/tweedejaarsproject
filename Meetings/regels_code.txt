@@ -22,3 +22,5 @@ en staan onder de dev
 
 -blank lines tussen functies en om logische secties binnen een functie aan 
 te geven
+
+-Voor strings gebruiken we dubbele aanhalingstekens (")
