@@ -17,7 +17,7 @@ Neural Networks:
 ...
 
 
-Feature detection:
+Feature extraction:
 
 PCA:
 - reduce dimentions of the data
