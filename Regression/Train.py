@@ -1,10 +1,8 @@
 import pandas as pd
 import numpy as np
 import scipy
-import matplotlib.pyplot as plt
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
-import seaborn as sns
 from sklearn.utils import shuffle
 
 W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
