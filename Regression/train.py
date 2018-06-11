@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
 import scipy
-import matplotlib.pyplot as plt
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import seaborn as sns
 from sklearn.utils import shuffle
+from sklearn.tree import DecisionTreeRegressor
+
 
 W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
 W = np.transpose(W)[:,1:10]
@@ -20,15 +21,6 @@ x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
-
-#f, ax = plt.subplots(figsize=(10, 8))
-#cor = np.corrcoef(W,results)
-#sns.heatmap(cor, mask=np.zeros_like(cor, dtype=np.bool), cmap=sns.diverging_palette(220, 10, as_cmap=True),
-#            square=True, ax=ax)
-#print(cor[:,-1])
-
-# Create linear regression object
-#regr = linear_model.LinearRegression()
 
 def ridge_regression(alpha):
     regr = linear_model.Ridge (alpha)
@@ -50,10 +42,18 @@ def Bayes_regression():
     Bay_pred = Bay.predict(x_test)
     return sum(np.square(Bay_pred-y_test))/len(results)
 
-res = scipy.optimize.minimize(ridge_regression,[1])
-print(ridge_regression(res.x))
-print(res.x)
-res = scipy.optimize.minimize(lasso_regression,[1,4])
-print(lasso_regression(res.x))
-print(res.x)
-print(sum(np.square(np.mean(y_train))-y_test)/len(results))
+def decision_tree(max_depth):
+    dec = DecisionTreeRegressor(max_depth=2)
+    dec.fit(x_train, y_train)
+    pred = dec.predict(x_test)
+    return sum(np.square(pred-y_test))/len(results)
+
+
+print(decision_tree(1))
+#res = scipy.optimize.minimize(ridge_regression,[1])
+#print(ridge_regression(res.x))
+#print(res.x)
+#res = scipy.optimize.minimize(lasso_regression,[1,4])
+#print(lasso_regression(res.x))
+#print(res.x)
+#print(sum(np.square(np.mean(y_train))-y_test)/len(results))
