@@ -5,6 +5,7 @@ from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.utils import shuffle
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
 
 
 W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
@@ -16,8 +17,8 @@ W, results = shuffle(W,results, random_state=0)
 
 train_size = int(len(results)*(2/3))
 
-x_train = W[:train_size,:]
-x_test =  W[train_size:,:]
+x_train = W[:train_size,2:]
+x_test =  W[train_size:,2:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
@@ -47,12 +48,32 @@ def decision_tree(max_depth):
     pred = dec.predict(x_test)
     return sum(np.square(pred-y_test))/len(results)
 
+def k_nearest(par):
+    neighbors = par[0]
+    neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
+    neigh.fit(x_train, y_train) 
+    neigh_pred = neigh.predict(x_test)
+    return sum(np.square(neigh_pred-y_test))/len(results)
 
-print(decision_tree(1))
-#res = scipy.optimize.minimize(ridge_regression,[1])
-#print(ridge_regression(res.x))
-#print(res.x)
-#res = scipy.optimize.minimize(lasso_regression,[1,4])
-#print(lasso_regression(res.x))
-#print(res.x)
-#print(sum(np.square(np.mean(y_train))-y_test)/len(results))
+def kn_opt(iterations):
+    best = 999999
+    for i in range(1, iterations):
+        temp = k_nearest([i])
+        if temp < best:
+            best = temp
+            par = [i]
+    return(best,par)
+
+# print(decision_tree(1))
+res = scipy.optimize.minimize(ridge_regression,[1])
+print(ridge_regression(res.x))
+print(res.x)
+# res = scipy.optimize.minimize(lasso_regression,[1,4])
+# print(lasso_regression(res.x))
+# print(res.x)
+# print(sum(np.square(np.mean(y_train))-y_test)/len(results))
+# res = scipy.optimize.minimize(k_nearest,[6, 100])
+# print(k_nearest(res.x))
+# print(res.x)
+
+print(kn_opt(240))
