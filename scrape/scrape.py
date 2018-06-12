@@ -6,15 +6,17 @@ import calendar
 
 # The month and year where the scraping must begin.
 BEGIN_MONTH = 1
-BEGIN_YEAR = 2017
+BEGIN_YEAR = 2016
 
 # The month and year where the scraping must end.
 END_MONTH = 1
-END_YEAR = 2018
+END_YEAR = 2017
 
 # The output file.
 FILE = "temp.csv"
 
+# https://pvoutput.org/list.jsp?df=20180601&dt=20180611&id=54314&sid=49389&t=m&gs=0&v=3
+# https://pvoutput.org/list.jsp?p=1&id=54314&sid=49389&gs=0&df=20180501&dt=20180531&v=3&o=date&d=desc
 
 
 # The first row in the output file.
@@ -26,7 +28,7 @@ def panel_info(begin_date, end_date):
         to generate energy.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date
-        + "&id=19309&sid=17164&t=m&gs=0&v=0")
+        + "&id=54314&sid=49389&t=m&gs=0&v=3")
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
     panel_info = soup.find("a", attrs={"class": "system1"})
@@ -43,8 +45,15 @@ def panel_info(begin_date, end_date):
     for display in info:
         # Excludes some information from the solarpanel.
         if counter != 3 and counter != 4 and counter != 6 and counter != 10:
-            value = display.get("value")
-            output.append(value)
+            if counter == 9:
+                value = display.get("value")
+                dt = datetime.strptime(value, "%d/%m/%y")
+                unix = datetime(dt.year, dt.month, dt.day, 0, 0)
+                unix = time.mktime(unix.timetuple())
+                output.append(str(unix))
+            else:
+                value = display.get("value")
+                output.append(value)
         counter += 1
     return output[:-1]
 
@@ -61,35 +70,25 @@ def add_data(data, panel, file):
             if counter == 0:
                 text = cell.text
                 dt = datetime.strptime(text, "%d/%m/%y")
-                if dt.month < 10 and dt.day < 10:
-                    text = (str(dt.year) + "0" + str(dt.month) + "0"
-                    + str(dt.day))
-                elif dt.day < 10:
-                    text = str(dt.year) + str(dt.month) + "0" + str(dt.day)
-                elif dt.month < 10:
-                    text = str(dt.year) + "0" + str(dt.month) + str(dt.day)
-                else:
-                    text = str(dt.year) + str(dt.month) + str(dt.day)
-                file.write(text + ",")
+                unix = datetime(dt.year, dt.month, dt.day, 0, 0)
+                unix = time.mktime(unix.timetuple())
+
+                file.write(str(unix))
 
             # Strips the energy values from their unit of measurements.
             if 0 < counter < 3:
                 text = cell.text
                 text = text.replace("kWh/kW", "")
                 text = text.replace("kWh", "")
-                file.write(text + ",")
+                text = text.replace(".","")
+                file.write("," + text)
 
             # Strips the panel information from their unit measurements.
             if counter == 3:
-                first = True
                 for item in panel:
                     item = item.replace("W", "")
                     item = item.replace(" Degrees", "")
-                    if first == True:
-                        first = False
-                        file.write(item)
-                    else:
-                        file.write("," + item)
+                    file.write("," + item)
                 file.write("\n")
             counter += 1
 
@@ -99,9 +98,9 @@ def retrieve_data(begin_date, end_date, panel, file, second):
         both gets scraped in this case.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt="
-        + end_date + "&id=19309&sid=17164&t=m&gs=0&v=0")
-    sec_url = ("https://pvoutput.org/list.jsp?p=1&id=19309&sid=17164&gs=0&df="
-        + begin_date + "&dt=" + end_date +"&v=0&o=date&d=desc")
+        + end_date + "&id=54314&sid=49389&t=m&gs=0&v=3")
+    sec_url = ("https://pvoutput.org/list.jsp?p=1&id=54314&sid=49389&gs=0&df="
+        + begin_date + "&dt=" + end_date +"&v=3&o=date&d=desc")
 
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
