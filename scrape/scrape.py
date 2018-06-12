@@ -70,15 +70,6 @@ def add_data(data, panel, file):
             if counter == 0:
                 text = cell.text
                 dt = datetime.strptime(text, "%d/%m/%y")
-                # if dt.month < 10 and dt.day < 10:
-                #     text = (str(dt.year) + "0" + str(dt.month) + "0"
-                #     + str(dt.day))
-                # elif dt.day < 10:
-                #     text = str(dt.year) + str(dt.month) + "0" + str(dt.day)
-                # elif dt.month < 10:
-                #     text = str(dt.year) + "0" + str(dt.month) + str(dt.day)
-                # else:
-                #     text = str(dt.year) + str(dt.month) + str(dt.day)
                 unix = datetime(dt.year, dt.month, dt.day, 0, 0)
                 unix = time.mktime(unix.timetuple())
 
