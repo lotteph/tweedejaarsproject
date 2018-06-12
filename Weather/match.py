@@ -1,28 +1,49 @@
 import csv
+import pandas as pd
 
 def main(solar_file, weather_file):
-    with open(solar_file, 'r') as csvfile1, open(weather_file, 'r') as csvfile2:
-        solar_csv = csv.reader(csvfile1, ',')
-        weather_csv = csv.reader(csvfile2, ',')
+    with open(solar_file, "rU") as csvfile1, open(weather_file, "rU") as csvfile2:
+        solar = csv.reader(csvfile1)
+        weather = csv.reader(csvfile2)
 
         new_file = open('weather_matched.csv', 'w')
 
         count = 0
-        found = False
-        for row1 in solar_csv:
-            if count == 0:
-                new_file.writer(row1)
 
-            for row2 in weather_csv:
-                if row1[0] == row2[0]:
-                    new_file.writer(row2)
+        for row1 in solar:
+            file = open(weather_file, "rU")
+            weather = csv.reader(file, delimiter=",")
+
+            for row2 in weather:
+                if count == 0:
+                    firstvalue = True
+                    for value in row2:
+                        print(value)
+                        if firstvalue == True:
+                            new_file.write(str(value))
+                            firstvalue = False
+                        else:
+                            new_file.write("," + str(value))
+                    new_file.write("\n")
+
+                if row1[0] == row2[1] and count != 0:
+
+                    firstvalue = True
+                    for value in row2:
+                        if firstvalue == True:
+                            new_file.write(str(value))
+                            firstvalue = False
+                        else:
+                            new_file.write("," + str(value))
+                    new_file.write("\n")
+
                     break;
 
-            count += 1
+                count += 1
 
         csvfile1.close()
         csvfile2.close()
         new_file.close()
 
-
-_main_("../scrape/", "1078Weather2016.csv")
+if __name__ == "__main__":
+    main("../scrape/temp.csv", "1078Weather2016.csv")
