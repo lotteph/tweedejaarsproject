@@ -7,7 +7,7 @@ import calendar
 import numpy as np
 import pandas as pd
 
-SECRET_KEY = "<place api key from darksky>"
+SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
 FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
 
 def read_file():
@@ -69,10 +69,9 @@ def normalize_data_base(db):
     #normalizes a database exept the first colomn
     count = 0
     for col in db:
-        print(col)
-        if count != 0 and count != 2 and count != 3:
-            print(count)
-            db[col] = normalize(db[col])
+        # if count != 0 and count != 2 and count != 3:
+        #     print(count)
+        #     db[col] = normalize(db[col])
         if count == 2 or count == 3:
             db[col] = db[col] - db["time"]
         count += 1
@@ -86,7 +85,7 @@ def make_database(longitude,latitude,file_name,year):
     db.to_csv(file_name)
 
 def _main_(postal_code,year,file_name):
-    [longitude, latitude] = get_LL("1078",read_file())
+    [longitude, latitude] = get_LL("7325",read_file())
     if type(year) == int:
         db = make_database(longitude,latitude,str(postal_code) + file_name + str(year) + ".csv",year)
     elif type(year) == list:
@@ -94,4 +93,4 @@ def _main_(postal_code,year,file_name):
             print('year:',year[i])
             db = make_database(longitude,latitude,str(postal_code) + file_name + str(year[i]) + ".csv",year[i])
 
-_main_(1078,[2016],"Weather")
+_main_(7325,[2016],"Weather")
