@@ -5,6 +5,7 @@ from sklearn import linear_model
 from sklearn.utils import shuffle
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
+from sklearn.neighbors import KNeighborsRegressor
 
 W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
 W = np.transpose(W)[:,1:10]
@@ -49,6 +50,22 @@ def decision_tree(par):
     joblib.dump(dec, 'dec_tree.pkl')
     pred = dec.predict(x_test)
     return sum(np.square(pred-y_test))/len(results)
+
+def k_nearest(par):
+    neighbors = par[0]
+    neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
+    neigh.fit(x_train, y_train)
+    neigh_pred = neigh.predict(x_test)
+    return sum(np.square(neigh_pred-y_test))/len(results)
+
+def kn_opt(iterations):
+    best = 999999
+    for i in range(1, iterations):
+        temp = k_nearest([i])
+        if temp < best:
+            best = temp
+            par = [i]
+    return(best,par)
 
 res = scipy.optimize.minimize(ridge_regression,[1])
 print("ridge: ",ridge_regression(res.x))
