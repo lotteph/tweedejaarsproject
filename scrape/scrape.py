@@ -5,7 +5,7 @@ import time
 import calendar
 
 # The month and year where the scraping must begin.
-BEGIN_MONTH = 1 
+BEGIN_MONTH = 1
 BEGIN_YEAR = 2017
 
 # The month and year where the scraping must end.
@@ -14,21 +14,15 @@ END_YEAR = 2018
 
 # The output file.
 FILE = "temp.csv"
-<<<<<<< HEAD
-<<<<<<< HEAD
-# https://pvoutput.org/list.jsp?df=20180101&dt=20180131&id=19309&sid=17164&t=m&gs=0&v=0
-# https://pvoutput.org/list.jsp?p=1&id=19309&sid=17164&gs=0&df=20180101&dt=20180131&v=0&o=date&d=desc
-=======
->>>>>>> 2142106e82e637f658444c207646b0f378c87b7c
-=======
->>>>>>> 481a407cb88be80d97f6a53e546568faaec44d48
+
+
 
 # The first row in the output file.
 COLUMNS = ("Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,"
     + "Number_of_inverters,Inverter_size,Postcode,Install_date,Tilt\n")
 
 def panel_info(begin_date, end_date):
-    ''' Function to scrape the information from the solarpanel used 
+    ''' Function to scrape the information from the solarpanel used
         to generate energy.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date
@@ -55,8 +49,8 @@ def panel_info(begin_date, end_date):
     return output[:-1]
 
 def add_data(data, panel, file):
-    ''' Function to write data in a csv file. It adds both generated 
-        energy and the panel data itself. 
+    ''' Function to write data in a csv file. It adds both generated
+        energy and the panel data itself.
     '''
     for row in data:
         cells = row.findAll("td")
@@ -68,7 +62,7 @@ def add_data(data, panel, file):
                 text = cell.text
                 dt = datetime.strptime(text, "%d/%m/%y")
                 if dt.month < 10 and dt.day < 10:
-                    text = (str(dt.year) + "0" + str(dt.month) + "0" 
+                    text = (str(dt.year) + "0" + str(dt.month) + "0"
                     + str(dt.day))
                 elif dt.day < 10:
                     text = str(dt.year) + str(dt.month) + "0" + str(dt.day)
@@ -102,7 +96,7 @@ def add_data(data, panel, file):
 def retrieve_data(begin_date, end_date, panel, file, second):
     ''' Scrapes energy data from pvoutput.org per month given the begin and end
         date. When the month has 31 days the data is located on two pages. These
-        both gets scraped in this case. 
+        both gets scraped in this case.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt="
         + end_date + "&id=19309&sid=17164&t=m&gs=0&v=0")
@@ -114,7 +108,7 @@ def retrieve_data(begin_date, end_date, panel, file, second):
     data = soup.findAll("tr", attrs={"class": ["e2", "o2"]})
     add_data(data, panel, file)
 
-    # If there is a second page scrape that site to. 
+    # If there is a second page scrape that site to.
     if second == True:
         sec_page = urlopen(sec_url)
         sec_soup = BeautifulSoup(sec_page, "html.parser")
@@ -122,8 +116,8 @@ def retrieve_data(begin_date, end_date, panel, file, second):
         add_data(data, panel, file)
 
 def main():
-    ''' Runs all the functions to create a csv file with all the 
-        important data from the solarpanels. 
+    ''' Runs all the functions to create a csv file with all the
+        important data from the solarpanels.
     '''
     y = BEGIN_YEAR
     m = BEGIN_MONTH
@@ -141,7 +135,7 @@ def main():
     csv_file = open(FILE,"a")
     csv_file.write(COLUMNS)
 
-    # Retrieves data for each month 
+    # Retrieves data for each month
     while y != END_YEAR or m != END_MONTH:
         end_d = calendar.monthrange(y, m)
         if m < 10:
