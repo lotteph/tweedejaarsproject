@@ -7,12 +7,7 @@ import calendar
 import numpy as np
 import pandas as pd
 
-#Bas
-#SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
-#Ruth
-#SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
-
-SECRET_KEY = "da2aefea8bbb0c1a91c7059ad966008d"
+SECRET_KEY = "<place api key from darksky>"
 FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
 
 
