@@ -89,6 +89,7 @@ def add_data(data, panel, file):
                 text = cell.text
                 text = text.replace("kWh/kW", "")
                 text = text.replace("kWh", "")
+                text = text.replace(".","")
                 file.write("," + text)
 
             # Strips the panel information from their unit measurements.
