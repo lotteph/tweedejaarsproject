@@ -7,9 +7,12 @@ import calendar
 import numpy as np
 import pandas as pd
 
-
+#Bas
+#SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
+#Ruth
 #SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
-SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
+
+SECRET_KEY = "da2aefea8bbb0c1a91c7059ad966008d"
 FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
 
 
@@ -51,7 +54,7 @@ def get_data(longitude,latitude,year):
         below that to reduce the amount of API requests
         '''
         for day in range(1,calendar.monthrange(year,month)[1]+1):
-        #for day in range(1,11):
+        # for day in range(1,11):
             date = datetime.date(year,month,day)
             features = get_features(longitude,latitude,date)["daily"]["data"][0]
             toAdd = []
@@ -69,9 +72,16 @@ def normalize(col):
     return col - np.mean(col)
 
 def normalize_data_base(db):
-    #normalizes a database
+    #normalizes a database exept the first colomn
+    count = 0
     for col in db:
-        db[col] = normalize(db[col])
+        print(col)
+        if count != 0 and count != 2 and count != 3:
+            print(count)
+            db[col] = normalize(db[col])
+        if count == 2 or count == 3:
+            db[col] = db[col] - db["time"]
+        count += 1
     return db
 
 def make_database(longitude,latitude,file_name,year):
@@ -90,4 +100,4 @@ def _main_(postal_code,year,file_name):
             print('year:',year[i])
             db = make_database(longitude,latitude,str(postal_code) + file_name + str(year[i]) + ".csv",year[i])
 
-_main_(1078,[2016,2017],"Weather")
+_main_(1078,[2016],"Weather")
