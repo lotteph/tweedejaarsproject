@@ -7,17 +7,25 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
 
-W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
+years = ["2016","2017"]
+
+W = np.transpose(pd.read_csv("1078Weather" + years[0] + ".csv").values)
 W = np.transpose(W)[:,1:10]
-SP = pd.read_csv("2016_1078_Solarpanel.csv")
+SP = pd.read_csv(years[0] + "_1078_Solarpanel.csv")
 results = np.array(SP["Generated"])
+for year in range(1,len(years)):
+    W2 = pd.read_csv("1078Weather" + years[year] + ".csv").values
+    W2 = W2[:,1:10]
+    W = np.append(W,W2, axis=0)
+    SP = pd.read_csv(years[year] + "_1078_Solarpanel.csv")
+    results = np.append(results,np.array(SP["Generated"]))
 
 W, results = shuffle(W,results, random_state=0)
 
 train_size = int(len(results)*(2/3))
 
-x_train = W[:train_size,2:]
-x_test =  W[train_size:,2:]
+x_train = W[:train_size,:]
+x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
@@ -67,13 +75,11 @@ def kn_opt(iterations):
             par = [i]
     return(best,par)
 
+print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(results))
 res = scipy.optimize.minimize(ridge_regression,[1])
 print("ridge: ",ridge_regression(res.x))
-print(res.x)
 res = scipy.optimize.minimize(lasso_regression,[1,1])
 print("lasso: ",lasso_regression(res.x))
-print(res.x)
-print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(results))
-res = scipy.optimize.minimize(decision_tree,[5])
-print(res.x)
+res = scipy.optimize.minimize(decision_tree,[10])
 print("decision tree:", decision_tree(res.x))
+print("KNN: ",kn_opt(244)[0])
