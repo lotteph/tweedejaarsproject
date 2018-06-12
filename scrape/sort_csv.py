@@ -1,8 +1,9 @@
 import pandas as pd
+import numpy as np
 import csv
 
 # The output file.
-OUTPUT = "2017_1447s_Solarpanel.csv"
+OUTPUT = "2016_1078_Solarpanel.csv"
 
 # The input file
 INPUT = "temp.csv"
@@ -14,12 +15,18 @@ COLUMNS = ("Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,"
 # Opens the input file to read the first column with the dates.
 with open(INPUT, "rb") as csvfile:
 	df = pd.read_csv(csvfile)
-	saved_column = df.Date 
+	saved_column = df.Date
 	output = []
 	for item in saved_column:
+		item = int(item)
 		output.append(item)
+
+	# output_normalized = []
+	mean = np.mean(output)
+	output_normalized = output - mean
+
 	# Sorts the dates.
-	output.sort()
+	output_normalized.sort()
 
 output_file = open(OUTPUT,"a")
 output_file.write(COLUMNS)
@@ -29,7 +36,6 @@ for item in output:
 	file = open(INPUT, "rU")
 	reader = csv.reader(file, delimiter=",")
 	firstrow = True
-
 	for row in reader:
 		if firstrow:
 			firstrow = False
@@ -45,7 +51,3 @@ for item in output:
 						output_file.write("," + str(value))
 				output_file.write("\n")
 output_file.close()
-
-
-
-
