@@ -1,0 +1,21 @@
+Scrum meeting 0612
+
+Wat hebben we gedaan?
+Lotte: tensorflow geinstalleerd en vanuit een voorbeeld geprobeerd een bestaand neural network aan te passen op onze data
+Caitlin: tensorflow geinstalleerd, gekeken naar welke neural net goed is voor ons project, begonnen met een neural network bouwen
+Bas: aantal regression algoritmes gemaakt dmv sklearn, demo's gemaakt, het werkt nu voor data van 1 jaar
+Ruth: knn geimplementeerd, verder gewerkt aan data, bruikbare zonnepanelen gezocht
+Silke: ervoor gezorgd dat tijden in weer- en zonnepaneeldata overeenkomt, ervoor gezorgd dat data genormaliseerd wordt, script gemaakt dat een csv maakt met weerdata dat overeenkomt met zonnepaneeldata en op dezelfde manier gesorteerd staat.
+
+Wat gaan we doen?
+Silke: Zonnepaneel en weerdata van meerdere jaren van meerdere zonnepanelen genereren
+Bas: csv's van meerdere jaren aan elkaar plakken
+Bas: csv's van meerdere zonnepanelen aan elkaar plakken
+Ruth: Trainen van alle algoritmes met data van meerdere jaren
+Ruth: Trainen van alle algoritmes met data van meerdere jaren met meerdere zonnepanelen
+Caitlin: Zelfgebouwd neural network afmaken
+Lotte: Voorbeeld van neural network aanpassen op onze data
+
+
+Welke obstakels staan in ons pad?
+Tensorflow is lastig.
