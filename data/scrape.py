@@ -6,16 +6,16 @@ import calendar
 
 # The month and year where the scraping must begin.
 BEGIN_MONTH = 1
-BEGIN_YEAR = 2013
+BEGIN_YEAR = 2018
 
 # The month and year where the scraping must end.
 END_MONTH = 1
-END_YEAR = 2014
+END_YEAR = 2019
 
 # The output file.
-FILE = "2013_7559_S.csv"
+FILE = "2018_7325_S.csv"
 
-# https://pvoutput.org/list.jsp?p=1&id=10324&sid=8645&gs=0&df=20180501&dt=20180531&v=0&o=date&d=desc
+
 # The first row in the output file.
 COLUMNS = ("Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,"
     + "Number_of_inverters,Inverter_size,Postcode,Install_date,Tilt\n")
@@ -25,7 +25,7 @@ def panel_info(begin_date, end_date):
         to generate energy.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt=" + end_date
-        + "&id=10324&sid=8645&t=m&gs=0&v=0")
+        + "&id=13448&sid=13242&t=m&gs=0&v=0")
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
     panel_info = soup.find("a", attrs={"class": "system1"})
@@ -77,7 +77,6 @@ def add_data(data, panel, file):
                 text = cell.text
                 text = text.replace("kWh/kW", "")
                 text = text.replace("kWh", "")
-                text = text.replace(".","")
                 file.write("," + text)
 
             # Strips the panel information from their unit measurements.
@@ -95,8 +94,8 @@ def retrieve_data(begin_date, end_date, panel, file, second):
         both gets scraped in this case.
     '''
     url = ("https://pvoutput.org/list.jsp?df=" + begin_date + "&dt="
-        + end_date + "&id=10324&sid=8645&t=m&gs=0&v=0")
-    sec_url = ("https://pvoutput.org/list.jsp?p=1&id=10324&sid=8645&gs=0&df="
+        + end_date + "&id=13448&sid=13242&t=m&gs=0&v=0")
+    sec_url = ("https://pvoutput.org/list.jsp?p=1&id=13448&sid=13242&gs=0&df="
         + begin_date + "&dt=" + end_date +"&v=0&o=date&d=desc")
 
     page = urlopen(url)
