@@ -48,7 +48,7 @@ def get_data(longitude,latitude,year):
         below that to reduce the amount of API requests
         '''
         for day in range(1,calendar.monthrange(year,month)[1]+1):
-        #for day in range(1,11):
+        #for day in range(1,1):
             date = datetime.date(year,month,day)
             features = get_features(longitude,latitude,date)['daily']['data'][0]
             toAdd = []
@@ -61,17 +61,10 @@ def get_data(longitude,latitude,year):
             nday += 1
     return data
 
-def normalize(col):
-    #normalizes a colomn
-    return col - np.mean(col)
-
-def normalize_data_base(db):
-    #normalizes a database exept the first colomn
+def relative_times(db):
+    #Makes sunset and sunrise time relative to daytime
     count = 0
     for col in db:
-        # if count != 0 and count != 2 and count != 3:
-        #     print(count)
-        #     db[col] = normalize(db[col])
         if count == 2 or count == 3:
             db[col] = db[col] - db["time"]
         count += 1
@@ -81,16 +74,18 @@ def make_database(longitude,latitude,file_name,year):
     #Makes a weather database and saves it
     result = get_data(longitude,latitude,year)
     res = pd.DataFrame(result,columns=FACTORS)
-    db = normalize_data_base(res)
+    db = relative_times(res)
+    db["longitude"] = longitude
+    db["latitude"] = latitude
     db.to_csv(file_name)
 
 def _main_(postal_code,year,file_name):
     [longitude, latitude] = get_LL("7325",read_file())
     if type(year) == int:
-        db = make_database(longitude,latitude,str(postal_code) + file_name + str(year) + ".csv",year)
+        db = make_database(longitude,latitude,str(year) + "_" + str(postal_code) + "_w.csv",year)
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            db = make_database(longitude,latitude,str(postal_code) + file_name + str(year[i]) + ".csv",year[i])
+            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_w.csv",year[i])
 
-_main_(7325,[2016],"Weather")
+_main_(7325,[2018],"Weather")

@@ -15,6 +15,6 @@ Parameters (x data)
 Solar panels: number panels, max power, system size, number of inverters,
                 inverter size, postcode (wordt omgezet naar longitude en
                 latitude als het in de module gaat), tilt
-Weer (moeten meerdere bij): time, sunrise time, sunset time, temperatureHigh,
-                temperatureLow, cloudCover, uv-index, visibility, ozon,
+Weer (moeten meerdere bij): time, sunriseTime, sunsetTime, temperatureHigh,
+                temperatureLow, cloudCover, uvIndex, visibility, ozone,
                 temperatureMin, temperatureMax
