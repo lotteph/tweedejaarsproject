@@ -1,5 +1,23 @@
 import csv
+import calendar
+import numpy as np
 import pandas as pd
+
+def add_month(weather_file, year):
+    months = []
+
+    for i in range(1,13):
+        days = calendar.monthrange(year, i)
+        for j in range(days[1]):
+            months.append(i)
+
+    months = np.array(months)
+    months = pd.DataFrame(months)
+    weather = pd.read_csv(weather_file)
+    del weather["Unnamed: 0"]
+    weather["month"] = months
+    weather.to_csv(weather_file)
+
 
 def make_solarcsv(solar_file, postal_code, year):
     new_file_name = str(postal_code) + "_" + str(year) + "_S.csv"
@@ -80,5 +98,6 @@ def make_weathercsv(solarcsv, weather_file, postal_code, year):
         new_file.close()
 
 if __name__ == "__main__":
+    add_month("", 2018)
     solarcsv = make_solarcsv("2018_7559_S.csv", "7559", "2018")
     make_weathercsv(solarcsv, "2018_7559_W.csv", "7559", "2018")
