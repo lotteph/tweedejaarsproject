@@ -77,4 +77,4 @@ with tf.Session() as sess:
     #predict output of test data after training
     predict = sess.run(output, feed_dict={xs:x_test.reshape(-1,3)})
 
-    print("Cost: ", sess.run(cost, feed_dict={xs:x_test.reshape(-1,3), ys:y_test}))
+    print("Error: ", predict[-1][0])

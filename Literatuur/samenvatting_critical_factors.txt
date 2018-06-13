@@ -5,4 +5,4 @@ een van belang is voor ons project.
 Er is gevonden dat er een negatieve correlatie is tussen de temperatuur en de
 maximale voltage. Wat weer leidt tot een afname in vermogen. Gevonden is dat er een
 piek ligt op 25 graden celcius, en dat er een afname is van 30 procent wanneer er
-een temperatuur is van 43.5 graden celcius. 
+een temperatuur is van 43.5 graden celcius.
