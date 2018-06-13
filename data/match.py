@@ -80,5 +80,5 @@ def make_weathercsv(solarcsv, weather_file, postal_code, year):
         new_file.close()
 
 if __name__ == "__main__":
-    solarcsv = make_solarcsv("test.csv", "test2", "test2")
-    make_weathercsv(solarcsv, "2013_7325_W.csv", "test2", "test2")
+    solarcsv = make_solarcsv("2018_7559_S.csv", "7559", "2018")
+    make_weathercsv(solarcsv, "2018_7559_W.csv", "7559", "2018")
