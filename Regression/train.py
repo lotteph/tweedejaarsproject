@@ -18,8 +18,6 @@ def make_csv(solar, weather):
     new["number_of_inverters"] = solar["Number_of_inverters"]
     new["inverter_size"] = solar["Inverter_size"]
     new["tilt"] = solar["Tilt"]
-    # new["postcode"] = solar["Postcode"]
-    new.to_csv("a.csv")
     return np.array(new)
 
 
