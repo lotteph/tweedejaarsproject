@@ -1,11 +1,26 @@
 import pandas as pd
 import numpy as np
 import scipy
+import csv
+from geopy import geocoders 
 from sklearn import linear_model
 from sklearn.utils import shuffle
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
+
+def make_csv(solar, weather):
+    new = weather
+    del new["Unnamed: 0"]
+    new["number_of_panels"] = solar["Number_of_panels"]
+    new["max_power"] = solar["Max_power"]
+    new["system_size"] = solar["System_size"]
+    new["number_of_inverters"] = solar["Numbers_of_inverters"]
+    new["inverter_size"] = solar["Inverter_size"]
+    new["tilt"] = solar["Tilt"]
+    # new["postcode"] = solar["Postcode"]
+    return new
+
 
 W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
 W = np.transpose(W)[:,1:10]
@@ -67,13 +82,13 @@ def kn_opt(iterations):
             par = [i]
     return(best,par)
 
-res = scipy.optimize.minimize(ridge_regression,[1])
-print("ridge: ",ridge_regression(res.x))
-print(res.x)
-res = scipy.optimize.minimize(lasso_regression,[1,1])
-print("lasso: ",lasso_regression(res.x))
-print(res.x)
-print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(results))
-res = scipy.optimize.minimize(decision_tree,[5])
-print(res.x)
-print("decision tree:", decision_tree(res.x))
+# res = scipy.optimize.minimize(ridge_regression,[1])
+# print("ridge: ",ridge_regression(res.x))
+# print(res.x)
+# res = scipy.optimize.minimize(lasso_regression,[1,1])
+# print("lasso: ",lasso_regression(res.x))
+# print(res.x)
+# print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(results))
+# res = scipy.optimize.minimize(decision_tree,[5])
+# print(res.x)
+# print("decision tree:", decision_tree(res.x))
