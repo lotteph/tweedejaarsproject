@@ -3,7 +3,7 @@ import numpy as np
 import csv
 
 # The output file.
-OUTPUT = "1078_1078_S.csv"
+OUTPUT = "1078_2016_S.csv"
 
 # The input file
 INPUT = "2016_1078_S.csv"
@@ -40,7 +40,7 @@ for item in output:
 		if firstrow:
 			firstrow = False
 		else:
-			if int(row[0]) == item:
+			if float(row[0]) == float(item):
 				firstvalue = True
 
 				for value in row:
