@@ -22,38 +22,37 @@ def make_csv(solar, weather):
 
 
 
-years = ["2016"]
-#postal_code = "7559"
-#W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
-#SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
-#results = np.array(SP["Generated"])
-#for year in range(1,len(years)):
-#    W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
-#    W = pd.DataFrame.append(W,W2)
-#    SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
-#    SP = pd.DataFrame.append(SP,SP2)
-#results = np.array(SP["Generated"])
-
-W = pd.read_csv("1078Weather" + years[0] + ".csv")
-SP = pd.read_csv("2016_1078_Solarpanel.csv")
+years = ["2013","2014","2015","2016","2017"]
+postal_code = "7559"
+W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
+SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
 results = np.array(SP["Generated"])
 for year in range(1,len(years)):
-    W2 = pd.read_csv("1078Weather" + years[year] + ".csv")
+    W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
     W = pd.DataFrame.append(W,W2)
-    SP2 = pd.read_csv("2016_1078_Solarpanel.csv")
+    SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
 
+#W = pd.read_csv("1078Weather" + years[0] + ".csv")
+#SP = pd.read_csv("2016_1078_Solarpanel.csv")
+#results = np.array(SP["Generated"])
+#for year in range(1,len(years)):
+#    W2 = pd.read_csv("1078Weather" + years[year] + ".csv")
+#    W = pd.DataFrame.append(W,W2)
+#    SP2 = pd.read_csv("2016_1078_Solarpanel.csv")
+#    SP = pd.DataFrame.append(SP,SP2)
+#results = np.array(SP["Generated"])
+
 #W = make_csv(pd.DataFrame(SP), pd.DataFrame(W))
-W = W.values
-W, results = shuffle(W,results, random_state=0)
-train_size = int(len(results)*(2/3))
+W = (W.values)
+#W, results = shuffle(W,results, random_state=0)
+train_size = int(len(results)*(5/6))
 
 x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
-
 def ridge_regression(par):
     alpha = par[0]
     regr = linear_model.Ridge(alpha,solver="svd")
@@ -104,8 +103,8 @@ def kn_opt(iterations):
             best = temp
             par = [i]
     return(best,par)
-
-print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(y_test))
+print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
+plt.plot(np.mean(y_train))
 res = scipy.optimize.minimize(ridge_regression,[0.5])
 print("ridge: ",ridge_regression(res.x))
 res = scipy.optimize.minimize(lasso_regression,[1,1])
