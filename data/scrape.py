@@ -6,14 +6,14 @@ import calendar
 
 # The month and year where the scraping must begin.
 BEGIN_MONTH = 1
-BEGIN_YEAR = 2018
+BEGIN_YEAR = 2013
 
 # The month and year where the scraping must end.
 END_MONTH = 1
-END_YEAR = 2019
+END_YEAR = 2014
 
 # The output file.
-FILE = "2018_7559_S.csv"
+FILE = "2013_7559_S.csv"
 
 # https://pvoutput.org/list.jsp?p=1&id=10324&sid=8645&gs=0&df=20180501&dt=20180531&v=0&o=date&d=desc
 # The first row in the output file.
