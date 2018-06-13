@@ -15,24 +15,37 @@ def make_csv(solar, weather):
     new["number_of_panels"] = solar["Number_of_panels"]
     new["max_power"] = solar["Max_power"]
     new["system_size"] = solar["System_size"]
-    new["number_of_inverters"] = solar["Numbers_of_inverters"]
+    new["number_of_inverters"] = solar["Number_of_inverters"]
     new["inverter_size"] = solar["Inverter_size"]
     new["tilt"] = solar["Tilt"]
     # new["postcode"] = solar["Postcode"]
-    return new
+    new.to_csv("a.csv")
+    return np.array(new)
 
 
-W = np.transpose(pd.read_csv("1078Weather2016.csv").values)
-W = np.transpose(W)[:,1:10]
-SP = pd.read_csv("2016_1078_Solarpanel.csv")
+
+years = ["2016","2017"]
+
+W = pd.read_csv("1078Weather" + years[0] + ".csv")
+SP = pd.read_csv(years[0] + "_1078_Solarpanel.csv")
 results = np.array(SP["Generated"])
+for year in range(1,len(years)):
+    W2 = pd.read_csv("1078Weather" + years[year] + ".csv")
+    W = pd.DataFrame.append(W,W2)
+    SP2 = pd.read_csv(years[year] + "_1078_Solarpanel.csv")
+    SP = pd.DataFrame.append(SP,SP2)
+results = np.array(SP["Generated"])
+
+W = make_csv(pd.DataFrame(SP), pd.DataFrame(W))
+
 
 W, results = shuffle(W,results, random_state=0)
 
+
 train_size = int(len(results)*(2/3))
 
-x_train = W[:train_size,2:]
-x_test =  W[train_size:,2:]
+x_train = W[:train_size,:]
+x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
@@ -82,13 +95,11 @@ def kn_opt(iterations):
             par = [i]
     return(best,par)
 
-# res = scipy.optimize.minimize(ridge_regression,[1])
-# print("ridge: ",ridge_regression(res.x))
-# print(res.x)
-# res = scipy.optimize.minimize(lasso_regression,[1,1])
-# print("lasso: ",lasso_regression(res.x))
-# print(res.x)
-# print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(results))
-# res = scipy.optimize.minimize(decision_tree,[5])
-# print(res.x)
-# print("decision tree:", decision_tree(res.x))
+print("base: ",sum(np.square(np.mean(y_train))-y_test)/len(results))
+res = scipy.optimize.minimize(ridge_regression,[1])
+print("ridge: ",ridge_regression(res.x))
+res = scipy.optimize.minimize(lasso_regression,[1,1])
+print("lasso: ",lasso_regression(res.x))
+res = scipy.optimize.minimize(decision_tree,[10])
+print("decision tree:", decision_tree(res.x))
+print("KNN: ",kn_opt(244)[0])
