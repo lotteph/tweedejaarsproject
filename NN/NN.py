@@ -78,3 +78,4 @@ with tf.Session() as sess:
     predict = sess.run(output, feed_dict={xs:x_test.reshape(-1,3)})
 
     print("Error: ", predict[-1][0])
+    print("OMG HET LEEFT")
