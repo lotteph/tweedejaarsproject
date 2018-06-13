@@ -22,7 +22,7 @@ from sklearn.utils import shuffle
 # y_train = results[:train_size]
 # y_test = results[train_size:]
 STEP_SIZE = 100
-LEARNING_RATE = 0.75
+LEARNING_RATE = 0.76
 
 def make_csv(solar, weather):
     new = weather
