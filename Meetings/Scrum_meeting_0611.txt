@@ -1,0 +1,17 @@
+SCRUM_meeting_1106
+
+Sprint taken verdelen:
+Cait: Neuraal Netwerk
+Lotte: Neuraal Netwerk
+Bas: REGRESSION
+Ruth: REGRESSION
+Silke: REGRESSION
+
+Wat moet er nu gebeuren:
+- Zorgen dat de data van het weer en solar panels gelijk gebruikt kunnen worden.
+- Besluiten welk programma voor Neural Networks gebruikt gaat worden (Lotten en Cait)
+- De algoritmes van SKlearn implementeren:
+    - Data gereed maken om in SKlearn te gooien (Bas)
+    - Lasso implementeren (Ruth)
+    - Ridge implementeren (Silke)
+    - Bayesian Ridge Regression implementeren (Bas)

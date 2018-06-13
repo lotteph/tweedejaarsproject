@@ -1,0 +1,19 @@
+Scrum meeting 06/07
+
+Wat hebben we gedaan?
+Ruth: programma gemaakt voor het webscrapen van PVOutput, data gecleaned zodat er geen kwh meer instaat, datum omgezet naar jaar/maand/dag en geordend van eerste naar laatste datum
+Bas: programma gemaakt dat het weer opvraagt op basis van postcode en jaar
+Caitlin: gekeken naar machine learning algoritmes en naar literatuur voor de parameters gezocht en samengevat
+Lotte: product backlog gemaakt, sprint backlog gemaakt in trello, gekeken naar PVOutput api
+Silke: Ruth geholpen met csv ordenen, gekeken naar machine learning algoritmes, gekeken naar feature extraction algoritmes
+
+Wat gaan we doen?
+Ruth: code opschonen en commenten, csv bestanden maken
+Bas: code opschonen en commenten, makkelijker maken op bepaalde dingen op te roepen (UI maken)
+Caitlin: samenvatting afschrijven
+Lotte: beginnen aan scrum presentatie
+Silke: beginnen aan scrum presentatie
+
+
+Welke obstakels staan in ons pad?
+niet van toepassing

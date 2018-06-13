@@ -1,0 +1,46 @@
+Eerste Scrum meeting 06/06
+Scrum planning deel 1 woew woeeww woooeeeww
+
+Algemene bespreking over de planning:
+Werken in 4 sprints van ongeveer 1 week. 
+
+Sprint 1: zo veel data, zo veel moeite
+-Data van de zonnepanelen cleanen/pre-processen (postcodes toevoegen en kwh weg)
+-Data van het weer cleanen/pre-processen 
+-Weerdata van bepaalde tijd kunnen opvragen
+-Meer data over zonnepanelen verzamelen (informatie uit hover)
+-Scrum presentatie maken
+-Kijken welke algoritmes we kunnen gaan gebruiken
+-SCRUM documenten aanmaken
+-Kijken welke parameters relevant zijn en de literatuur erover samenvatten
+-Plan van aanpak schrijven en en naar Daan sturen (uiterlijk donderdag)
+
+Sprint 2: small beginnings
+-Outlier detection
+-Veelbelovende algoritmes uitproberen
+-Voortgangspresentatie maken
+-Neural network maken
+
+Sprint 3: hopelijk werkt iets
+-Algoritmes verbeteren
+-Code mooi bruikbaar maken
+
+Sprint 4: hollen naar de finish
+-Eindpresentatie maken
+-Verslag schrijven
+-Code commenten
+-Puntjes op de i zetten
+
+Daily Scrum meeting:
+Wat hebben we gedaan?
+Nvt
+
+Wat gaan we vandaag doen?
+Silke: Methodes uitzoeken
+Ruth: Zonnepaneeldata scrapen
+Bas: Weer api fixen
+Cait: Methodes uitzoeken & literatuur samenvatten
+Lotte: SCRUM documenten uitzoeken
+
+Welke obstakels staan in ons pad?
+Ruth: Data over de orientatie, tilt en locatie van de zonnepanelen staat op een andere pagina dus dat wordt nog lastig om te scrapen.

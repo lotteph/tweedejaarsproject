@@ -1,0 +1,26 @@
+Regels voor het schrijven van code
+
+We houden de python website aan: https://www.python.org/dev/peps/pep-0008/
+
+Hieronder de hoogtepunten:
+-4 spaties voor indentatie
+
+-minder dan 80 characters per line
+
+-functions, variables en global variables in lowercase met underscores om 
+woorden te onderscheiden
+
+-constantes in hoofdletters met underscores om woorden te onderscheiden
+-spaties tussen binary operators
+
+-single line comments met #
+
+-multi-line comments met """
+
+-Docstrings (""") voor alle public modules, functions, classes en methods 
+en staan onder de dev
+
+-blank lines tussen functies en om logische secties binnen een functie aan 
+te geven
+
+-Voor strings gebruiken we dubbele aanhalingstekens (")

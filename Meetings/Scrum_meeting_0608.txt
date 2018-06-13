@@ -1,0 +1,18 @@
+Scrum meeting 06/08
+
+Wat hebben we gedaan?
+Ruth: Code van de zonnepaneeldata opgeschoond en gecommend, csv bestanden voor een aantal zonnepanelen gemaakt
+Caitlin: literatuuronderzoek gedaan en samengevat, gekeken naar algoritmes
+Bas: code van de weerdata afgemaakt en opgeschoond
+Lotte: sprint backlog afgemaakt
+Silke: presentatieslides gemaakt
+
+Wat gaan we doen?
+Presentatie afmaken
+Afspraken maken over de methodes die gebruikt gaan worden
+Sprint review
+Sprint planning
+Code van weerdata debuggen
+
+Welke obstakels staan in ons pad?
+Niet van toepassing

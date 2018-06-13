@@ -1,0 +1,26 @@
+Prediction of Energy Effects on Photovoltaic Systems due to snowfall events
+
+web: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6318297&tag=1
+
+Performs methods to identify snowfall from performance data
+Recommends prediction model
+More accurate for low tilt angles
+
+Best PV performance on high latitudes -> more snow as well
+Snow losses can contribute to 20% loss
+
+previous made model had a lot of scatter, was rejected
+
+Impact of snow:
+    - less light on PV panel, thus less Energy
+    - increase in relative PV performance, due to increased albedo present
+
+Model tries to reduce biases from spectral effects
+
+Due to the workings of MPPT circuits, the coverage of one panel will influence
+the performance of the entire circuit.
+Because modules are intentionally over sized for  a given inverter the fraction
+of energy production in the winter time if proportionally larger than if the
+clipped power in the summer is produced.
+
+This all results in a 4.25% loss of energy due to snowfall.
