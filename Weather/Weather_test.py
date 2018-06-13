@@ -41,14 +41,14 @@ def get_data(longitude,latitude,year):
         size = (367,len(FACTORS))
     data = np.zeros(size)
     nday = 0
-    for month in range(1,2):
+    for month in range(1,13):
         print('month: ', month)
         '''
         Comment the line below and uncomment the line
         below that to reduce the amount of API requests
         '''
-        #for day in range(1,calendar.monthrange(year,month)[1]+1):
-        for day in range(1,2):
+        for day in range(1,calendar.monthrange(year,month)[1]+1):
+        #for day in range(1,2):
             date = datetime.date(year,month,day)
             features = get_features(longitude,latitude,date)['daily']['data'][0]
             toAdd = []
@@ -82,10 +82,10 @@ def make_database(longitude,latitude,file_name,year):
 def _main_(postal_code,year,file_name):
     [longitude, latitude] = get_LL("7325",read_file())
     if type(year) == int:
-        db = make_database(longitude,latitude,str(postal_code) + file_name + str(year) + ".csv",year)
+        db = make_database(longitude,latitude,str(year) + "_" + str(postal_code) + file_name + "_w.csv",year)
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            db = make_database(longitude,latitude,str(postal_code) + file_name + str(year[i]) + ".csv",year[i])
+            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + file_name + "_w.csv",year[i])
 
-_main_(7325,[2018],"Weather")
+_main_(7559,[2013,2014],"Weather")
