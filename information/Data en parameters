@@ -1,0 +1,20 @@
+DATA:
+
+Per jaar, per postcode zijn er twee csv's.
+- per jaar, per solar panel, data
+- per jaar, weer data
+
+Als je op 1 solar panel wil trainen, dan blijven de csv's onveranderd. En daar
+is de generated kolom de y data.
+
+Als je op meerdere solar panels wil trainen, dan laden we de weer data in en
+daar komt ook wat solar panel data in, en de generated kolom is weer de y data.
+
+
+Parameters (x data)
+Solar panels: number panels, max power, system size, number of inverters,
+                inverter size, postcode (wordt omgezet naar longitude en
+                latitude als het in de module gaat), tilt
+Weer (moeten meerdere bij): time, sunrise time, sunset time, temperatureHigh,
+                temperatureLow, cloudCover, uv-index, visibility, ozon,
+                temperatureMin, temperatureMax
