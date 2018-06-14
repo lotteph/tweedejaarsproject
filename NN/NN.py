@@ -22,7 +22,7 @@ from sklearn.utils import shuffle
 # y_train = results[:train_size]
 # y_test = results[train_size:]
 STEP_SIZE = 100
-LEARNING_RATE = 0.76
+LEARNING_RATE = 0.1
 
 def make_csv(solar, weather):
     new = weather
@@ -34,8 +34,6 @@ def make_csv(solar, weather):
     new["inverter_size"] = solar["Inverter_size"]
     new["tilt"] = solar["Tilt"]
     return np.array(new)
-
-
 
 years = ["2016","2017"]
 
@@ -51,9 +49,7 @@ results = np.array(SP["Generated"])
 
 W = make_csv(pd.DataFrame(SP), pd.DataFrame(W))
 
-
 W, results = shuffle(W,results, random_state=0)
-
 
 train_size = int(len(results)*(2/3))
 
@@ -63,8 +59,8 @@ y_train = results[:train_size]
 y_test = results[train_size:]
 
 def nn_model(x_data, input_dim):
-    Weights_1 = tf.Variable(tf.random_uniform([input_dim, 100]))
-    bias_1 = tf.Variable(tf.zeros([100]))
+    Weights_1 = tf.Variable(tf.random_uniform([input_dim, 50]))
+    bias_1 = tf.Variable(tf.zeros([50]))
 
     layer_1 = tf.add(tf.matmul(x_data, Weights_1), bias_1)
     layer_1 = tf.nn.relu(layer_1)
@@ -81,13 +77,13 @@ def nn_model(x_data, input_dim):
     # layer_3 = tf.add(tf.matmul(layer_1, Weights_3), bias_3)
     # layer_3 = tf.nn.relu(layer_3)
 
-    Weights_4 = tf.Variable(tf.random_uniform([100, 100]))
-    bias_4 = tf.Variable(tf.zeros([100]))
+    Weights_4 = tf.Variable(tf.random_uniform([50, 20]))
+    bias_4 = tf.Variable(tf.zeros([20]))
 
     layer_4 = tf.add(tf.matmul(layer_1, Weights_4), bias_4)
     layer_4 = tf.nn.relu(layer_4)
 
-    Weights_output = tf.Variable(tf.random_uniform([100, 1])) #dtype=tf.float32
+    Weights_output = tf.Variable(tf.random_uniform([20, 1])) #dtype=tf.float32
     bias_output = tf.Variable(tf.zeros([1]))
 
     model = tf.add(tf.matmul(layer_4, Weights_output), bias_output)
@@ -130,5 +126,5 @@ with tf.Session() as sess:
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,3)})
     AV = sum(np.square(np.mean(predict))-y_test)
 
-    print("Error: ", predict[-1][0], ", Average:", AV)
+    print("Error: ", predict[-1][0])
     #print("OMG HET LEEFT")
