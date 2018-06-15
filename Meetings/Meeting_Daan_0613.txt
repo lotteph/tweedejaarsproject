@@ -1,0 +1,20 @@
+Tweede meeting Daan Bloembergen - 06/13
+
+In rapport ook vertellen wat we hebben geprobeerd en welke features niet nuttig
+waren. (meer onderzoeksrapport)
+
+Iets toevoegen aan de data zodat we ook naar de maand kunnen kijken.
+
+Model waar gegevens ingestopt worden, er is al getraind, en dan komt er een
+voorspelling uit. (ideaal)
+
+Andere mogelijkheid is om een model te maken waar historische data ingestopt
+dat het daarmee getraind wordt, en daarna een voorspelling gemaakt wordt.
+
+Kijken naar op welk moment van de dag het meeste energie opgewerkt zal worden
+(handig voor bijvoorbeeld schoonschip), misschien door middel van een soort curve
+
+Mogelijkheid om rapport uit te breiden met vergelijkingen met andere landen, maar
+het is genoeg om alleen naar Nederland te kijken.
+
+Na de presentatie slides mailen naar Daan

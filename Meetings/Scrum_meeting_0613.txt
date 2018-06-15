@@ -1,0 +1,32 @@
+Scrum meeting 0613
+
+Wat hebben we gedaan?
+samen:  besproken welke parameters er difinitief in de csv's moeten zitten en
+        hoe de csv's worden gegroepeerd.
+
+Silke:  data voor solar panels gegenereerd (nu 6 jaar van 1 solar panel)
+        ook data voor weer gegenereerd, maar dat moet opnieuw, want er missen
+        parameters.
+Cait:   Het neural netwerk werkt, hij geeft output. Ze heeft bugs gefixt, om het
+        werkend te maken op onze csv's. Op dit moment werkt het door backward
+        propagation wat de cost uitgeeft.
+Lotte:  Uitgezocht hoe het voorbeeld van tensorflow werkt op onze data,
+Ruth:   gezorgd dat als we meerdere panels tegelijk willen trainen, de
+        juiste x data (weer en solar panel) in een panda terecht komt.
+Bas:    gezorgd dat als we meerdere jaren willen trainen, de juiste
+        x data (weer en solar panel) in een panda terecht komt.
+
+Wat gaan we doen?
+    - Het werk van Bas en Ruth moet samengevoegd worden. (Bas en Ruth)
+    - De postcodes moeten omgezet worden naar longitude en latitude in een
+    aparte functie (Bas en Ruth)
+    - Factoren toevoegen aan de weer data. (Silke)
+    - Weer en solar data moet gescraped en genereerd en gematched worden.
+    - Trainen van verschillende datasets.
+    - Accuracy berekenen voor getrain
+    - Zorgen dat het neural netwerk de juiste output geeft (de dag die je wil
+    voorspellen gaat erin, en de verwachte kWh komt eruit). (Lotte)
+    - Presentatie opzet maken (Caitlin)
+
+Waar lopen we tegenaan?
+    - Geen opmerkingen

@@ -6,14 +6,14 @@ import calendar
 
 # The month and year where the scraping must begin.
 BEGIN_MONTH = 1
-BEGIN_YEAR = 2016
+BEGIN_YEAR = 2018
 
 # The month and year where the scraping must end.
 END_MONTH = 1
-END_YEAR = 2017
+END_YEAR = 2019
 
 # The output file.
-FILE = "temp.csv"
+FILE = "2018_7325_S.csv"
 
 
 # The first row in the output file.
@@ -77,7 +77,6 @@ def add_data(data, panel, file):
                 text = cell.text
                 text = text.replace("kWh/kW", "")
                 text = text.replace("kWh", "")
-                text = text.replace(".","")
                 file.write("," + text)
 
             # Strips the panel information from their unit measurements.
