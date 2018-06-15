@@ -8,6 +8,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
+import scipy.ndimage
 
 def make_csv(solar, weather):
     new = weather
@@ -20,9 +21,7 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-
-
-years = ["2013","2014","2015","2016","2017"]
+years = ["2013","2014","2015","2016","2017","2018"]
 postal_code = "7559"
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
 SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
@@ -34,20 +33,8 @@ for year in range(1,len(years)):
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
 
-#W = pd.read_csv("1078Weather" + years[0] + ".csv")
-#SP = pd.read_csv("2016_1078_Solarpanel.csv")
-#results = np.array(SP["Generated"])
-#for year in range(1,len(years)):
-#    W2 = pd.read_csv("1078Weather" + years[year] + ".csv")
-#    W = pd.DataFrame.append(W,W2)
-#    SP2 = pd.read_csv("2016_1078_Solarpanel.csv")
-#    SP = pd.DataFrame.append(SP,SP2)
-#results = np.array(SP["Generated"])
-
-#W = make_csv(pd.DataFrame(SP), pd.DataFrame(W))
 W = (W.values)
-#W, results = shuffle(W,results, random_state=0)
-train_size = int(len(results)*(5/6))
+train_size = len(results)-365
 
 x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
@@ -57,34 +44,61 @@ def ridge_regression(par):
     alpha = par[0]
     regr = linear_model.Ridge(alpha,solver="svd")
     regr.fit(x_train,y_train)
-    joblib.dump(regr, 'ridge.pkl')
     ridge_pred = regr.predict(x_test)
-    plt.plot(ridge_pred)
-    plt.plot(y_test)
+    pre = scipy.ndimage.gaussian_filter(ridge_pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("ridge predicted vs real output of 2017")
     plt.show()
-    return sum(np.square(ridge_pred-y_test))/len(y_test)
+    error = np.square(ridge_pred-y_test)
+    return sum(error)/len(y_test)
 
 def lasso_regression(par):
     alpha = par[0]
     ep = par[1]
     Lasso = linear_model.LassoLars (alpha,eps = ep)
     Lasso.fit(x_train,y_train)
-    joblib.dump(Lasso, 'lasso.pkl')
     lasso_pred = Lasso.predict(x_test)
+    plt.plot(np.square(lasso_pred-y_test),label='mean training output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("lasso predicted vs real output of 2017")
+    plt.show()
     return sum(np.square(lasso_pred-y_test))/len(y_test)
 
 def Bayes_regression():
     Bay = linear_model.BayesianRidge()
     Bay.fit(x_train,y_train)
-    joblib.dump(Bay, 'bayes.pkl')
     Bay_pred = Bay.predict(x_test)
+    pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("bayes predicted vs real output of 2017")
+    plt.show()
     return sum(np.square(Bay_pred-y_test))/len(y_test)
 
-def decision_tree(par):
-    dec = DecisionTreeRegressor(max_depth=par[0])
+def decision_tree():
+    dec = DecisionTreeRegressor()
     dec.fit(x_train, y_train)
-    joblib.dump(dec, 'dec_tree.pkl')
     pred = dec.predict(x_test)
+    pre = scipy.ndimage.gaussian_filter(pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("decision tree predicted vs real output of 2017")
+    plt.show()
     return sum(np.square(pred-y_test))/len(y_test)
 
 def k_nearest(par):
@@ -103,17 +117,11 @@ def kn_opt(iterations):
             best = temp
             par = [i]
     return(best,par)
+
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 plt.plot(np.mean(y_train))
-res = scipy.optimize.minimize(ridge_regression,[0.5])
-print("ridge: ",ridge_regression(res.x))
-res = scipy.optimize.minimize(lasso_regression,[1,1])
-print("lasso: ",lasso_regression([1,1]))
-res = scipy.optimize.minimize(decision_tree,[10])
-print("decision tree:", decision_tree(res.x))
-print("KNN: ",kn_opt(5)[0])
-
-#log = linear_model.LogisticRegression()
-#log.fit(x_train.astype('int'),y_train.astype('int'))
-#log_pred = log.predict(x_test.astype('int'))
-#print(sum(np.square(log_pred-y_test))/len(results))
+print("ridge: ",ridge_regression([-5.96797177]))
+#print("lasso: ",lasso_regression([1,1]))
+print("Bayes:", Bayes_regression())
+print("decision tree:", decision_tree())
+print("KNN: ",k_nearest([195]))
