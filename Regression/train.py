@@ -7,8 +7,7 @@ from sklearn.utils import shuffle
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
-import matplotlib.pyplot as plt
-import scipy.ndimage
+
 
 def make_csv(solar, weather):
     new = weather
@@ -120,9 +119,16 @@ def kn_opt(iterations):
     return(best,par)
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
-plt.plot(np.mean(y_train))
-print("ridge: ",ridge_regression([-5.96797177]))
-#print("lasso: ",lasso_regression([1,1]))
-print("Bayes:", Bayes_regression())
-print("decision tree:", decision_tree())
-#print("KNN: ",k_nearest([195]))
+# plt.plot(np.mean(y_train))
+res = scipy.optimize.minimize(ridge_regression,[0.5])
+print("ridge: ",ridge_regression(res.x))
+res = scipy.optimize.minimize(lasso_regression,[1,1])
+print("lasso: ",lasso_regression([1,1]))
+res = scipy.optimize.minimize(decision_tree,[10])
+print("decision tree:", decision_tree(res.x))
+print("KNN: ",kn_opt(5)[0])
+
+#log = linear_model.LogisticRegression()
+#log.fit(x_train.astype('int'),y_train.astype('int'))
+#log_pred = log.predict(x_test.astype('int'))
+#print(sum(np.square(log_pred-y_test))/len(results))
