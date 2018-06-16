@@ -7,7 +7,7 @@ from sklearn.utils import shuffle
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def make_csv(solar, weather):
     new = weather
@@ -59,9 +59,9 @@ def ridge_regression(par):
     regr.fit(x_train,y_train)
     joblib.dump(regr, 'ridge.pkl')
     ridge_pred = regr.predict(x_test)
-    plt.plot(ridge_pred)
-    plt.plot(y_test)
-    plt.show()
+    # plt.plot(ridge_pred)
+    # plt.plot(y_test)
+    # plt.show()
     return sum(np.square(ridge_pred-y_test))/len(y_test)
 
 def lasso_regression(par):
@@ -104,7 +104,7 @@ def kn_opt(iterations):
             par = [i]
     return(best,par)
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
-plt.plot(np.mean(y_train))
+# plt.plot(np.mean(y_train))
 res = scipy.optimize.minimize(ridge_regression,[0.5])
 print("ridge: ",ridge_regression(res.x))
 res = scipy.optimize.minimize(lasso_regression,[1,1])
