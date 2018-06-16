@@ -40,6 +40,7 @@ x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
+
 def ridge_regression(par):
     alpha = par[0]
     regr = linear_model.Ridge(alpha,solver="svd")
@@ -124,4 +125,4 @@ print("ridge: ",ridge_regression([-5.96797177]))
 #print("lasso: ",lasso_regression([1,1]))
 print("Bayes:", Bayes_regression())
 print("decision tree:", decision_tree())
-print("KNN: ",k_nearest([195]))
+#print("KNN: ",k_nearest([195]))

@@ -7,7 +7,9 @@ import calendar
 import numpy as np
 import pandas as pd
 
-SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
+#SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
+#SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
+SECRET_KEY = "da2aefea8bbb0c1a91c7059ad966008d"
 FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
 
 def read_file():
@@ -88,4 +90,4 @@ def _main_(postal_code,year,file_name):
             print('year:',year[i])
             db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_w.csv",year[i])
 
-_main_(7325,[2018],"Weather")
+_main_(7325,[2013,2014],"Weather")
