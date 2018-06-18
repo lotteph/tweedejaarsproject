@@ -1,0 +1,24 @@
+Scrum meeting 0618
+
+Wat hebben we gedaan?
+samen:  Presentatie voorbereid en gehouden op vrijdag.
+
+Silke:  Slides voor presentatie gemaakt.
+Cait:   Aan het neural netwerk gewerkt: Het neural network kan worden
+        opgeslagen. De input is veranderd naar features. Getweaked met parameters.
+Lotte:
+Ruth:   Solar panel data gescraped.
+Bas:    Weer data gedownload.
+
+Wat gaan we doen?
+    - Nieuwe data matchen. (Silke)
+    - Regression trainen op meerdere postcodes (meerdere solar panels) (Bas)
+    - Neural Netwerk optimaliseren. (Lotte en Caitlin)
+    - Regression algoritmes tweaken. (Silke)
+    - Hardcoding weghalen (scripts automatiseren) (Ruth)
+    - Code opschonen. (Ruth)
+    - Belangrijke features bepalen. (Caitlin)
+    - Meer data downloaden.
+
+Waar lopen we tegenaan?
+    - Geen opmerkingen
