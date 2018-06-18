@@ -35,8 +35,18 @@ def get_features(longitude,latitude,date):
     json_object = json.loads(json_str)
     return json_object
 
+def get_weather(longitude,latitude,date):
+    #Gets the weather of a location on a day
+    features = get_features(longitude,latitude,date)['daily']['data'][0]
+    toAdd = []
+    for key in FACTORS:
+        if key in features.keys():
+            toAdd.append(features[key])
+        else:
+            toAdd.append(0)
+
 def get_data(longitude,latitude,year):
-#Gets the weather of a calendar year
+    #Gets the weather of a calendar year
     if calendar.isleap(year):
         size = (367,len(FACTORS))
     else:
@@ -52,14 +62,7 @@ def get_data(longitude,latitude,year):
         for day in range(1,calendar.monthrange(year,month)[1]+1):
         #for day in range(1,1):
             date = datetime.date(year,month,day)
-            features = get_features(longitude,latitude,date)['daily']['data'][0]
-            toAdd = []
-            for key in FACTORS:
-                if key in features.keys():
-                    toAdd.append(features[key])
-                else:
-                    toAdd.append(0)
-            data[nday] = toAdd
+            data[nday] = get_weather(longitude,latitude,date)
             nday += 1
     return data
 
@@ -81,13 +84,13 @@ def make_database(longitude,latitude,file_name,year):
     db["latitude"] = latitude
     db.to_csv(file_name)
 
-def _main_(postal_code,year,file_name):
+def _main_(postal_code,year):
     [longitude, latitude] = get_LL("7325",read_file())
     if type(year) == int:
-        db = make_database(longitude,latitude,str(year) + "_" + str(postal_code) + "_W.csv",year)
+        db = make_database(longitude,latitude,str(year)+"_"+str(postal_code)+"_W.csv",year)
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_W.csv",year[i])
+            db = make_database(longitude,latitude,str(year[i])+"_"+str(postal_code)+"_W.csv",year[i])
 
-_main_(2134,[2017,2018],"Weather")
+_main_(2134,[2017,2018])

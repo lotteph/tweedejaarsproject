@@ -22,20 +22,27 @@ def make_csv(solar, weather):
     return np.array(new)
 
 years = ["2013","2014","2015","2016","2017"]
+#years = ["2017"]
 postal_code = ["7325","2201","2134","7559"]
 
-W = pd.read_csv("../data/"+postal_code[0]+ "_" + years[0] + "_W.csv")
-SP = pd.read_csv("../data/"+postal_code[0]+ "_" + years[0] + "_S.csv")
-results = np.array(SP["Generated"])
-for code in range(1,len(postal_code)):
-    for year in range(1,len(years)):
+SP = False
+W = False
+for code in range(0,len(postal_code)):
+    for year in range(0,len(years)):
         W2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_W.csv")
-        W = pd.DataFrame.append(W,W2)
+        if type(W) != type(False):
+            W = pd.DataFrame.append(W,W2)
+        else:
+            W = W2
         SP2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_S.csv")
-        SP = pd.DataFrame.append(SP,SP2)
+        if type(SP) != type(False):
+            SP = pd.DataFrame.append(SP,SP2)
+        else:
+            SP = SP2
 results = np.array(SP["Generated"])
 
-W = (W.values)
+W = make_csv(SP,W)
+
 train_size = len(results)-365*5
 
 x_train = W[:train_size,:]
@@ -109,6 +116,15 @@ def k_nearest(par):
     neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
     neigh.fit(x_train, y_train)
     neigh_pred = neigh.predict(x_test)
+    pre = scipy.ndimage.gaussian_filter(neigh_pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("KNN predicted vs real output of 2017")
+    plt.show()
     return sum(np.square(neigh_pred-y_test))/len(y_test)
 
 def kn_opt(iterations):
@@ -125,4 +141,4 @@ print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 print("ridge: ",ridge_regression([-5]))
 print("bayes: ",Bayes_regression())
 print("decision tree:", decision_tree())
-print("KNN: ",kn_opt(5)[0])
+print("KNN: ",k_nearest([1]))
