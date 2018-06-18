@@ -1,0 +1,21 @@
+Scrum meeting 0614
+
+Wat hebben we gedaan?
+Caitlin:
+        Verschillende csv's in het neural network gestopt, daar kwam een keer 2
+        en een keer 4 uit. Het is nog niet precies duidelijk wat dat getal
+        betekent. Gekeken naar wat er in de presentatie moet.
+Lotte:  Een beetje geexperimenteerd met verschillende parameters.
+Bas:    Foutjes uit train.py gehaald. Weer data voor de database gedownload.
+        Algoritme "Logistic Regression" geimplementeerd. Dit werkt inderdaad
+        niet zoals we van tevoren hadden uigezocht.
+Ruth:   Solar panel data gegenereerd. Een paar features in de data veranderd
+        zodat de eenheden kloppen. Gezorgd dat alle x data van meerdere jaren
+        van solar panelen van meerdere samengevoegd kon worden.
+Silke:  Features toegevoegd aan weer data (de maand toegevoegd met Ruth en
+        Longitude en Latitude toegevoegd met Bas). Gegenereerde data gematched.
+
+Wat gaan we vandaag doen? (IEDEREEN)
+    - Grafieken maken voor in de presentatie
+    - Presentatie voor morgen maken
+    - Presentatie voor morgen oefenen
