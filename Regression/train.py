@@ -30,6 +30,7 @@ results = np.array(SP["Generated"])
 for year in range(1,len(years)):
     W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
     W = pd.DataFrame.append(W,W2)
+    W["time"] = 0
     SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
