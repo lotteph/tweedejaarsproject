@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
+from scipy.optimize import minimize
 
 def make_csv(solar, weather):
     new = weather
@@ -30,6 +31,7 @@ results = np.array(SP["Generated"])
 for year in range(1,len(years)):
     W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
     W = pd.DataFrame.append(W,W2)
+    W["time"] = 0
     SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
@@ -79,7 +81,7 @@ def Bayes_regression(par):
     return sum(np.square(Bay_pred-y_test))/len(y_test)
 
 def decision_tree():
-    dec = DecisionTreeRegressor()
+    dec = DecisionTreeRegressor(min_samples_split=0.1, presort=True)
     dec.fit(x_train, y_train)
     pred = dec.predict(x_test)
     pre = scipy.ndimage.gaussian_filter(pred,5)
@@ -108,7 +110,7 @@ def kn_opt(iterations):
         if temp < best:
             best = temp
             par = [i]
-    return(best,par)
+    return(best, par)
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 #print("ridge: ",ridge_regression([-5]))
