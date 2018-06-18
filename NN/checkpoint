@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/cait/tweedejaarsproject/NN/dataset.ckpt"
+all_model_checkpoint_paths: "/home/cait/tweedejaarsproject/NN/dataset.ckpt"
