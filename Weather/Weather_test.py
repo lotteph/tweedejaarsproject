@@ -84,10 +84,10 @@ def make_database(longitude,latitude,file_name,year):
 def _main_(postal_code,year,file_name):
     [longitude, latitude] = get_LL("7325",read_file())
     if type(year) == int:
-        db = make_database(longitude,latitude,str(year) + "_" + str(postal_code) + "_w.csv",year)
+        db = make_database(longitude,latitude,str(year) + "_" + str(postal_code) + "_W.csv",year)
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_w.csv",year[i])
+            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_W.csv",year[i])
 
-_main_(7325,[2013,2014],"Weather")
+_main_(2134,[2017,2018],"Weather")
