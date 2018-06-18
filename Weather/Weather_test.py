@@ -88,6 +88,6 @@ def _main_(postal_code,year,file_name):
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_w.csv",year[i])
+            db = make_database(longitude,latitude,str(year[i]) + "_" + str(postal_code) + "_W.csv",year[i])
 
-_main_(7325,[2013,2014],"Weather")
+_main_(2134,[2017,2018],"Weather")
