@@ -21,21 +21,22 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-years = ["2013","2014","2015","2016","2017","2018"]
-postal_code = "7559"
+years = ["2013","2014","2015","2016","2017"]
+postal_code = ["7325","2201","2134","7559"]
 
-W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
-SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
+W = pd.read_csv("../data/"+postal_code[0]+ "_" + years[0] + "_W.csv")
+SP = pd.read_csv("../data/"+postal_code[0]+ "_" + years[0] + "_S.csv")
 results = np.array(SP["Generated"])
-for year in range(1,len(years)):
-    W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
-    W = pd.DataFrame.append(W,W2)
-    SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
-    SP = pd.DataFrame.append(SP,SP2)
+for code in range(1,len(postal_code)):
+    for year in range(1,len(years)):
+        W2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_W.csv")
+        W = pd.DataFrame.append(W,W2)
+        SP2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_S.csv")
+        SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
 
 W = (W.values)
-train_size = len(results)-730
+train_size = len(results)-365*5
 
 x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
@@ -122,7 +123,6 @@ def kn_opt(iterations):
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 print("ridge: ",ridge_regression([-5]))
-#print("lasso: ",lasso_regression([1,1]))
 print("bayes: ",Bayes_regression())
 print("decision tree:", decision_tree())
 print("KNN: ",kn_opt(5)[0])
