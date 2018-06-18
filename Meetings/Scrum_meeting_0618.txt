@@ -12,12 +12,12 @@ Bas:    Weer data gedownload.
 
 Wat gaan we doen?
     - Nieuwe data matchen. (Silke)
-    - Regression trainen op meerdere postcodes (meerdere solar panels)
-    - Neural Netwerk optimaliseren.
-    - Regression algoritmes tweaken.
-    - Hardcoding weghalen (scripts automatiseren)
-    - Code opschonen.
-    - Belangrijke features bepalen.
+    - Regression trainen op meerdere postcodes (meerdere solar panels) (Bas)
+    - Neural Netwerk optimaliseren. (Lotte en Caitlin)
+    - Regression algoritmes tweaken. (Silke)
+    - Hardcoding weghalen (scripts automatiseren) (Ruth)
+    - Code opschonen. (Ruth)
+    - Belangrijke features bepalen. (Caitlin)
     - Meer data downloaden.
 
 Waar lopen we tegenaan?
