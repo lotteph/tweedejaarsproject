@@ -23,7 +23,7 @@ def make_csv(solar, weather):
     return np.array(new)
 
 years = ["2013","2014","2015","2016","2017"]
-postal_code = "2134"
+postal_code = "7559"
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
 SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
@@ -115,8 +115,6 @@ def kn_opt(iterations):
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 #print("ridge: ",ridge_regression([-5]))
 res = scipy.optimize.minimize(Bayes_regression,[0.000006,0.000006,0.000006,0.000006],method="L-BFGS-B")
-print(res.x)
-print("old bayes: ",Bayes_regression([0.000006,0.000006,0.000006,0.000006]))
 print("new bayes: ",Bayes_regression(res.x))
 # print("decision tree:", decision_tree())
 # print("KNN: ",kn_opt(5)[0])

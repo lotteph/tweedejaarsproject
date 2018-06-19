@@ -9,6 +9,11 @@ import pandas as pd
 
 FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
 
+#SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
+#SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
+#SECRET_KEY = "0cd188a858bdb7fda3eb65f83811fedc"
+#SECRET_KEY = "da2aefea8bbb0c1a91c7059ad966008d"
+SECRET_KEY = "d07fa9b030dfc7ae1a1897828f0e01de"
 def read_file():
 #Reads the postal code and coordinates file
     with open("4pp.csv") as f:
@@ -65,11 +70,8 @@ def get_data(longitude,latitude,year):
 
 def relative_times(db):
     #Makes sunset and sunrise time relative to daytime
-    count = 0
-    for col in db:
-        if count == 2 or count == 3:
-            db[col] = db[col] - db["time"]
-        count += 1
+    db["sunriseTime"] = db["sunriseTime"] - db["time"]
+    db["sunsetTime"] = db["sunsetTime"] - db["time"]
     return db
 
 def make_database(longitude,latitude,file_name,year):
@@ -79,15 +81,15 @@ def make_database(longitude,latitude,file_name,year):
     db = relative_times(res)
     db["longitude"] = longitude
     db["latitude"] = latitude
-    db.to_csv(file_name)
+    return db
 
 def _main_(postal_code,year):
-    [longitude, latitude] = get_LL("7325",read_file())
+    [longitude, latitude] = get_LL(str(postal_code),read_file())
     if type(year) == int:
         db = make_database(longitude,latitude,str(year)+"_"+str(postal_code)+"_W.csv",year)
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            db = make_database(longitude,latitude,str(year[i])+"_"+str(postal_code)+"_W.csv",year[i])
+            return make_database(longitude,latitude,str(year[i])+"_"+str(postal_code)+"_W.csv",year[i])
 
-_main_(2134,[2017,2018])
+_main_(6712,[2017,2018])
