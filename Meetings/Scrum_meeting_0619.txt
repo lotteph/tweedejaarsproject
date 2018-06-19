@@ -1,0 +1,25 @@
+Scrum Meeting 0619
+
+Wat hebben we gedaan?
+Silke: Alle nieuwe data gematched. DecisionTreeRegressor verbeterd met een
+        presort. En geprobeerd KNN te verbeteren, maar dat is niet gelukt.
+        De optimale parameter geeft geen verschil.
+Anne-Ruth: Code van scrape.py wat gecleaned en constanten weggehaald.
+        Heel match.py herschreven met panda's waardoor de code een stuk korter is.
+Bas: Weer data gedownload. Bayes algoritme resultaten verbeterd. Weather_test.py
+    een beetje opgeschoond. Ridge geprobeerd te optimaliseren, maar niet gelukt.
+Cait: Gekeken welke features van belang zijn en in de code de onbelangrijke features 
+		weggehaald. Verder begonnen met het opschonen van de code voor NN.py. 
+
+Wat moeten we nog doen?
+    - Inhoud van weather_test verbeteren; er moeten pandas uitkomen.
+    - scrape.py inhoud verbeteren en moet werken met pandas.
+    - Weer data downloaden.
+    - Extra solar panel locaties toevoegen aan database.
+    - Neural netwerk testen op meerdere postcodes.
+    - Opzet voor verslag en introductie kan alsvast gedaan worden als er tijd
+        over is
+    - API keys aanmaken voor Lotte en Cait.
+    - Code opschonen.
+    - UI maken
+	- NN.py opschonen 

@@ -21,9 +21,9 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-years = ["2013","2014","2015","2016","2017"]
+years = ["2013","2014","2015","2016","2017","2018"]
 #years = ["2017"]
-postal_code = ["7325","2201","2134","7559"]
+postal_code = ["7559"]
 
 SP = False
 W = False
@@ -40,10 +40,10 @@ for code in range(0,len(postal_code)):
         else:
             SP = SP2
 results = np.array(SP["Generated"])
-
+W["time"] = 0
 W = make_csv(SP,W)
 
-train_size = len(results)-365*5
+train_size = len(results)-365
 
 x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
@@ -139,6 +139,6 @@ def kn_opt(iterations):
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 print("ridge: ",ridge_regression([-5]))
-print("bayes: ",Bayes_regression())
-print("decision tree:", decision_tree())
-print("KNN: ",k_nearest([1]))
+#print("bayes: ",Bayes_regression())
+#print("decision tree:", decision_tree())
+#print("KNN: ",k_nearest([1]))
