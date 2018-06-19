@@ -1,2 +1,0 @@
-model_checkpoint_path: "aids_test.ckpt"
-all_model_checkpoint_paths: "aids_test.ckpt"

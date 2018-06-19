@@ -25,18 +25,16 @@ def make_csv(solar, weather):
 
 years = ["2013","2014","2015","2016","2017","2018"]
 postal_code = "7559"
-W = pd.read_csv("../NN/"+postal_code+ "_" + years[0] + "_W.csv")
-SP = pd.read_csv("../NN/"+postal_code+ "_" + years[0] + "_S.csv")
+W = pd.read_csv("../NN/data/"+postal_code+ "_" + years[0] + "_W.csv")
+SP = pd.read_csv("../NN/data/"+postal_code+ "_" + years[0] + "_S.csv")
 results = np.array(SP["Generated"])
 for year in range(1,len(years)):
-    W2 = pd.read_csv("../NN/"+postal_code+ "_" + years[year] + "_W.csv")
+    W2 = pd.read_csv("../NN/data/"+postal_code+ "_" + years[year] + "_W.csv")
     W = pd.DataFrame.append(W,W2)
-    SP2 = pd.read_csv("../NN/"+postal_code+ "_" + years[year] + "_S.csv")
+    SP2 = pd.read_csv("../NN/data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
-#print(results)
-sizes = 1
-#print(sizes)
+sizes = 13
 
 W = (W.values)
 train_size = len(results)-365
@@ -81,16 +79,16 @@ def nn_model(x_data, input_dim):
 xs = tf.placeholder("float")
 ys = tf.placeholder("float")
 
-model = nn_model(xs,1)
+model = nn_model(xs, sizes)
 
-# our mean squared error cost function
+# Mean squared error cost function
 cost = tf.reduce_mean(tf.square(model-ys))
 
-# Gradinent Descent optimiztion just discussed above for updating weights and biases
+# Gradient Descent optimiztion just discussed above for updating weights and biases
 #train = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cost)
 #train = tf.train.AdamOptimizer(LEARNING_RATE).minimize(cost)
 #train = tf.train.RMSPropOptimizer(LEARNING_RATE).minimize(cost)
-train = tf.train.MomentumOptimizer(LEARNING_RATE, momentum=0.001).minimize(cost)
+train = tf.train.MomentumOptimizer(LEARNING_RATE, momentum=0.0001).minimize(cost)
 
 c_t = []
 
@@ -99,28 +97,28 @@ with tf.Session() as sess:
 
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
-    #saver.restore(sess, '/home/cait/tweedejaarsproject/NN/dataset.ckpt')
+    #saved_model = input('Name of the model: ')
+    #saver.restore(sess, '/models/' + saved_model + '.ckpt')
 
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
-       for j in range(x_train.shape[0]):
-           dicti = {xs:x_train[j:].reshape(-1,sizes), ys: y_train[j]} #size -1 for unspecified
-           sess.run([cost, train], feed_dict = dicti)
+        for j in range(x_train.shape[0]):
+            dicti = {xs:x_train[j:].reshape(-1,sizes), ys: y_train[j]} #size -1 for unspecified
+            sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
-       c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,sizes), ys:y_train}))
-       if i%10 == 0:
-           print("Step:", i, ", Cost:", c_t[i])
+        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,sizes), ys:y_train}))
+        if i%10 == 0:
+            print("Step:", i, ", Cost:", c_t[i])
 
     #predict output of test data after training
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,sizes)})
 
     print("Error: ", predict[-1][0])
-    #print("OMG HET LEEFT")
 
     if input('Save model ? [Y/N]').upper() == 'Y':
-        name = input('Please name the file: ')
-        saver.save(sess, name + '.ckpt')
+        new_model_name = input('Please name the file: ')
+        saver.save(sess, './models/' + new_model_name + '.ckpt')
         print('Model Saved')
 
 # Later, launch the model, use the saver to restore variables from disk, and
