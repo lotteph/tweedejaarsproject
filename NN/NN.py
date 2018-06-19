@@ -8,6 +8,7 @@ from sklearn.utils import shuffle
 STEP_SIZE = 100
 LEARNING_RATE = 0.00005
 
+# CAN BE GOTTEN FROM MAIN LATER
 def make_csv(solar, weather):
     new = weather
     del new["Unnamed: 0"]
@@ -30,9 +31,8 @@ for year in range(1,len(years)):
     SP2 = pd.read_csv("../NN/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
-#print(results)
+
 sizes = 1
-#print(sizes)
 
 W = (W.values)
 train_size = len(results)-365
@@ -87,6 +87,7 @@ train = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cost)
 #train = tf.train.AdamOptimizer(LEARNING_RATE).minimize(cost)
 
 c_t = []
+c_test = []
 
 # run data through neural net
 with tf.Session() as sess:
@@ -105,6 +106,9 @@ with tf.Session() as sess:
        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,sizes), ys:y_train}))
        if i%10 == 0:
            print("Step:", i, ", Cost:", c_t[i])
+
+    c_test.append(sess.run(test), feed_dict ={xs:x_test.reshape(-1,sizes)})
+    print(c_test)
 
     #predict output of test data after training
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,sizes)})
