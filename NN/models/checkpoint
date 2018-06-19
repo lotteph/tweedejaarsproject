@@ -1,2 +1,2 @@
-model_checkpoint_path: "aids.ckpt"
-all_model_checkpoint_paths: "aids.ckpt"
+model_checkpoint_path: "Hoopvol.ckpt"
+all_model_checkpoint_paths: "Hoopvol.ckpt"

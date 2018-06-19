@@ -9,7 +9,7 @@ from sklearn.utils import shuffle
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-STEP_SIZE = 100
+STEP_SIZE = 400
 LEARNING_RATE = 0.0005
 
 def make_csv(solar, weather):
@@ -34,15 +34,15 @@ for year in range(1,len(years)):
     SP2 = pd.read_csv("../NN/data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
-sizes = 13
+nr_features = 13
 
 W = (W.values)
 train_size = len(results)-365
 
-x_train = W[:train_size,:]
-x_test =  W[train_size:,:]
-y_train = results[:train_size]
-y_test = results[train_size:]
+x_train = W[:train_size,:].transpose()
+x_test =  W[train_size:,:].transpose()
+y_train = results[:train_size].transpose()
+y_test = results[train_size:].transpose()
 
 def nn_model(x_data, input_dim):
     Weights_1 = tf.Variable(tf.random_uniform([input_dim, 16]))
@@ -73,13 +73,13 @@ def nn_model(x_data, input_dim):
     bias_output = tf.Variable(tf.zeros([1]))
 
     model = tf.add(tf.matmul(layer_4, Weights_output), bias_output)
-
+    print(model)
     return model
 
 xs = tf.placeholder("float")
 ys = tf.placeholder("float")
 
-model = nn_model(xs, sizes)
+model = nn_model(xs, nr_features)
 
 # Mean squared error cost function
 cost = tf.reduce_mean(tf.square(model-ys))
@@ -103,16 +103,17 @@ with tf.Session() as sess:
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
         for j in range(x_train.shape[0]):
-            dicti = {xs:x_train[j:].reshape(-1,sizes), ys: y_train[j]} #size -1 for unspecified
+            dicti = {xs:x_train[j:].reshape(-1,nr_features), ys: y_train[j]} #size -1 for unspecified
             sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
-        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,sizes), ys:y_train}))
+        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,nr_features), ys:y_train}))
         if i%10 == 0:
             print("Step:", i, ", Cost:", c_t[i])
 
     #predict output of test data after training
-    predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,sizes)})
+    predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,nr_features)})
+    print(predict)
 
     print("Error: ", predict[-1][0])
 
