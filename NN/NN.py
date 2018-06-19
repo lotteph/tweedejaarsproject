@@ -10,9 +10,8 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 STEP_SIZE = 100
-LEARNING_RATE = 0.00005
+LEARNING_RATE = 0.0005
 
-# CAN BE GOTTEN FROM MAIN LATER
 def make_csv(solar, weather):
     new = weather
     del new["Unnamed: 0"]
@@ -35,8 +34,9 @@ for year in range(1,len(years)):
     SP2 = pd.read_csv("../NN/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
-
+#print(results)
 sizes = 1
+#print(sizes)
 
 W = (W.values)
 train_size = len(results)-365
@@ -93,15 +93,13 @@ cost = tf.reduce_mean(tf.square(model-ys))
 train = tf.train.MomentumOptimizer(LEARNING_RATE, momentum=0.001).minimize(cost)
 
 c_t = []
-c_test = []
 
 # run data through neural net
 with tf.Session() as sess:
 
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
-    #saved_model_name = input('Name of model: ')
-    #saver.restore(sess, './' + saved_model_name + '.ckpt')
+    #saver.restore(sess, '/home/cait/tweedejaarsproject/NN/dataset.ckpt')
 
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
@@ -114,17 +112,15 @@ with tf.Session() as sess:
        if i%10 == 0:
            print("Step:", i, ", Cost:", c_t[i])
 
-    c_test.append(sess.run(test), feed_dict ={xs:x_test.reshape(-1,sizes)})
-    print(c_test)
-
     #predict output of test data after training
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,sizes)})
 
     print("Error: ", predict[-1][0])
+    #print("OMG HET LEEFT")
 
-    if input('Save model ? [Y/N] ').upper() == 'Y':
-        new_model_name = input('Please name the file: ')
-        saver.save(sess, './' + new_model_name + '.ckpt')
+    if input('Save model ? [Y/N]').upper() == 'Y':
+        name = input('Please name the file: ')
+        saver.save(sess, name + '.ckpt')
         print('Model Saved')
 
 # Later, launch the model, use the saver to restore variables from disk, and
