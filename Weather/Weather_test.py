@@ -14,6 +14,7 @@ FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","tem
 #SECRET_KEY = "0cd188a858bdb7fda3eb65f83811fedc"
 #SECRET_KEY = "da2aefea8bbb0c1a91c7059ad966008d"
 SECRET_KEY = "d07fa9b030dfc7ae1a1897828f0e01de"
+
 def read_file():
 #Reads the postal code and coordinates file
     with open("4pp.csv") as f:
@@ -29,7 +30,7 @@ def get_LL(postalCode,data) :
             return [i[-2],i[-3]]
 
 def get_features(longitude,latitude,date):
-#Gets a json_object with the weather of a given date on the given coordinate
+    #Gets a json_object with the weather of a given date on the given coordinate
     unix_date = mktime(date.timetuple())
     URL = "https://api.darksky.net/forecast/" + SECRET_KEY + "/" + str(latitude) + "," + str(longitude) + "," + str(int(unix_date)) +"?exclude=currently,minutely,hourly,alerts"
     r = requests.get(URL)
@@ -46,6 +47,7 @@ def get_weather(longitude,latitude,date):
             toAdd.append(features[key])
         else:
             toAdd.append(0)
+    return toAdd
 
 def get_data(longitude,latitude,year):
     #Gets the weather of a calendar year
@@ -62,7 +64,7 @@ def get_data(longitude,latitude,year):
         below that to reduce the amount of API requests
         '''
         for day in range(1,calendar.monthrange(year,month)[1]+1):
-        #for day in range(1,1):
+        #for day in range(1,2):
             date = datetime.date(year,month,day)
             data[nday] = get_weather(longitude,latitude,date)
             nday += 1
@@ -74,7 +76,7 @@ def relative_times(db):
     db["sunsetTime"] = db["sunsetTime"] - db["time"]
     return db
 
-def make_database(longitude,latitude,file_name,year):
+def make_database(longitude,latitude,year):
     #Makes a weather database and saves it
     result = get_data(longitude,latitude,year)
     res = pd.DataFrame(result,columns=FACTORS)
@@ -86,10 +88,10 @@ def make_database(longitude,latitude,file_name,year):
 def _main_(postal_code,year):
     [longitude, latitude] = get_LL(str(postal_code),read_file())
     if type(year) == int:
-        db = make_database(longitude,latitude,str(year)+"_"+str(postal_code)+"_W.csv",year)
+        return make_database(longitude,latitude,year)
     elif type(year) == list:
         for i in range(0,len(year)):
             print('year:',year[i])
-            return make_database(longitude,latitude,str(year[i])+"_"+str(postal_code)+"_W.csv",year[i])
+            return make_database(longitude,latitude,year[i])
 
-_main_(6712,[2017,2018])
+_main_(6712,[2018])
