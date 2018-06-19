@@ -40,7 +40,7 @@ for code in range(0,len(postal_code)):
         else:
             SP = SP2
 results = np.array(SP["Generated"])
-
+W["time"] = 0
 W = make_csv(SP,W)
 
 train_size = len(results)-365
