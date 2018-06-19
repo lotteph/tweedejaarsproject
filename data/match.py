@@ -2,8 +2,10 @@ import csv
 import calendar
 import numpy as np
 import pandas as pd
+from scrape import main
+from Weather_test import _main_
 
-def add_month(weather_file, year):
+def add_month(weather, year):
     months = []
 
     for i in range(1,13):
@@ -13,91 +15,36 @@ def add_month(weather_file, year):
 
     months = np.array(months)
     months = pd.DataFrame(months)
-    weather = pd.read_csv(weather_file)
-    del weather["Unnamed: 0"]
     weather["month"] = months
-    weather.to_csv(weather_file)
+    return weather
 
+def solar_csv(solar):
+    solar = solar[solar["Generated"] != 0.0]
+    solar = solar.sort_values("Date")
+    solar = solar.reset_index(drop=True)
+    return solar
 
-def make_solarcsv(solar_file, postal_code, year):
-    new_file_name = str(postal_code) + "_" + str(year) + "_S.csv"
-    new_file = open(new_file_name, "w")
+def weather_csv(solar, weather):
+    date = solar["Date"]
+    new = pd.DataFrame(weather[:0])
+    for row in date:
+        w = weather.loc[weather["time"] == row]
+        new = new.append(w)
+    new = new.reset_index(drop=True)
+    return new
 
-    with open(solar_file, "rU") as csvfile1:
-        solardata = csv.reader(csvfile1)
+def match_data(postalcode, year, id, sid):
+    solar_file = str(postalcode) + "_" + str(year) + "_S.csv"
+    weather_file = str(postalcode) + "_" + str(year) + "_W.csv"
 
-        count = 0
-        for row in solardata:
-            if count == 0:
-                firstvalue = True
-                for value in row:
-                    if firstvalue == True:
-                        new_file.write(str(value))
-                        firstvalue = False
-                    else:
-                        new_file.write("," + str(value))
-                new_file.write("\n")
+    solarpanel = main(1, year, 1, year+1, id, sid)
+    weather = _main_(postalcode, year)
 
-            if row[1] != "0000" and count != 0:
-                firstvalue = True
-                for value in row:
-                    if firstvalue == True:
-                        new_file.write(str(value))
-                        firstvalue = False
-                    else:
-                        new_file.write("," + str(value))
-                new_file.write("\n")
+    weather = add_month(weather, year)
+    solarpanel = solar_csv(solarpanel)
+    weather = weather_csv(solarpanel, weather)
 
-            count += 1
+    weather.to_csv(solar_file)
+    solarpanel.to_csv(weather_file)
 
-    csvfile1.close()
-    new_file.close()
-    return(new_file_name)
-
-
-def make_weathercsv(solarcsv, weather_file, postal_code, year):
-    with open(weather_file, "rU") as csvfile2, open(solarcsv, "rU") as csvfile1:
-        weather = csv.reader(csvfile2)
-        solar = csv.reader(csvfile1)
-        new_file = open(str(postal_code) + "_" + str(year) + "_W.csv", "w")
-
-        count = 0
-
-        for row1 in solar:
-            file = open(weather_file, "rU")
-            weather = csv.reader(file, delimiter=",")
-
-            for row2 in weather:
-                if count == 0:
-                    firstvalue = True
-                    for value in row2:
-                        if firstvalue == True:
-                            new_file.write(str(value))
-                            firstvalue = False
-                        else:
-                            new_file.write("," + str(value))
-                    new_file.write("\n")
-
-                if row1[0] == row2[1] and count != 0:
-
-                    firstvalue = True
-                    for value in row2:
-                        if firstvalue == True:
-                            new_file.write(str(value))
-                            firstvalue = False
-                        else:
-                            new_file.write("," + str(value))
-                    new_file.write("\n")
-
-                    break;
-
-                count += 1
-
-        csvfile1.close()
-        csvfile2.close()
-        new_file.close()
-
-if __name__ == "__main__":
-    add_month("2013_2201_W.csv", 2013)
-    solarcsv = make_solarcsv("2013_2201_S.csv", "2201", "2013")
-    make_weathercsv(solarcsv, "2013_2201_W.csv", "2201", "2013")
+match_data(7325, 2013,"13448", "13242")

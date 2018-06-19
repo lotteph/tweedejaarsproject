@@ -1,2 +1,0 @@
-    strdate = "[" + str(date.year) + "]" + "-[" + str(date.month) + "]-[" + str(date.day) + "]T[00]:[00]:[00]"
-    print(strdate)

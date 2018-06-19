@@ -3,13 +3,11 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import time
 import calendar
-
-# The output file.
-FILE = "temp.csv"
+import pandas as pd
 
 # The first row in the output file.
-COLUMNS = ("Date,Generated,Efficiency,Number_of_panels,Max_power,System_size,"
-    + "Number_of_inverters,Inverter_size,Postcode,Install_date,Tilt\n")
+COLUMNS = ["Date","Generated","Efficiency","Number_of_panels","Max_power","System_size",
+"Number_of_inverters","Inverter_size","Postcode","Install_date","Tilt"]
 
 def panel_info(begin_date, end_date, id, sid):
     ''' Function to scrape the information from the solarpanel used
@@ -45,14 +43,14 @@ def panel_info(begin_date, end_date, id, sid):
         counter += 1
     return output[:-1]
 
-def add_data(data, panel, file):
+def add_data(data, panel,df):
     ''' Function to write data in a csv file. It adds both generated
         energy and the panel data itself.
     '''
     for row in data:
         cells = row.findAll("td")
         counter = 0
-
+        info = []
         for cell in cells:
             # Changes the date to year month day notation.
             if counter == 0:
@@ -60,25 +58,26 @@ def add_data(data, panel, file):
                 dt = datetime.strptime(text, "%d/%m/%y")
                 unix = datetime(dt.year, dt.month, dt.day, 0, 0)
                 unix = time.mktime(unix.timetuple())
-                file.write(str(unix))
+                info.append(unix)
 
             # Strips the energy values from their unit of measurements.
             if 0 < counter < 3:
                 text = cell.text
                 text = text.replace("kWh/kW", "")
                 text = text.replace("kWh", "")
-                file.write("," + text)
+                info.append(text)
 
             # Strips the panel information from their unit measurements.
             if counter == 3:
                 for item in panel:
                     item = item.replace("W", "")
                     item = item.replace(" Degrees", "")
-                    file.write("," + item)
-                file.write("\n")
+                    info.append(item)
             counter += 1
+        df.loc[len(df)] = info
+    return df
 
-def retrieve_data(begin_date, end_date, panel, file, second, id, sid):
+def retrieve_data(begin_date, end_date, panel, df, second, id, sid):
     ''' Scrapes energy data from pvoutput.org per month given the begin and end
         date. When the month has 31 days the data is located on two pages. In
         that case both pages get scraped.
@@ -91,14 +90,15 @@ def retrieve_data(begin_date, end_date, panel, file, second, id, sid):
     page = urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
     data = soup.findAll("tr", attrs={"class": ["e2", "o2"]})
-    add_data(data, panel, file)
+    df = add_data(data, panel, df)
 
     # If there is a second page scrape that page to.
     if second == True:
         sec_page = urlopen(sec_url)
         sec_soup = BeautifulSoup(sec_page, "html.parser")
         data = sec_soup.findAll("tr", attrs={"class": ["e2", "o2"]})
-        add_data(data, panel, file)
+        df = add_data(data, panel, df)
+    return df
 
 def main(m, y, end_m, end_y, id, sid):
     ''' Runs all the functions to create a csv file with all the
@@ -114,8 +114,7 @@ def main(m, y, end_m, end_y, id, sid):
         end = str(y) + str(m) + str(end_d[1])
 
     panel = panel_info(begin, end, id, sid)
-    csv_file = open(FILE,"a")
-    csv_file.write(COLUMNS)
+    df = pd.DataFrame(columns = COLUMNS)
 
     # Retrieves data for each month
     while y != end_y or m != end_m:
@@ -130,17 +129,14 @@ def main(m, y, end_m, end_y, id, sid):
         if end_d[1] > 30:
             time.sleep(.5)
             # Change to False when there are no second pages.
-            retrieve_data(begin, end, panel, csv_file, True, id, sid)
+            df = retrieve_data(begin, end, panel, df, True, id, sid)
         else:
             time.sleep(.5)
-            retrieve_data(begin, end, panel, csv_file, False, id, sid)
+            df = retrieve_data(begin, end, panel, df, False, id, sid)
 
         if m != 12:
             m += 1
         else:
             y += 1
             m = 1
-    csv_file.close()
-
-if __name__ == "__main__":
-    main(1, 2013, 1, 2014, "13448", "13242")
+    return df
