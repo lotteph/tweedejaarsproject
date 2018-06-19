@@ -5,6 +5,10 @@ import tensorflow as tf
 import sys
 from sklearn.utils import shuffle
 
+# Disables the warnings
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 STEP_SIZE = 100
 LEARNING_RATE = 0.00005
 
@@ -83,8 +87,10 @@ model = nn_model(xs,1)
 cost = tf.reduce_mean(tf.square(model-ys))
 
 # Gradinent Descent optimiztion just discussed above for updating weights and biases
-train = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cost)
+#train = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cost)
 #train = tf.train.AdamOptimizer(LEARNING_RATE).minimize(cost)
+#train = tf.train.RMSPropOptimizer(LEARNING_RATE).minimize(cost)
+train = tf.train.MomentumOptimizer(LEARNING_RATE, momentum=0.001).minimize(cost)
 
 c_t = []
 
@@ -93,7 +99,8 @@ with tf.Session() as sess:
 
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
-    #saver.restore(sess, '/home/cait/tweedejaarsproject/NN/dataset.ckpt')
+    #saved_model_name = input('Name of model: ')
+    #saver.restore(sess, './' + saved_model_name + '.ckpt')
 
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
@@ -108,16 +115,13 @@ with tf.Session() as sess:
 
     #predict output of test data after training
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,sizes)})
-    print(len(predict))
-    print(len(x_test.reshape(-1,sizes)))
-    AV = sum(np.square(np.mean(predict))-y_test)
 
     print("Error: ", predict[-1][0])
-    #print("OMG HET LEEFT")
 
-    if input('Save model ? [Y/N]').upper() == 'Y':
-       saver.save(sess,'/home/cait/tweedejaarsproject/NN/dataset.ckpt')
-       print('Model Saved')
+    if input('Save model ? [Y/N] ').upper() == 'Y':
+        new_model_name = input('Please name the file: ')
+        saver.save(sess, './' + new_model_name + '.ckpt')
+        print('Model Saved')
 
 # Later, launch the model, use the saver to restore variables from disk, and
 # do some work with the model.
