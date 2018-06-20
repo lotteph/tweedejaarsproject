@@ -9,7 +9,7 @@ from sklearn.utils import shuffle
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-STEP_SIZE = 400
+STEP_SIZE = 100
 LEARNING_RATE = 0.0005
 
 def make_csv(solar, weather):
@@ -23,20 +23,28 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-years = ["2013","2014","2015","2016","2017","2018"]
-postal_code = "7559"
-W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
-SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
-results = np.array(SP["Generated"])
-for year in range(1,len(years)):
-    W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
-    W = pd.DataFrame.append(W,W2)
-    SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
-    SP = pd.DataFrame.append(SP,SP2)
+years = ["2013","2014"]
+postal_code = ["7559", "7325", "2201", "2134"]
+SP = False
+W = False
+for code in range(0,len(postal_code)):
+    for year in range(0,len(years)):
+        W2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_W.csv")
+        if type(W) != type(False):
+            W = pd.DataFrame.append(W,W2)
+        else:
+            W = W2
+        SP2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_S.csv")
+        if type(SP) != type(False):
+            SP = pd.DataFrame.append(SP,SP2)
+        else:
+            SP = SP2
 results = np.array(SP["Generated"])
 nr_features = 13
 
-W = (W.values)
+W["time"] = 0
+W = (make_csv(SP, W))
+
 train_size = len(results)-365
 
 x_train = W[:train_size,:].transpose()
@@ -81,10 +89,10 @@ ys = tf.placeholder("float")
 
 model = nn_model(xs, nr_features)
 
-# Mean squared error cost function
+# our mean squared error cost function
 cost = tf.reduce_mean(tf.square(model-ys))
 
-# Gradient Descent optimiztion just discussed above for updating weights and biases
+# Gradinent Descent optimiztion just discussed above for updating weights and biases
 #train = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cost)
 #train = tf.train.AdamOptimizer(LEARNING_RATE).minimize(cost)
 #train = tf.train.RMSPropOptimizer(LEARNING_RATE).minimize(cost)
@@ -97,24 +105,21 @@ with tf.Session() as sess:
 
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
-    #saved_model = input('Name of the model: ')
-    #saver.restore(sess, '/models/' + saved_model + '.ckpt')
+    #saver.restore(sess, '/home/cait/tweedejaarsproject/NN/dataset.ckpt')
 
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
-        for j in range(x_train.shape[0]):
-            print(len(x_train[j:]), len(x_train))
-            dicti = {xs:x_train[j:].reshape(-1,nr_features), ys: y_train[j]} #size -1 for unspecified
-            sess.run([cost, train], feed_dict = dicti)
+       for j in range(x_train.shape[0]):
+           dicti = {xs:x_train[j:].reshape(-1,nr_features), ys: y_train[j]} #size -1 for unspecified
+           sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
-        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,nr_features), ys:y_train}))
-        if i%10 == 0:
-            print("Step:", i, ", Cost:", c_t[i])
+       c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,nr_features), ys:y_train}))
+       if i%10 == 0:
+           print("Step:", i, ", Cost:", c_t[i])
 
     #predict output of test data after training
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,nr_features)})
-    #print(predict)
 
     print("Error: ", predict[-1][0])
 

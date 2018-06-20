@@ -1,0 +1,28 @@
+Scrum Meeting 0620
+
+Wat hebben we gedaan?
+Silke: Naar de code voor het neural netwerk gekeken en geprobeerd het netwerk
+    te runnen voor meerdere solar panels. Dat is gelukt, maar de input stond nog op data.
+    Het runnen voor meerdere solar panels met de features als input werkt nog niet.
+    (een rare error). Verder een opzet voor het verslag gemaakt met kopjes en wat
+    daaronder verteld moet worden. Begonnen aan de inleiding schrijven.
+Anne-Ruth: Matchen en scrapen en API samengevoegd. Het werkt allemaal met panda's
+        en er komen uiteindelijk twee gematched csv's uit die gesorteerd zijn.
+        Ze heeft gekeken naar recurrent neural networks. Geprobeerd het te runnen.
+        Nu is de input nog niet goed. Extra solar panel locaties toevoegen aan database.
+Bas: Data gedownload, maar er was iets fout gegaan dus dat is weer verwijderd.
+    Weather_test aangepast naar pandas. Gekeken naar recurrent neural network.
+Cait:
+Lotte: Bezig geweest met optimaliseren van neural network voor een solar panel.
+        Geprobeerd de error op te lossen die voorkomt bij meerdere solar panels.
+
+Wat moeten we nog doen?
+    - Meer data downloaden. (Bas)
+    - Uiteindelijk model voor regression opslaan.
+    - Error meerdere postcodes bij neural network oplossen. (Lotte en Silke)
+    - Recurrent neural network maken. (Ruth en Bas)
+    - Belangrijke features bepalen.
+    - Code opschonen.
+    - UI maken
+	- NN.py opschonen
+    - verslag maken.

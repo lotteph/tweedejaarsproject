@@ -9,7 +9,7 @@ from sklearn.utils import shuffle
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-STEP_SIZE = 400
+STEP_SIZE = 50
 LEARNING_RATE = 0.0005
 
 def make_csv(solar, weather):
@@ -23,26 +23,37 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-years = ["2013","2014","2015","2016","2017","2018"]
-postal_code = "7559"
-W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
-SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
+years = ["2013","2014"]
+postal_code = ["7559", "7325", "2201", "2134"]
+SP = False
+W = False
+for code in range(0,len(postal_code)):
+    for year in range(0,len(years)):
+        W2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_W.csv")
+        if type(W) != type(False):
+            W = pd.DataFrame.append(W,W2)
+        else:
+            W = W2
+        SP2 = pd.read_csv("../data/"+postal_code[code]+ "_" + years[year] + "_S.csv")
+        if type(SP) != type(False):
+            SP = pd.DataFrame.append(SP,SP2)
+        else:
+            SP = SP2
 results = np.array(SP["Generated"])
-for year in range(1,len(years)):
-    W2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_W.csv")
-    W = pd.DataFrame.append(W,W2)
-    SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
-    SP = pd.DataFrame.append(SP,SP2)
-results = np.array(SP["Generated"])
-nr_features = 13
+nr_features = 18
 
-W = (W.values)
+W["time"] = 0
+W = (make_csv(SP, W))
+print(len(W), len(W[0]))
+
 train_size = len(results)-365
 
 x_train = W[:train_size,:].transpose()
+print(len(x_train), len(x_train[0]))
 x_test =  W[train_size:,:].transpose()
 y_train = results[:train_size].transpose()
 y_test = results[train_size:].transpose()
+print(x_train.shape[0])
 
 def nn_model(x_data, input_dim):
     Weights_1 = tf.Variable(tf.random_uniform([input_dim, 16]))
@@ -101,10 +112,14 @@ with tf.Session() as sess:
     #saver.restore(sess, '/models/' + saved_model + '.ckpt')
 
     # run with each sample for cost and train
+    print(len(x_train), len(x_train[0]))
+
     for i in range(STEP_SIZE):
         for j in range(x_train.shape[0]):
-            print(len(x_train[j:]), len(x_train))
-            dicti = {xs:x_train[j:].reshape(-1,nr_features), ys: y_train[j]} #size -1 for unspecified
+            print("x_train j", len(x_train[j:]), len(x_train))
+            print(j)
+            dicti = {xs: x_train[j:].reshape(-1, nr_features), ys: y_train[j]} #size -1 for unspecified
+            print(dicti)
             sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
