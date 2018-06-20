@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+np.set_printoptions(threshold=np.nan)
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import sys
@@ -44,16 +45,18 @@ nr_features = 18
 
 W["time"] = 0
 W = (make_csv(SP, W))
-print(len(W), len(W[0]))
 
 train_size = len(results)-365
 
 x_train = W[:train_size,:].transpose()
-print(len(x_train), len(x_train[0]))
 x_test =  W[train_size:,:].transpose()
 y_train = results[:train_size].transpose()
 y_test = results[train_size:].transpose()
-print(x_train.shape[0])
+
+X_train = scaler.fit_transform(axis=1).as_matrix())
+y_train = scaler.fit_transform(y_train.as_matrix())
+X_test = scaler.fit_transform(axis=1).as_matrix())
+y_test = scaler.fit_transform(y_test.as_matrix())
 
 def nn_model(x_data, input_dim):
     Weights_1 = tf.Variable(tf.random_uniform([input_dim, 16]))
@@ -112,24 +115,21 @@ with tf.Session() as sess:
     #saver.restore(sess, '/models/' + saved_model + '.ckpt')
 
     # run with each sample for cost and train
-    print(len(x_train), len(x_train[0]))
+    print(len(X_train), len(X_train[0]))
 
     for i in range(STEP_SIZE):
-        for j in range(x_train.shape[0]):
-            print("x_train j", len(x_train[j:]), len(x_train))
-            print(j)
-            dicti = {xs: x_train[j:].reshape(-1, nr_features), ys: y_train[j]} #size -1 for unspecified
-            print(dicti)
+        for j in range(x_train.shape[1]):
+            dicti = {xs: X_train[:,j].reshape(-1, nr_features), ys: y_train[j]} #size -1 for unspecified
             sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
-        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,nr_features), ys:y_train}))
+        c_t.append(sess.run(cost, feed_dict={xs:X_train.reshape(-1,nr_features), ys:y_train}))
         if i%10 == 0:
             print("Step:", i, ", Cost:", c_t[i])
 
     #predict output of test data after training
-    predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,nr_features)})
-    #print(predict)
+    predict = sess.run(model, feed_dict={xs:X_test})
+    print(predict)
 
     print("Error: ", predict[-1][0])
 

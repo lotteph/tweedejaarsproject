@@ -9,6 +9,8 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import normalize
 
 def make_csv(solar, weather):
     new = weather
@@ -54,6 +56,13 @@ x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
+
+# NORMALIZE DATA:
+# scaler = MinMaxScaler(feature_range=(0, 1))
+# x_train = scaler.fit_transform(x_train)
+# x_test = scaler.fit_transform(x_test)
+# y_train = y_train/np.linalg.norm(y_train)
+# y_test = y_test/np.linalg.norm(y_test)
 
 offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
 

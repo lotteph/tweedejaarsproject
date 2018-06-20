@@ -9,7 +9,7 @@ from sklearn.utils import shuffle
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-STEP_SIZE = 400
+STEP_SIZE = 50
 LEARNING_RATE = 0.0005
 
 def make_csv(solar, weather):
@@ -38,6 +38,7 @@ nr_features = 13
 
 W = (W.values)
 train_size = len(results)-365
+print(len(W), len(W[0]))
 
 x_train = W[:train_size,:].transpose()
 x_test =  W[train_size:,:].transpose()
@@ -74,12 +75,12 @@ def nn_model(x_data, input_dim):
 
     model = tf.add(tf.matmul(layer_4, Weights_output), bias_output)
 
-    return model
+    return model, Weights_output, bias_output
 
 xs = tf.placeholder("float")
 ys = tf.placeholder("float")
 
-model = nn_model(xs, nr_features)
+model, W, b = nn_model(xs, nr_features)
 
 # Mean squared error cost function
 cost = tf.reduce_mean(tf.square(model-ys))
@@ -92,6 +93,8 @@ train = tf.train.MomentumOptimizer(LEARNING_RATE, momentum=0.0001).minimize(cost
 
 c_t = []
 
+optimizer = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cost)
+
 # run data through neural net
 with tf.Session() as sess:
 
@@ -102,9 +105,21 @@ with tf.Session() as sess:
 
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
-        for j in range(x_train.shape[0]):
-            print(len(x_train[j:]), len(x_train))
-            dicti = {xs:x_train[j:].reshape(-1,nr_features), ys: y_train[j]} #size -1 for unspecified
+
+    #     for (x, y) in zip(x_train, y_train):
+    #         sess.run(ocptimizer, feed_dict={xs: x, ys: y})
+    #
+    #     cost = sess.run(cost, feed_dict={xs: x_train, ys: y_train})
+    #     print(cost)
+    #
+    # plt.plot(x_train, y_train, 'ro', label='Original data')
+    # plt.plot(x_train, sess.run(W) * x_train + sess.run(b), label='Fitted line')
+    # plt.legend()
+    # plt.show()
+
+
+        for j in range(x_train.shape[1]):
+            dicti = {xs:x_train[:,j].reshape(-1, nr_features), ys: y_train[j]} #size -1 for unspecified
             sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
@@ -112,11 +127,19 @@ with tf.Session() as sess:
         if i%10 == 0:
             print("Step:", i, ", Cost:", c_t[i])
 
-    #predict output of test data after training
+    # predict output of test data after training
     predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,nr_features)})
-    #print(predict)
+    print(predict)
 
     print("Error: ", predict[-1][0])
+
+    plt.plot(range(y_test.shape[0]),y_test,label="Original Data")
+    plt.plot(range(y_test.shape[0]),predict,label="Predicted Data")
+    plt.legend(loc='best')
+    plt.ylabel('generated')
+    plt.xlabel('Days')
+    plt.title('dingen')
+    plt.show()
 
     if input('Save model ? [Y/N]').upper() == 'Y':
         new_model_name = input('Please name the file: ')
