@@ -36,7 +36,7 @@ for year in range(1,len(years)):
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
 
-W = (W.values)
+W = W.values
 train_size = len(results)-365
 
 x_train = W[:train_size,:]
@@ -113,8 +113,7 @@ def kn_opt(iterations):
     return(best, par)
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
-#print("ridge: ",ridge_regression([-5]))
-res = scipy.optimize.minimize(Bayes_regression,[0.000006,0.000006,0.000006,0.000006],method="L-BFGS-B")
-print("new bayes: ",Bayes_regression(res.x))
-# print("decision tree:", decision_tree())
-# print("KNN: ",kn_opt(5)[0])
+print("ridge: ",ridge_regression([-5]))
+print("new bayes: ",Bayes_regression([-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01]))
+print("decision tree:", decision_tree())
+print("KNN: ",kn_opt(5)[0])

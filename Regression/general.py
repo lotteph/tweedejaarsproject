@@ -23,7 +23,7 @@ def make_csv(solar, weather):
 
 years = ["2013","2014","2015","2016","2017","2018"]
 #years = ["2017"]
-postal_code = ["7325","7559","2201"]
+postal_code = ["7325","2201","7559","2134"]
 
 SP = False
 W = False
@@ -43,7 +43,7 @@ results = np.array(SP["Generated"])
 W["time"] = 0
 W = make_csv(SP,W)
 
-train_size = len(results)-365
+train_size = len(results)-365*5
 
 x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
@@ -89,15 +89,15 @@ def Bayes_regression(par):
     Bay = linear_model.BayesianRidge(alpha_1=alpha_1,alpha_2=alpha_2,lambda_1=lambda_1,lambda_2=lambda_2)
     Bay.fit(x_train,y_train)
     Bay_pred = Bay.predict(x_test)
-    # pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
-    # plt.plot(pre,label='predicted output',color="red")
-    # real = scipy.ndimage.gaussian_filter(y_test,5)
-    # plt.plot(real,label='real output',color="blue")
-    # plt.legend()
-    # plt.xlabel("time (days)")
-    # plt.ylabel("solar panel output (kWh)")
-    # plt.title("bayes predicted vs real output of 2017")
-    # plt.show()
+    pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("bayes predicted vs real output of 2017")
+    plt.show()
     return sum(np.square(Bay_pred-y_test))/len(y_test)
 
 def decision_tree():
@@ -143,8 +143,6 @@ def kn_opt(iterations):
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 print("ridge: ",ridge_regression([-5]))
-res = scipy.optimize.minimize(Bayes_regression,[0.000006,0.000006,0.000006,0.000006],method="L-BFGS-B")
-print(res.x)
-print("new bayes: ",Bayes_regression(res.x))
-#print("decision tree:", decision_tree())
-#print("KNN: ",k_nearest([1]))
+print("new bayes: ",Bayes_regression([0.00980137, -0.00372394, -0.00682109, -0.04635455]))
+print("decision tree:", decision_tree())
+print("KNN: ",k_nearest([1]))
