@@ -44,8 +44,8 @@ def match_data(postalcode, year, id, sid):
     solarpanel = solar_csv(solarpanel)
     weather = weather_csv(solarpanel, weather)
 
-    weather.to_csv(solar_file)
-    solarpanel.to_csv(weather_file)
+    weather.to_csv(weather_file)
+    solarpanel.to_csv(solar_file)
 
 for y in [2015,2016]:
     match_data(6591, y,"14531", "12383")
