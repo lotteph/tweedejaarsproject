@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-model_checkpoint_path: "yoss.ckpt"
-all_model_checkpoint_paths: "yoss.ckpt"
-=======
-model_checkpoint_path: "Hoopvol.ckpt"
-all_model_checkpoint_paths: "Hoopvol.ckpt"
->>>>>>> a51bfb5138110a97529cf2fee353cf629c4a6587
+model_checkpoint_path: "3layer_batch32_epoch500.ckpt"
+all_model_checkpoint_paths: "3layer_batch32_epoch500.ckpt"
