@@ -29,12 +29,12 @@ W = False
 print(data.keys())
 for code in postal_codes:
     for year in data[code]:
-        W2 = pd.read_csv("../data/"+str(code)+ "_" + str(year) + "_W.csv")
+        W2 = pd.read_csv("data/"+str(code)+ "_" + str(year) + "_W.csv")
         if type(W) != type(False):
             W = pd.DataFrame.append(W,W2)
         else:
             W = W2
-        SP2 = pd.read_csv("../data/"+ str(code) + "_" + str(year) + "_S.csv")
+        SP2 = pd.read_csv("data/"+ str(code) + "_" + str(year) + "_S.csv")
         if type(SP) != type(False):
             SP = pd.DataFrame.append(SP,SP2)
         else:
