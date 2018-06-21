@@ -1,0 +1,26 @@
+Scrum Meeting 0621
+
+Wat hebben we gedaan?
+Silke:  Bug neural network geprobeerd op te lossen. Geconcludeerd dat de uitkomst
+        van het neural network niet klopte. Geprobeerd een nieuw neural network
+        te trainen met Tensorflow, maar niet gelukt.
+Anne-Ruth: Nieuw recurrent neural network gebouwd from scratch. Eerst een paar
+        bestaande geprobeerd. Dat neural network getraind, aanpassingen gemaakt
+        en geprobeerd te optimaliseren. Extra postcodes uitgezocht om te scrapen.
+Cait:   Geprobeerd het neural network te laten werken. Begonnen aan de inleiding
+        van het verslag.
+Lotte:  Neural network van internet werkend gekregen op onze data. Dat neural network
+        getraind en geprobeerd het te optimaliseren.
+Bas:    Nieuwe error methode toegevoegd aan regression. Deze kan ook worden gebruikt
+        bij neural network. Alle data in een dict gezet voor de algoritmes. Data
+        gedownload. Neural network met sklearn gebouwd.
+
+Wat moeten we nog doen?
+    - parameters bekijken bij regression (Silke)
+    - neural networks vergelijken
+    - optimale parameters voor neural network kiezen (Anne-Ruth, Lotte)
+    - een algemeen model trainen voor elk neural network (Anne-Ruth, Lotte)
+    - aan het verslag werken (Caitlin)
+    - parameters bij neural network bekijken
+    - mainfile maken(?)
+    - mogelijke errors opvangen in code

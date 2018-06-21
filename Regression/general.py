@@ -30,7 +30,8 @@ data["2134"] = range(2013,2019)
 data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
-postal_codes = ["7325","7559","2134","2201","6591","3481"]
+data["5384"] = range(2013,2016)
+postal_codes = ["7325","7559","2134","2201","6591","3481", "5384"]
 SP = False
 W = False
 print(data.keys())
@@ -48,6 +49,8 @@ for code in postal_codes:
             SP = SP2
 results = np.array(SP["Generated"]/SP["Number_of_panels"]/SP["Max_power"])
 W["time"] = 0
+# W["sunsetTime"] = 0
+# W["sunriseTime"] = 0
 W = make_csv(SP,W)
 
 train_size = len(results)-365*3
@@ -154,7 +157,7 @@ def kn_opt(iterations):
 
 mean = np.mean(y_train)+np.zeros(len(y_test))
 print("base: ",np.sqrt(sum(np.square(mean-y_test)*offset)/len(y_test)))
-print("ridge: ",ridge_regression([-5]))
+# print("ridge: ",ridge_regression([-5]))
 print("bayes: ",Bayes_regression([0.00980137, -0.00372394, -0.00682109, -0.04635455]))
-print("decision tree:", decision_tree())
-print("KNN: ",k_nearest([1]))
+# print("decision tree:", decision_tree())
+# print("KNN: ",k_nearest([1]))
