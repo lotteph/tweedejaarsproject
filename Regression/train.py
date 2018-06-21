@@ -10,8 +10,6 @@ from sklearn.externals import joblib
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import normalize
 
 def make_csv(solar, weather):
     new = weather
@@ -25,7 +23,12 @@ def make_csv(solar, weather):
     return np.array(new)
 
 years = ["2013","2014","2015","2016","2017"]
+<<<<<<< HEAD
 postal_code = "2201"
+=======
+#years = ["2015","2017","2016"]
+postal_code = "7559"
+>>>>>>> d33158ca9cdeab49fe959289d3e6716b9bd6ae18
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
 SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
@@ -36,22 +39,19 @@ for year in range(1,len(years)):
     W["time"] = 0
     SP2 = pd.read_csv("../data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
-results = np.array(SP["Generated"])
 
-W = (W.values)
-train_size = len(results)-365
+results = np.array(SP["Generated"]/SP["Number_of_panels"]/SP["Max_power"])
+W["time"] = 0
+W = W.values
+
+train_size = len(results)-365*1
 
 x_train = W[:train_size,:]
 x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
-# NORMALIZE DATA:
-# scaler = MinMaxScaler(feature_range=(0, 1))
-# x_train = scaler.fit_transform(x_train)
-# x_test = scaler.fit_transform(x_test)
-# y_train = y_train/np.linalg.norm(y_train)
-# y_test = y_test/np.linalg.norm(y_test)
+offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
 
 def ridge_regression(par):
     alpha = par[0]
@@ -67,8 +67,8 @@ def ridge_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("ridge predicted vs real output of 2017")
     plt.show()
-    error = np.square(ridge_pred-y_test)
-    return sum(error)/len(y_test)
+    error = np.square(ridge_pred-y_test)*offset
+    return np.sqrt(sum(error)/len(y_test))
 
 def Bayes_regression(par):
     alpha_1 = par[0]
@@ -87,7 +87,11 @@ def Bayes_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("bayes predicted vs real output of 2017")
     plt.show()
+<<<<<<< HEAD
     return sum(np.square(Bay_pred-y_test))/len(y_test)
+=======
+    return np.sqrt(sum(np.square(Bay_pred-y_test)*offset)/len(y_test))
+>>>>>>> d33158ca9cdeab49fe959289d3e6716b9bd6ae18
 
 def decision_tree():
     dec = DecisionTreeRegressor(min_samples_split=0.1, presort=True)
@@ -102,14 +106,14 @@ def decision_tree():
     plt.ylabel("solar panel output (kWh)")
     plt.title("decision tree predicted vs real output of 2017")
     plt.show()
-    return sum(np.square(pred-y_test))/len(y_test)
+    return np.sqrt(sum(np.square(pred-y_test))/len(y_test))*offset
 
 def k_nearest(par):
     neighbors = par[0]
     neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
     neigh.fit(x_train, y_train)
     neigh_pred = neigh.predict(x_test)
-    return sum(np.square(neigh_pred-y_test))/len(y_test)
+    return np.sqrt(sum(np.square(neigh_pred-y_test))/len(y_test))*offset
 
 def kn_opt(iterations):
     best = 999999999999999999
@@ -121,11 +125,17 @@ def kn_opt(iterations):
             par = [i]
     return(best, par)
 
+<<<<<<< HEAD
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
 print("ridge: ",ridge_regression([-5]))
 res = scipy.optimize.minimize(Bayes_regression,[0.000006,0.000006,0.000006,0.000006],method="L-BFGS-B")
 print(res.x)
 print("old bayes: ",Bayes_regression([0.000006,0.000006,0.000006,0.000006]))
 print("new bayes: ",Bayes_regression(res.x))
+=======
+print("base: ",np.sqrt(sum(np.square(np.mean(y_train)-y_test))/len(y_test))*offset)
+print("ridge: ",ridge_regression([-5]))
+print("new bayes: ",Bayes_regression([-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01]))
+>>>>>>> d33158ca9cdeab49fe959289d3e6716b9bd6ae18
 print("decision tree:", decision_tree())
 print("KNN: ",kn_opt(5)[0])
