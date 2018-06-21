@@ -63,8 +63,8 @@ def ridge_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("ridge predicted vs real output of 2017")
     plt.show()
-    error = np.square(ridge_pred-y_test)
-    return np.sqrt(sum(error)/len(y_test))*offset
+    error = np.square(ridge_pred-y_test)*offset
+    return np.sqrt(sum(error)/len(y_test))
 
 def Bayes_regression(par):
     alpha_1 = par[0]
