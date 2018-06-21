@@ -63,8 +63,8 @@ def get_data(longitude,latitude,year):
         Comment the line below and uncomment the line
         below that to reduce the amount of API requests
         '''
-        # for day in range(1,calendar.monthrange(year,month)[1]+1):
-        for day in range(1,2):
+        for day in range(1,calendar.monthrange(year,month)[1]+1):
+        #for day in range(1,2):
             date = datetime.date(year,month,day)
             data[nday] = get_weather(longitude,latitude,date)
             nday += 1
