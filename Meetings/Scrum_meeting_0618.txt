@@ -6,7 +6,7 @@ samen:  Presentatie voorbereid en gehouden op vrijdag.
 Silke:  Slides voor presentatie gemaakt.
 Cait:   Aan het neural netwerk gewerkt: Het neural network kan worden
         opgeslagen. De input is veranderd naar features. Getweaked met parameters.
-Lotte:
+Lotte:  Neural network geprobeerd te optimaliseren
 Ruth:   Solar panel data gescraped.
 Bas:    Weer data gedownload.
 
