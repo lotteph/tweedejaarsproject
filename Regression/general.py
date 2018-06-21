@@ -30,7 +30,7 @@ data["2134"] = range(2013,2019)
 data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
-postal_codes = ["3481"]
+postal_codes = ["7325","7559","2134","2201","6591","3481"]
 SP = False
 W = False
 print(data.keys())
@@ -57,18 +57,7 @@ x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
-<<<<<<< HEAD
 offset = SP["Number_of_panels"].values[train_size:]*SP["Max_power"].values[train_size:]
-=======
-# NORMALIZE DATA:
-# scaler = MinMaxScaler(feature_range=(0, 1))
-# x_train = scaler.fit_transform(x_train)
-# x_test = scaler.fit_transform(x_test)
-# y_train = y_train/np.linalg.norm(y_train)
-# y_test = y_test/np.linalg.norm(y_test)
-
-offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
->>>>>>> f6de81c002f5ce631c3b445ac9b56428c8e2045d
 
 def ridge_regression(par):
     alpha = par[0]

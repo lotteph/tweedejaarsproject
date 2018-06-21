@@ -83,7 +83,7 @@ def Bayes_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("bayes predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square(Bay_pred-y_test))/len(y_test))*offset
+    return np.sqrt(sum(np.square(Bay_pred-y_test)*offset)/len(y_test))
 
 def decision_tree():
     dec = DecisionTreeRegressor(min_samples_split=0.1, presort=True)
