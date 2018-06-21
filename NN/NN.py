@@ -9,8 +9,8 @@ from sklearn.utils import shuffle
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-STEP_SIZE = 500
-LEARNING_RATE = 0.0001
+STEP_SIZE = 400
+LEARNING_RATE = 0.0005
 
 def make_csv(solar, weather):
     new = weather
@@ -56,9 +56,52 @@ for year in range(1,len(years)):
     SP2 = pd.read_csv("../NN/data/"+postal_code+ "_" + years[year] + "_S.csv")
     SP = pd.DataFrame.append(SP,SP2)
 results = np.array(SP["Generated"])
-W = (W.values)
+nr_features = 13
 
+W = (W.values)
 train_size = len(results)-365
+
+x_train = W[:train_size,:].transpose()
+x_test =  W[train_size:,:].transpose()
+y_train = results[:train_size].transpose()
+y_test = results[train_size:].transpose()
+
+def nn_model(x_data, input_dim):
+    Weights_1 = tf.Variable(tf.random_uniform([input_dim, 16]))
+    bias_1 = tf.Variable(tf.zeros([16]))
+
+    layer_1 = tf.add(tf.matmul(x_data, Weights_1), bias_1)
+    layer_1 = tf.nn.relu(layer_1)
+
+    Weights_2 = tf.Variable(tf.random_uniform([16, 8]))
+    bias_2 = tf.Variable(tf.zeros([8]))
+
+    layer_2 = tf.add(tf.matmul(layer_1, Weights_2), bias_2)
+    layer_2 = tf.nn.relu(layer_2)
+
+    Weights_3 = tf.Variable(tf.random_uniform([8, 8]))
+    bias_3 = tf.Variable(tf.zeros([8]))
+
+    layer_3 = tf.add(tf.matmul(layer_2, Weights_3), bias_3)
+    layer_3 = tf.nn.relu(layer_3)
+
+    Weights_4 = tf.Variable(tf.random_uniform([8, 4]))
+    bias_4 = tf.Variable(tf.zeros(4))
+
+    layer_4 = tf.add(tf.matmul(layer_3, Weights_4), bias_4)
+    layer_4 = tf.nn.relu(layer_4)
+
+    Weights_output = tf.Variable(tf.random_uniform([4, 1])) #dtype=tf.float32
+    bias_output = tf.Variable(tf.zeros([1]))
+
+    model = tf.add(tf.matmul(layer_4, Weights_output), bias_output)
+    print(model)
+    return model
+
+xs = tf.placeholder("float")
+ys = tf.placeholder("float")
+
+model = nn_model(xs, nr_features)
 
 sizes = W.shape[1]
 
@@ -80,16 +123,17 @@ with tf.Session() as sess:
     # run with each sample for cost and train
     for i in range(STEP_SIZE):
         for j in range(x_train.shape[0]):
-            dicti = {xs:x_train[j:].reshape(-1, sizes), ys: y_train[j]} #size -1 for unspecified
+            dicti = {xs:x_train[j:].reshape(-1,nr_features), ys: y_train[j]} #size -1 for unspecified
             sess.run([cost, train], feed_dict = dicti)
 
         # print each individual cost
-        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,sizes), ys:y_train}))
+        c_t.append(sess.run(cost, feed_dict={xs:x_train.reshape(-1,nr_features), ys:y_train}))
         if i%10 == 0:
             print("Step:", i, ", Cost:", c_t[i])
 
     #predict output of test data after training
-    predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,sizes)})
+    predict = sess.run(model, feed_dict={xs:x_test.reshape(-1,nr_features)})
+    print(predict)
 
     print("Error: ", predict[-1][0])
 
