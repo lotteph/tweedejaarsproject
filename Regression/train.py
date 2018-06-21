@@ -25,7 +25,7 @@ def make_csv(solar, weather):
     return np.array(new)
 
 years = ["2013","2014","2015","2016","2017"]
-postal_code = "2134"
+postal_code = "2201"
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
 SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
@@ -78,15 +78,15 @@ def Bayes_regression(par):
     Bay = linear_model.BayesianRidge(alpha_1=alpha_1,alpha_2=alpha_2,lambda_1=lambda_1,lambda_2=lambda_2)
     Bay.fit(x_train,y_train)
     Bay_pred = Bay.predict(x_test)
-    # pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
-    # plt.plot(pre,label='predicted output',color="red")
-    # real = scipy.ndimage.gaussian_filter(y_test,5)
-    # plt.plot(real,label='real output',color="blue")
-    # plt.legend()
-    # plt.xlabel("time (days)")
-    # plt.ylabel("solar panel output (kWh)")
-    # plt.title("bayes predicted vs real output of 2017")
-    # plt.show()
+    pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("bayes predicted vs real output of 2017")
+    plt.show()
     return sum(np.square(Bay_pred-y_test))/len(y_test)
 
 def decision_tree():
@@ -122,10 +122,10 @@ def kn_opt(iterations):
     return(best, par)
 
 print("base: ",sum(np.square(np.mean(y_train)-y_test))/len(y_test))
-#print("ridge: ",ridge_regression([-5]))
+print("ridge: ",ridge_regression([-5]))
 res = scipy.optimize.minimize(Bayes_regression,[0.000006,0.000006,0.000006,0.000006],method="L-BFGS-B")
 print(res.x)
 print("old bayes: ",Bayes_regression([0.000006,0.000006,0.000006,0.000006]))
 print("new bayes: ",Bayes_regression(res.x))
-# print("decision tree:", decision_tree())
-# print("KNN: ",kn_opt(5)[0])
+print("decision tree:", decision_tree())
+print("KNN: ",kn_opt(5)[0])
