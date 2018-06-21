@@ -7,9 +7,9 @@ from Weather_test import _main_
 
 def add_month(weather, year):
     months = []
-
     for i in range(1,13):
         days = calendar.monthrange(year, i)
+        print(days)
         for j in range(days[1]):
             months.append(i)
 
@@ -47,5 +47,5 @@ def match_data(postalcode, year, id, sid):
     weather.to_csv(weather_file)
     solarpanel.to_csv(solar_file)
 
-for y in [2015,2016]:
-    match_data(6591, y,"14531", "12383")
+for y in [2016,2017]:
+    match_data(5384, y,"12596", "10530")

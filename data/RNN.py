@@ -18,12 +18,6 @@ from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 
-dtype = torch.FloatTensor
-input_size, hidden_size, output_size = 13, 5, 1
-epochs = 300
-seq_length = 20
-lr = 0.1
-
 def make_csv(solar, weather):
     new = weather
     del new["Unnamed: 0"]
@@ -35,7 +29,7 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-years = ["2013","2014","2015","2016","2017"]
+years = ["2013"]
 postal_code = "7559"
 
 W = pd.read_csv(postal_code+ "_" + years[0] + "_W.csv")
@@ -50,21 +44,16 @@ for year in range(1,len(years)):
 results = np.array(SP["Generated"])
 
 W = W.values
+
 train_size = len(results)-365
 
-x_train = W[:train_size,:]
-x_test =  W[train_size:,:]
-y_train = results[:train_size]
-y_test = results[train_size:]
+dtype = torch.FloatTensor
+input_size, hidden_size, output_size = 30, 17, 1
+epochs = 100
+lr = .1
 
-print(x_train.shape)
-
-data_time_steps = np.linspace(2, 10, seq_length + 1)
-data = np.sin(data_time_steps)
-data.resize((seq_length + 1, 1))
-
-x = Variable(torch.Tensor(np.transpose(x_train)).type(dtype), requires_grad=False)
-y = Variable(torch.Tensor(np.transpose(y_train)).type(dtype), requires_grad=False)
+x = Variable(torch.Tensor(W[:-1]).type(dtype), requires_grad=False)
+y = Variable(torch.Tensor(results[:-1]).type(dtype), requires_grad=False)
 
 w1 = torch.FloatTensor(input_size, hidden_size).type(dtype)
 init.normal(w1, 0.0, 0.4)
@@ -106,4 +95,5 @@ for i in range(x.size(0)):
   context_state = context_state
   predictions.append(pred.data.numpy().ravel()[0])
 plt.plot(predictions)
+plt.plot(results)
 plt.show()
