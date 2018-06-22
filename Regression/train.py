@@ -23,7 +23,7 @@ def make_csv(solar, weather):
     return np.array(new)
 
 years = ["2013","2014","2015","2016","2017"]
-postal_code = "2201"
+postal_code = "7559"
 #years = ["2015","2017","2016"]
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
@@ -37,6 +37,7 @@ for year in range(1,len(years)):
     SP = pd.DataFrame.append(SP,SP2)
 
 results = np.array(SP["Generated"]/SP["Number_of_panels"]/SP["Max_power"])
+
 W["time"] = 0
 # W["cloudCover"] = 0
 # W["sunsetTime"] = 0
@@ -45,9 +46,10 @@ W["time"] = 0
 # W["temperatureHigh"] = 0
 # W["temperatureMax"] = 0
 # W["temperatureMin"] = 0
-W["visibility"] = 0
+# W["visibility"] = 0
 # W["longitude"] = 0
 # W["latitude"] = 0
+# W["month"] = 0
 
 W = W.values
 
@@ -85,16 +87,16 @@ def Bayes_regression(par):
     Bay = linear_model.BayesianRidge(alpha_1=alpha_1,alpha_2=alpha_2,lambda_1=lambda_1,lambda_2=lambda_2)
     Bay.fit(x_train,y_train)
     Bay_pred = Bay.predict(x_test)
-    # pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
-    # plt.plot(pre,label='predicted output',color="red")
-    # real = scipy.ndimage.gaussian_filter(y_test,5)
-    # plt.plot(real,label='real output',color="blue")
-    # plt.legend()
-    # plt.xlabel("time (days)")
-    # plt.ylabel("solar panel output (kWh)")
-    # plt.title("bayes predicted vs real output of 2017")
-    # plt.show()
-    return np.sqrt(sum(np.square(Bay_pred-y_test)*offset)/len(y_test))
+    pre = scipy.ndimage.gaussian_filter(Bay_pred,5)
+    plt.plot(pre,label='predicted output',color="red")
+    real = scipy.ndimage.gaussian_filter(y_test,5)
+    plt.plot(real,label='real output',color="blue")
+    plt.legend()
+    plt.xlabel("time (days)")
+    plt.ylabel("solar panel output (kWh)")
+    plt.title("bayes predicted vs real output of 2017")
+    plt.show()
+    return np.sqrt(sum(np.square((Bay_pred-y_test)*offset))/len(y_test))
 
 
 def decision_tree():

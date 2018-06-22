@@ -26,12 +26,12 @@ def make_csv(solar, weather):
 data = dict()
 data["7325"] = range(2013,2019)
 data["7559"] = range(2013,2019)
-data["2134"] = range(2013,2019)
+data["2134"] = range(2009,2019)
 data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
 data["5384"] = range(2013,2016)
-postal_codes = ["7325","7559","2134","2201","6591","3481", "5384"]
+postal_codes = ["2134","7559", "2201", "6591", "7325" ,"5384","3481"]
 SP = False
 W = False
 print(data.keys())
@@ -112,7 +112,7 @@ def Bayes_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("bayes predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square(Bay_pred-y_test)*offset)/len(y_test))
+    return np.sqrt(sum(np.square((Bay_pred-y_test)*offset))/len(y_test))
 
 def decision_tree():
     dec = DecisionTreeRegressor()
