@@ -31,7 +31,7 @@ data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
 data["5384"] = range(2013,2016)
-postal_codes = ["2134","7559", "2201", "6591", "7325" ,"5384","3481"]
+postal_codes = ["2134","7559","2201","6591","7325","5384"]
 SP = False
 W = False
 print(data.keys())
@@ -60,7 +60,7 @@ x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
-offset = SP["Number_of_panels"].values[train_size:]*SP["Max_power"].values[train_size:]
+offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
 
 def ridge_regression(par):
     alpha = par[0]
@@ -112,7 +112,7 @@ def Bayes_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("bayes predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square((Bay_pred-y_test)*offset))/len(y_test))
+    return np.sqrt(np.sum(np.square(Bay_pred-y_test)))/len(y_test)*offset
 
 def decision_tree():
     dec = DecisionTreeRegressor()
