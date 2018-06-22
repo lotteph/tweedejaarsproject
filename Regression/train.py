@@ -23,7 +23,7 @@ def make_csv(solar, weather):
     return np.array(new)
 
 years = ["2013","2014","2015","2016","2017"]
-postal_code = "7559"
+postal_code = "2201"
 #years = ["2015","2017","2016"]
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
@@ -37,7 +37,6 @@ for year in range(1,len(years)):
     SP = pd.DataFrame.append(SP,SP2)
 
 results = np.array(SP["Generated"]/SP["Number_of_panels"]/SP["Max_power"])
-
 W["time"] = 0
 # W["cloudCover"] = 0
 # W["sunsetTime"] = 0
@@ -46,11 +45,9 @@ W["time"] = 0
 # W["temperatureHigh"] = 0
 # W["temperatureMax"] = 0
 # W["temperatureMin"] = 0
-# W["visibility"] = 0
+W["visibility"] = 0
 # W["longitude"] = 0
 # W["latitude"] = 0
-# W["month"] = 0
-
 W = W.values
 
 train_size = len(results)-365*1
@@ -76,8 +73,7 @@ def ridge_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("ridge predicted vs real output of 2017")
     plt.show()
-    error = np.square(ridge_pred-y_test)*offset
-    return np.sqrt(sum(error)/len(y_test))
+    return np.sqrt(np.sum(np.square(ridge_pred-y_test)))/len(y_test)*offset
 
 def Bayes_regression(par):
     alpha_1 = par[0]
@@ -96,7 +92,7 @@ def Bayes_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("bayes predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square((Bay_pred-y_test)*offset))/len(y_test))
+    return np.sqrt(np.sum(np.square(Bay_pred-y_test)))/len(y_test)*offset
 
 
 def decision_tree():
@@ -112,14 +108,14 @@ def decision_tree():
     plt.ylabel("solar panel output (kWh)")
     plt.title("decision tree predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square(pred-y_test))/len(y_test))*offset
+    return np.sqrt(np.sum(np.square(pred-y_test)))/len(y_test)*offset
 
 def k_nearest(par):
     neighbors = par[0]
     neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
     neigh.fit(x_train, y_train)
     neigh_pred = neigh.predict(x_test)
-    return np.sqrt(sum(np.square(neigh_pred-y_test))/len(y_test))*offset
+    return np.sqrt(np.sum(np.square(np.mean(neigh_pred)-y_test)))/len(y_test)*offset
 
 def kn_opt(iterations):
     best = 999999999999999999
@@ -131,7 +127,7 @@ def kn_opt(iterations):
             par = [i]
     return(best, par)
 
-print("base: ",np.sqrt(sum(np.square(np.mean(y_train)-y_test))/len(y_test))*offset)
+print("base: ", np.sqrt(np.sum(np.square(np.mean(y_train)-y_test)))/len(y_test)*offset)
 # print("ridge: ",ridge_regression([-5]))
 print("new bayes: ",Bayes_regression([-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01]))
 # print("decision tree:", decision_tree())
