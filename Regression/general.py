@@ -31,7 +31,7 @@ data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
 data["5384"] = range(2013,2016)
-postal_codes = ["2134","7559", "2201", "6591", "7325" ,"5384","3481"]
+postal_codes = ["2134", "2201", "6591", "7325" ,"5384","3481","7559"]
 SP = False
 W = False
 print(data.keys())
@@ -60,7 +60,7 @@ x_test =  W[train_size:,:]
 y_train = results[:train_size]
 y_test = results[train_size:]
 
-offset = SP["Number_of_panels"].values[train_size:]*SP["Max_power"].values[train_size:]
+offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
 
 def ridge_regression(par):
     alpha = par[0]
@@ -79,7 +79,7 @@ def ridge_regression(par):
     plt.title("ridge predicted vs real output of 2017")
     plt.show()
     error = np.square(ridge_pred-y_test)*offset
-    return np.sqrt(sum(error)/len(y_test))
+    return np.sqrt(np.sum(np.square(ridge_pred-y_test)))/len(y_test)*offset
 
 def lasso_regression(par):
     alpha = par[0]
@@ -93,7 +93,7 @@ def lasso_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("lasso predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square(lasso_pred-y_test)*offset)/len(y_test))
+    return np.sqrt(np.sum(np.square(lasso_pred-y_test)))/len(y_test)*offset
 
 def Bayes_regression(par):
     alpha_1 = par[0]
@@ -112,7 +112,7 @@ def Bayes_regression(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("bayes predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square((Bay_pred-y_test)*offset))/len(y_test))
+    return np.sqrt(np.sum(np.square(Bay_pred-y_test)))/len(y_test)*offset
 
 def decision_tree():
     dec = DecisionTreeRegressor()
@@ -127,7 +127,7 @@ def decision_tree():
     plt.ylabel("solar panel output (kWh)")
     plt.title("decision tree predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square(pred-y_test)*offset)/len(y_test))
+    return np.sqrt(np.sum(np.square(pred-y_test)))/len(y_test)*offset
 
 def k_nearest(par):
     neighbors = par[0]
@@ -143,7 +143,7 @@ def k_nearest(par):
     plt.ylabel("solar panel output (kWh)")
     plt.title("KNN predicted vs real output of 2017")
     plt.show()
-    return np.sqrt(sum(np.square(neigh_pred-y_test)*offset)/len(y_test))
+    return np.sqrt(np.sum(np.square(neigh_pred-y_test)))/len(y_test)*offset
 
 def kn_opt(iterations):
     best = 999999999999999999
@@ -156,7 +156,7 @@ def kn_opt(iterations):
     return(best,par)
 
 mean = np.mean(y_train)+np.zeros(len(y_test))
-print("base: ",np.sqrt(sum(np.square(mean-y_test)*offset)/len(y_test)))
+print("base: ", np.sqrt(np.sum(np.square(np.mean(y_train)-y_test)))/len(y_test)*offset)
 # print("ridge: ",ridge_regression([-5]))
 print("bayes: ",Bayes_regression([0.00980137, -0.00372394, -0.00682109, -0.04635455]))
 # print("decision tree:", decision_tree())

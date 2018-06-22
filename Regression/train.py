@@ -22,8 +22,8 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-years = ["2013","2014","2015","2016","2017"]
-postal_code = "2201"
+years = ["2009","2010","2011","2012","2013","2014","2015","2016","2017","2018"]
+postal_code = "2134"
 #years = ["2015","2017","2016"]
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
@@ -115,7 +115,7 @@ def k_nearest(par):
     neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
     neigh.fit(x_train, y_train)
     neigh_pred = neigh.predict(x_test)
-    return np.sqrt(np.sum(np.square(np.mean(neigh_pred)-y_test)))/len(y_test)*offset
+    return np.sqrt(np.sum(np.square(neigh_pred-y_test)))/len(y_test)*offset
 
 def kn_opt(iterations):
     best = 999999999999999999
@@ -128,7 +128,7 @@ def kn_opt(iterations):
     return(best, par)
 
 print("base: ", np.sqrt(np.sum(np.square(np.mean(y_train)-y_test)))/len(y_test)*offset)
-# print("ridge: ",ridge_regression([-5]))
+print("ridge: ",ridge_regression([-5]))
 print("new bayes: ",Bayes_regression([-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01]))
 # print("decision tree:", decision_tree())
 # print("KNN: ",kn_opt(5)[0])
