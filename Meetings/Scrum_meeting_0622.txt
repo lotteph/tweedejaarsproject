@@ -1,0 +1,25 @@
+Scrum Meeting 0622
+
+Wat hebben we gedaan?
+Silke:      Invloed van alle parameters onderzocht. Bleek dat de error niet goed was.
+            Error aangepast. Script geschreven om de verandering om te zetten naar procenten.
+Anne-Ruth: Neural Network getraind. Gezorgd dat het modellen kan opslaan. Het werkt
+            op meerdere postcodes. Script geschreven wat modellen kan inlezen en
+            apart predictions over kan doen.
+Cait:       Getypt aan introductie van verslag. Gewerkt aan het maken van een mainfile.
+Lotte:      Neural network getraind. Het bleek niet te werken. Op een andere manier trainen.
+Bas:        Error aangepast met offset.
+
+Wat moeten we nog doen?
+    - features bekijken bij regression (Silke)
+    - kijken of er verbanden zijn tussen minimum temperatuur en invloed op generation (Silke)
+    - mainfile maken (Cait)
+    - errors opvangen (Cait, Bas)
+    - neural network trainen en modellen opslaan (Ruth, Lotte)
+    - code neural network aanpassen naar functies die in de mainfile kunnen (Ruth, Lotte)
+    - verslag schrijven (iedereen als je tussendoor tijd hebt)
+    - features bekijken voor neural network (Ruth, Lotte)
+    - verschil tussen trianen op meerdere jaren onderzoeken en plotten (Bas voor regression)
+
+BESLUIT: model enkel solar panel: trainen op 2134 van 2009 tot en met 2016, testen op 2017
+        model meerdere solar panels: trainen op alle postcodes behalve 2134, teste op 2134
