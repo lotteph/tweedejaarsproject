@@ -1,0 +1,28 @@
+Scrum Meeting 0625
+
+Wat hebben we gedaan?
+Silke:      Gekeken naar invloed van features.
+Anne-Ruth:  Modellen gemaakt voor het neural network. Met layers geexperimenteerd.
+            Het enkele model is net iets beter dan regression. Het algemene model
+            is nog beter dan het enkele model.
+Cait:       Getypt aan het verslag in het eerste gedeelte. Een main file gemaakt
+            waarbij je kan kiezen of je regression algoritme of neural network kan gebruiken.
+            Hij maakt dan een model en test dat model.
+            Het kan ook door je eigen csv in te laden, maar dat werkt nog niet helemaal.
+Lotte:      Modellen gemaakt voor het neural network. Er zijn nu twee "optimale"
+            modellen: een voor een specifiek model, en een voor een algemeen model.
+Bas:        Data gedownload. Beetje getypt aan het verslag.
+
+Wat moeten we nog doen?
+    - mainfile maken (Cait)
+    - errors opvangen (Cait)
+    - kijken of er verbanden zijn tussen minimum temperatuur en invloed op generation (Silke)
+    - code neural network aanpassen naar functies die in de mainfile kunnen (Ruth, Lotte)
+    - verslag schrijven (iedereen)
+    - features bekijken voor neural network (Ruth, Lotte)
+    - verschil tussen trianen op meerdere jaren onderzoeken en plotten (Bas voor regression)
+    - verschil tussen trianen op meerdere jaren onderzoeken en plotten (Lotte en Ruth voor neural network)
+    - features bekijken bij neural network (Ruth, Lotte)
+
+BESLUIT: model enkel solar panel: trainen op 2134 van 2009 tot en met 2016, testen op 2017
+        model meerdere solar panels: trainen op alle postcodes behalve 2134, teste op 2134
