@@ -8,8 +8,9 @@ Bas: Heeft gekeken of de grootte van de dataset invloed heeft op de uitkomst. Me
 regression heb je na 60 dagen genoeg data.
 Cait: Heeft de mainfunctie grotendeels aan elkaar gezet waar het netwerk van Lotte
 nog mist en nog eigen input in moet worden gegeven.
-Ruth: Heeft voor haar NN ook gekeken naar heoveel invloed de grootte van de dataset
+Ruth: Heeft voor haar NN ook gekeken naar hoeveel invloed de grootte van de dataset
 heeft.
+Lotte: Heeft voor haar NN gekeken naar hoeveel invloed de grootte van de dataset heeft
 
 TODO:
 Main functie moet vandaag af
