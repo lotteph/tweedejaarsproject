@@ -11,16 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import model_from_json
 scaler = MinMaxScaler(feature_range=(0, 1))
 
-def make_panda(solar, weather):
-    new = weather
-    del new["Unnamed: 0"]
-    new["number_of_panels"] = solar["Number_of_panels"]
-    new["max_power"] = solar["Max_power"]
-    new["system_size"] = solar["System_size"]
-    new["number_of_inverters"] = solar["Number_of_inverters"]
-    new["inverter_size"] = solar["Inverter_size"]
-    new["tilt"] = solar["Tilt"]
-    return new
+
 
 data = dict()
 data["7325"] = range(2013,2019)
@@ -33,37 +24,6 @@ data["5384"] = range(2013,2016)
 data["5552"] = range(2013,2017)
 data["3994"] = range(2012,2018)
 postal_codes = ["2134"]
-
-SP = False
-W = False
-print(data.keys())
-for code in postal_codes:
-    for year in data[code]:
-        W2 = pd.read_csv("data/" + str(code) + "_" + str(year) + "_W.csv")
-        if type(W) != type(False):
-            W = pd.DataFrame.append(W,W2)
-        else:
-            W = W2
-        SP2 = pd.read_csv("data/" + str(code) + "_" + str(year) + "_S.csv")
-        if type(SP) != type(False):
-            SP = pd.DataFrame.append(SP,SP2)
-        else:
-            SP = SP2
-
-results = np.array(SP["Generated"]/SP["Number_of_panels"]/SP["Max_power"])
-W["time"] = 0
-# W = make_panda(SP,W)
-del W["Unnamed: 0"]
-scaled = scaler.fit_transform(W)
-
-train_size = len(results)-365*1
-
-x_train = scaled[:train_size,:]
-x_test =  scaled[train_size:,:]
-y_train = results[:train_size]
-y_test = results[train_size:]
-
-offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
 
 x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
 x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
