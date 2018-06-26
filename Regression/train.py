@@ -22,9 +22,9 @@ def make_csv(solar, weather):
     new["tilt"] = solar["Tilt"]
     return np.array(new)
 
-postal_code = "2201"
-#years = ["2009","2010","2011","2012","2013","2014","2015","2016","2017"]
-years = ["2013","2014","2015","2016","2017"]
+postal_code = "2134"
+years = ["2009","2010","2011","2012","2013","2014","2015","2016","2017"]
+#years = ["2016","2017"]
 
 W = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_W.csv")
 SP = pd.read_csv("../data/"+postal_code+ "_" + years[0] + "_S.csv")
@@ -106,6 +106,15 @@ def k_nearest(x_train,y_train,x_test,y_test,offset,par):
     neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
     neigh.fit(x_train, y_train)
     neigh_pred = neigh.predict(x_test)
+    # pre = scipy.ndimage.gaussian_filter(neigh_pred,5)
+    # plt.plot(pre,label='predicted output',color="red")
+    # real = scipy.ndimage.gaussian_filter(y_test,5)
+    # plt.plot(real,label='real output',color="blue")
+    # plt.legend()
+    # plt.xlabel("time (days)")
+    # plt.ylabel("solar panel output (kWh)")
+    # plt.title("KNN predicted vs real output of 2017")
+    # plt.show()
     return np.sqrt(np.sum(np.square(neigh_pred-y_test)))/len(y_test)*offset
 
 def kn_opt(x_train,y_train,x_test,y_test,offset,iterations):
@@ -119,16 +128,16 @@ def kn_opt(x_train,y_train,x_test,y_test,offset,iterations):
     return(best, par)
 
 def multiple_years(years,N,W,results):
-    bas = np.zeros(len(years))
-    rid = np.zeros(len(years))
-    bay = np.zeros(len(years))
-    dec = np.zeros(len(years))
-    knn = np.zeros(len(years))
+    bas = np.zeros(len(years)*12)
+    rid = np.zeros(len(years)*12)
+    bay = np.zeros(len(years)*12)
+    dec = np.zeros(len(years)*12)
+    knn = np.zeros(len(years)*12)
     for i in range(0,N):
         #W, results = shuffle(W, results)
-        for j in range(0,len(years)):
-            new_W = W[:365*(j+2)]
-            new_results = results[:365*(j+2)]
+        for j in range(0,len(years)*12):
+            new_W = W[:365*1+12*(j+1)]
+            new_results = results[:365*1+12*(j+1)]
             train_size = len(new_results)-365*1
             x_train = new_W[:train_size,:]
             x_test =  new_W[train_size:,:]
@@ -140,11 +149,25 @@ def multiple_years(years,N,W,results):
             bay[j] += Bayes_regression(x_train,y_train,x_test,y_test,offset,[-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01])
             dec[j] += decision_tree(x_train,y_train,x_test,y_test,offset)
             knn[j] += k_nearest(x_train,y_train,x_test,y_test,offset,5)
-    plt.plot(bas,label='base')
-    plt.plot(rid,label='ridge')
-    plt.plot(bay,label='bayes')
-    plt.plot(dec,label='decision tree')
+    plt.ylim(ymax=0.01)
+    plt.plot(bas/365,label='base')
+    plt.plot(rid/365,label='ridge')
+    plt.plot(bay/365,label='bayes')
+    plt.plot(dec/365,label='decision tree')
     plt.legend()
     plt.show()
 
-multiple_years(years,100,W,results)
+multiple_years(years,10,W,results)
+
+train_size = len(results)-365*1
+x_train = W[:train_size,:]
+x_test =  W[train_size:,:]
+y_train = results[:train_size]
+y_test = results[train_size:]
+offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
+print(np.sqrt(np.sum(np.square(np.mean(y_train)-y_test)))/len(y_test)*offset)
+print(ridge_regression(x_train,y_train,x_test,y_test,offset,[-5]))
+print(Bayes_regression(x_train,y_train,x_test,y_test,offset,[-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01]))
+print(decision_tree(x_train,y_train,x_test,y_test,offset))
+print(k_nearest(x_train,y_train,x_test,y_test,offset,5))
+plt.show()

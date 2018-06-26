@@ -31,11 +31,7 @@ data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
 data["5384"] = range(2013,2016)
-<<<<<<< HEAD
 postal_codes = ["2134", "2201", "6591", "7325" ,"5384","3481","7559"]
-=======
-postal_codes = ["2134","7559","2201","6591","7325","5384"]
->>>>>>> 910ad6332454f4e0415983d3ccd301db6f77a29b
 SP = False
 W = False
 print(data.keys())
@@ -150,7 +146,7 @@ def k_nearest(par):
     return np.sqrt(np.sum(np.square(neigh_pred-y_test)))/len(y_test)*offset
 
 def kn_opt(iterations):
-    best = 999999999999999999
+    best = 9999999999
     par = 1
     for i in range(1, iterations):
         temp = k_nearest([i])
@@ -159,9 +155,9 @@ def kn_opt(iterations):
             par = [i]
     return(best,par)
 
-mean = np.mean(y_train)+np.zeros(len(y_test))
-print("base: ", np.sqrt(np.sum(np.square(np.mean(y_train)-y_test)))/len(y_test)*offset)
+#mean = np.mean(y_train)+np.zeros(len(y_test))
+#print("base: ", np.sqrt(np.sum(np.square(np.mean(y_train)-y_test)))/len(y_test)*offset)
 # print("ridge: ",ridge_regression([-5]))
-print("bayes: ",Bayes_regression([0.00980137, -0.00372394, -0.00682109, -0.04635455]))
+#print("bayes: ",Bayes_regression([0.00980137, -0.00372394, -0.00682109, -0.04635455]))
 # print("decision tree:", decision_tree())
 # print("KNN: ",k_nearest([1]))
