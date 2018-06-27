@@ -1,4 +1,4 @@
- import requests
+import requests
 import csv
 import json
 import datetime
@@ -9,9 +9,9 @@ import pandas as pd
 
 FACTORS = ["time","cloudCover","sunriseTime","sunsetTime","temperatureHigh","temperatureLow","temperatureMin","temperatureMax","visibility"]
 
-#SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
+SECRET_KEY = "59e1462995d5ab68f2c1f29478f98081"
 #SECRET_KEY = "4026e043d76e5963c2c57ab535353197"
-SECRET_KEY = "0cd188a858bdb7fda3eb65f83811fedc"
+#SECRET_KEY = "0cd188a858bdb7fda3eb65f83811fedc"
 #SECRET_KEY = "da2aefea8bbb0c1a91c7059ad966008d"
 #SECRET_KEY = "d07fa9b030dfc7ae1a1897828f0e01de"
 

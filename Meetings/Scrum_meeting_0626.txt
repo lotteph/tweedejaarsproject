@@ -1,0 +1,23 @@
+SCRUM Meeting 26/6
+
+Silke: Heeft de data gevisualiseerd om correlaties tussen de weer features en outcome
+te bepalen en heeft een correlatie functie over de data gevonden, maar weet niet zo
+goed wat er in moet en wat er uit komt. En de introductie van het evrslag gelezen en
+besproken.
+Bas: Heeft gekeken of de grootte van de dataset invloed heeft op de uitkomst. Met
+regression heb je na 60 dagen genoeg data.
+Cait: Heeft de mainfunctie grotendeels aan elkaar gezet waar het netwerk van Lotte
+nog mist en nog eigen input in moet worden gegeven.
+Ruth: Heeft voor haar NN ook gekeken naar hoeveel invloed de grootte van de dataset
+heeft.
+Lotte: Heeft voor haar NN gekeken naar hoeveel invloed de grootte van de dataset heeft
+
+TODO:
+Main functie moet vandaag af
+Er moet aan het verslag gewerkt worden, resulaten voor het verslag
+Presentaties moet worden voor bereid:
+  slides maken
+  backup slides --> meer detail over waar vragen over kunnen komen
+  vragen aan andere mensen geven over onze presentatie
+
+  

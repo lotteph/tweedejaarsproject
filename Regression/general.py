@@ -31,7 +31,9 @@ data["2201"] = range(2013,2019)
 data["6591"] = range(2015,2019)
 data["3481"] = range(2015,2019)
 data["5384"] = range(2013,2016)
+
 postal_codes = ["2134", "2201", "6591", "7325" ,"5384","3481","7559"]
+
 SP = False
 W = False
 print(data.keys())
