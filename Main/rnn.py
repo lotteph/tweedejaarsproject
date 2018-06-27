@@ -11,16 +11,13 @@ from keras.layers import LSTM
 from keras.layers import Activation, Dense, Flatten
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import model_from_json
+from os import listdir
 scaler = MinMaxScaler(feature_range=(0, 1))
 
 def rnn(x_train, x_test, y_train, y_test, offset, set_size):
     x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
     x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
-
-    if set_size == 1:
-        shaper = 18
-    else:
-        shaper = 12
+    shaper = 18
 
     model = Sequential()
     model.add(LSTM(20, input_shape=(1,shaper), return_sequences=True))
@@ -46,8 +43,8 @@ def rnn(x_train, x_test, y_train, y_test, offset, set_size):
 
     return error
 
-def load_rnn(x_train, x_test, y_train, y_test, offset, set_size):
-    x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
+def load_rnn(x_test, y_test, offset, set_size):
+    #x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
     x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
 
     # load json and create model

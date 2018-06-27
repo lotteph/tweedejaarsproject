@@ -14,7 +14,6 @@ from sklearn.preprocessing import normalize
 import os, tempfile
 from Weather_test import _main_
 
-
 # Of all CSV files get postalcode and match years of data
 # input: postal codes and data years, of PV panels in us
 
@@ -22,8 +21,10 @@ def ridge_regression(par, x_train, x_test, y_train, y_test, offset):
     alpha = par[0]
     regr = linear_model.Ridge(alpha,solver="svd")
     regr.fit(x_train,y_train)
+    print(x_train.shape)
+    print(x_test.shape)
     ridge_pred = regr.predict(x_test)
-    plot(ridge_pred)
+    plot(ridge_pred, y_test)
     error = np.square(ridge_pred-y_test)*offset
     return np.sqrt(sum(error)/len(y_test))
 
@@ -35,7 +36,7 @@ def Bayes_regression(par, x_train, x_test, y_train, y_test, offset):
     Bay = linear_model.BayesianRidge(alpha_1=alpha_1,alpha_2=alpha_2,lambda_1=lambda_1,lambda_2=lambda_2)
     Bay.fit(x_train,y_train)
     Bay_pred = Bay.predict(x_test)
-    plot(Bay_pred)
+    plot(Bay_pred, y_test)
     return np.sqrt(sum(np.square(Bay_pred-y_test)*offset)/len(y_test))
 
 def decision_tree(x_train, x_test, y_train, y_test, offset):
@@ -43,7 +44,7 @@ def decision_tree(x_train, x_test, y_train, y_test, offset):
     dec.fit(x_train, y_train)
     pred = dec.predict(x_test)
     pre = scipy.ndimage.gaussian_filter(pred,5)
-    plot(pred)
+    plot(pred, y_test)
     return np.sqrt(sum(np.square(pred-y_test)*offset)/len(y_test))
 
 def k_nearest(par, x_train, x_test, y_train, y_test, offset):
@@ -51,7 +52,7 @@ def k_nearest(par, x_train, x_test, y_train, y_test, offset):
     neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
     neigh.fit(x_train, y_train)
     neigh_pred = neigh.predict(x_test)
-    plot(neigh_pred)
+    plot(neigh_pred, y_test)
     return np.sqrt(sum(np.square(neigh_pred-y_test)*offset)/len(y_test))
 
 def kn_opt(iterations):
@@ -64,7 +65,7 @@ def kn_opt(iterations):
             par = [i]
     return(best,par)
 
-def plot(prediction):
+def plot(prediction, y_test):
     pre = scipy.ndimage.gaussian_filter(prediction,5)
     plt.plot(pre,label='predicted output',color="red")
     real = scipy.ndimage.gaussian_filter(y_test,5)
