@@ -48,8 +48,8 @@ def create_weather_pandas(input_set):
     results = np.array(SP["Generated"]/SP["Number_of_panels"]/SP["Max_power"])
     W["time"] = 0
     W = make_pandas(SP,W)
-    set_size = set_array_size(postal_codes)
-    return results, W, SP, set_size
+    offset = SP["Number_of_panels"].values[-1]*SP["Max_power"].values[-1]
+    return results, W, offset
 
 def create_postal_codes(input_set):
     postal_code = []
