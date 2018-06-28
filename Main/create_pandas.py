@@ -25,7 +25,7 @@ def make_pandas(solar, weather):
     new["number_of_inverters"] = solar["Number_of_inverters"]
     new["inverter_size"] = solar["Inverter_size"]
     new["tilt"] = solar["Tilt"]
-    return np.array(new)
+    return new
 
 def create_weather_pandas(input_set):
     SP = False

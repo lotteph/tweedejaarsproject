@@ -9,7 +9,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import normalize
 import create_pandas
 import rnn
 from os import listdir
@@ -64,7 +63,7 @@ class Predictor(object):
         Bay_pred = Bay.predict(self.x_test)*self.offset
         self.prediction = Bay_pred
         Bay_pred = scipy.ndimage.gaussian_filter(Bay_pred,smoothing_factor)
-        #plt.plot(Bay_pred,label='Bayes output',color="blue")
+        plt.plot(Bay_pred,label='Bayes output',color="blue")
 
     def decision_tree(self,smoothing_factor = 1):
         dec = DecisionTreeRegressor()
@@ -96,24 +95,25 @@ class Predictor(object):
         plt.show()
 
     def calculate_error(self):
-        #return np.sqrt(sum(np.square(self.prediction-self.y_test*self.offset))/len(self.y_test))
-        return sum(np.square(self.prediction-self.y_test*self.offset))/len(self.y_test)
+        return np.sqrt(np.sum(np.square(self.prediction-(self.y_test*self.offset)))/len(self.y_test))
+        #return sum(np.square(self.prediction-self.y_test*self.offset))/len(self.y_test)
+
 def plot_all():
     predictor = Predictor()
     #predictor.train_nn(10000, 32,"model_real_specific+",1)
-    predictor.test_nn("model_real", smoothing_factor = 10)
+    predictor.test_nn("model_6", smoothing_factor = 5)
+    print("NN",predictor.calculate_error())
+    predictor.test_nn("model_real", smoothing_factor = 5)
     print("NN",predictor.calculate_error())
     #predictor.train_mlp()
-    predictor.Bayes_regression(smoothing_factor = 1)
+    predictor.Bayes_regression(smoothing_factor = 5)
     print("Bayes",predictor.calculate_error())
-    predictor.decision_tree(smoothing_factor = 1)
+    predictor.decision_tree(smoothing_factor = 5)
     print("Decision tree",predictor.calculate_error())
     predictor.k_nearest(smoothing_factor = 1)
     print("KNN",predictor.calculate_error())
     predictor.ridge_regression(smoothing_factor = 1)
     print("ridge",predictor.calculate_error())
+    predictor.plot_real(smoothing_factor = 5)
     predictor.plot_real(smoothing_factor = 1)
     predictor.show_plot()
-#regression()
-#train_nn()
-#test_nn()

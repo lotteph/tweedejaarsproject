@@ -49,13 +49,6 @@ def load_rnn(x_test, y_test, offset,name):
     p = p * offset
     return p
 
-def plot(p, y_test):
-    plt.plot(p,label='predicted output',color="red")
-    plt.plot(y_test,label='real output',color="blue")
-    plt.legend()
-    plt.title("Neural network")
-    plt.show()
-
 def save_model(model,name):
     model_json = model.to_json()
     with open(name+".json", "w") as json_file:
