@@ -37,7 +37,7 @@ class Predictor(object):
         plt.plot(nn_prediction,label='nn output',color="green")
 
     def train_mlp(self,smoothing_factor=1):
-        pred = mlp.run_session(self.x_train, self.x_test, self.y_train, self.y_test, self.offset)[0]*self.offset
+        pred = mlp.run_mlp()
         self.prediction = pred
         pred = scipy.ndimage.gaussian_filter(pred,smoothing_factor)
         plt.plot(pred,label='mlp output',color="pink")
@@ -106,6 +106,8 @@ def plot_all():
     predictor = Predictor()
     predictor.test_nn("model_real_specific_2", smoothing_factor = 10)
     print("NN",predictor.calculate_error())
+    predictor.train_mlp(smoothing_factor=10)
+    print("MLP",predictor.calculate_error())
     predictor.ridge_regression(smoothing_factor = 10)
     print("Ridge",predictor.calculate_error())
     predictor.Bayes_regression(smoothing_factor = 10)
