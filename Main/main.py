@@ -4,14 +4,12 @@ import scipy
 import scipy.ndimage
 import csv
 from sklearn import linear_model
-#from sklearn.utils import shuffle
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 import create_pandas
 import rnn
-from os import listdir
 import multilayer_perceptron as mlp
 
 class Predictor(object):
@@ -22,7 +20,7 @@ class Predictor(object):
         self.prediction = False
         print("loaded train and test data")
 
-    def train_nn(self, epochs=200, batch_size=32,name="model",smoothing_factor = 1):
+    def train_nn(self, epochs=5000, batch_size=32,name="model",smoothing_factor = 1):
         # The running of the neural network
         x_train = self.scaler.fit_transform(self.x_train)
         x_test = self.scaler.fit_transform(self.x_test)
@@ -46,29 +44,35 @@ class Predictor(object):
 
     def ridge_regression(self,par=[-5],smoothing_factor = 1):
         alpha = par[0]
+        x_train = self.scaler.fit_transform(self.x_train)
+        x_test = self.scaler.fit_transform(self.x_test)
         regr = linear_model.Ridge(alpha,solver="svd")
-        regr.fit(self.x_train,self.y_train)
-        ridge_pred = regr.predict(self.x_test)*self.offset
+        regr.fit(x_train,self.y_train)
+        ridge_pred = regr.predict(x_test)*self.offset
         self.prediction = ridge_pred
         ridge_pred = scipy.ndimage.gaussian_filter(ridge_pred,smoothing_factor)
-        plt.plot(ridge_pred,label='Ridge & Bayesian output',color="purple")
+        plt.plot(ridge_pred,label='Ridge output',color="red")
 
     def Bayes_regression(self,par=[-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01],smoothing_factor = 1):
         alpha_1 = par[0]
         alpha_2 = par[1]
         lambda_1 = par[2]
         lambda_2 = par[3]
+        x_train = self.scaler.fit_transform(self.x_train)
+        x_test = self.scaler.fit_transform(self.x_test)
         Bay = linear_model.BayesianRidge(alpha_1=alpha_1,alpha_2=alpha_2,lambda_1=lambda_1,lambda_2=lambda_2)
-        Bay.fit(self.x_train,self.y_train)
-        Bay_pred = Bay.predict(self.x_test)*self.offset
+        Bay.fit(x_train,self.y_train)
+        Bay_pred = Bay.predict(x_test)*self.offset
         self.prediction = Bay_pred
         Bay_pred = scipy.ndimage.gaussian_filter(Bay_pred,smoothing_factor)
-        plt.plot(Bay_pred,label='Bayes output',color="blue")
+        plt.plot(Bay_pred,label='Bayes output',color="green")
 
     def decision_tree(self,smoothing_factor = 1):
         dec = DecisionTreeRegressor()
-        dec.fit(self.x_train, self.y_train)
-        pred = dec.predict(self.x_test)*self.offset
+        x_train = self.scaler.fit_transform(self.x_train)
+        x_test = self.scaler.fit_transform(self.x_test)
+        dec.fit(x_train, self.y_train)
+        pred = dec.predict(x_test)*self.offset
         self.prediction = pred
         pred = scipy.ndimage.gaussian_filter(pred,smoothing_factor)
         plt.plot(pred,label='Decision tree output',color="red")
@@ -100,20 +104,28 @@ class Predictor(object):
 
 def plot_all():
     predictor = Predictor()
-    #predictor.train_nn(10000, 32,"model_real_specific+",1)
-    predictor.test_nn("model_6", smoothing_factor = 5)
+    predictor.test_nn("model_real_specific_2", smoothing_factor = 10)
     print("NN",predictor.calculate_error())
-    predictor.test_nn("model_real", smoothing_factor = 5)
-    print("NN",predictor.calculate_error())
-    #predictor.train_mlp()
-    predictor.Bayes_regression(smoothing_factor = 5)
+    predictor.ridge_regression(smoothing_factor = 10)
+    print("Ridge",predictor.calculate_error())
+    predictor.Bayes_regression(smoothing_factor = 10)
     print("Bayes",predictor.calculate_error())
-    predictor.decision_tree(smoothing_factor = 5)
+    predictor.decision_tree(smoothing_factor = 10)
+    print("Decision tree",predictor.calculate_error())
+    predictor.k_nearest(smoothing_factor = 10)
+    print("KNN",predictor.calculate_error())
+    predictor.plot_real(smoothing_factor = 10)
+    predictor.show_plot()
+
+def error_all():
+    predictor = Predictor()
+    predictor.test_nn("model_real", smoothing_factor = 1)
+    print("NN",predictor.calculate_error())
+    predictor.ridge_regression(smoothing_factor = 1)
+    print("Ridge",predictor.calculate_error())
+    predictor.Bayes_regression(smoothing_factor = 1)
+    print("Bayes",predictor.calculate_error())
+    predictor.decision_tree(smoothing_factor = 1)
     print("Decision tree",predictor.calculate_error())
     predictor.k_nearest(smoothing_factor = 1)
     print("KNN",predictor.calculate_error())
-    predictor.ridge_regression(smoothing_factor = 1)
-    print("ridge",predictor.calculate_error())
-    predictor.plot_real(smoothing_factor = 5)
-    predictor.plot_real(smoothing_factor = 1)
-    predictor.show_plot()
