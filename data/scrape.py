@@ -44,7 +44,7 @@ def panel_info(begin_date, end_date, id, sid):
     return output[:-1]
 
 def add_data(data, panel,df):
-    ''' Function to write data in a csv file. It adds both generated
+    ''' Function to write data in a panda. It adds both generated
         energy and the panel data itself.
     '''
     for row in data:
@@ -101,7 +101,7 @@ def retrieve_data(begin_date, end_date, panel, df, second, id, sid):
     return df
 
 def main(m, y, end_m, end_y, id, sid):
-    ''' Runs all the functions to create a csv file with all the
+    ''' Runs all the functions to create a panda with all the
         important data from the solarpanels.
     '''
     if m < 10:
