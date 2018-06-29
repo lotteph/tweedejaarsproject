@@ -13,7 +13,10 @@ import rnn
 import multilayer_perceptron as mlp
 
 class Predictor(object):
+    #Can load train and test data. And can run different algorithms to predict solar panel output.
+
     def __init__(self):
+        #Loads data and sets variables.
         self.scaler = MinMaxScaler(feature_range=(0, 1))
         self.y_train, self.x_train, _ = create_pandas.create_weather_pandas("Train")
         self.y_test, self.x_test, self.offset = create_pandas.create_weather_pandas("Test")
@@ -21,7 +24,7 @@ class Predictor(object):
         print("loaded train and test data")
 
     def train_nn(self, epochs=5000, batch_size=32,name="model",smoothing_factor = 1):
-        # The running of the neural network
+        #Trains and tests a RNN.
         x_train = self.scaler.fit_transform(self.x_train)
         x_test = self.scaler.fit_transform(self.x_test)
         nn_prediction = rnn.rnn(x_train, x_test, self.y_train, self.y_test, self.offset, epochs, batch_size, name)
@@ -30,6 +33,7 @@ class Predictor(object):
         plt.plot(nn_prediction,label='nn output',color="green")
 
     def test_nn(self,name="model",smoothing_factor = 1):
+        #Loads a existing network to test on.
         x_test = self.scaler.fit_transform(self.x_test)
         nn_prediction = rnn.load_rnn(x_test, self.y_test, self.offset, name)
         self.prediction = nn_prediction
@@ -37,12 +41,14 @@ class Predictor(object):
         plt.plot(nn_prediction,label='nn output',color="green")
 
     def train_mlp(self,smoothing_factor=1):
+        #Trains a multi layes preceptron and predicts using this network.
         pred = mlp.run_session(self.x_train, self.x_test, self.y_train, self.y_test, self.offset)[0]*self.offset
         self.prediction = pred
         pred = scipy.ndimage.gaussian_filter(pred,smoothing_factor)
         plt.plot(pred,label='mlp output',color="pink")
 
     def ridge_regression(self,par=[-5],smoothing_factor = 1):
+        #Trains and tests using ridge regression.
         alpha = par[0]
         x_train = self.scaler.fit_transform(self.x_train)
         x_test = self.scaler.fit_transform(self.x_test)
@@ -54,6 +60,7 @@ class Predictor(object):
         plt.plot(ridge_pred,label='Ridge output',color="red")
 
     def Bayes_regression(self,par=[-3.63600029e-04,  2.33234414e-03,  5.52569969e-02, -4.99181236e-01],smoothing_factor = 1):
+        #Trains and tests using bayes regression.
         alpha_1 = par[0]
         alpha_2 = par[1]
         lambda_1 = par[2]
@@ -68,6 +75,7 @@ class Predictor(object):
         plt.plot(Bay_pred,label='Bayes output',color="green")
 
     def decision_tree(self,smoothing_factor = 1):
+        #Trains and tests using decision tree.
         dec = DecisionTreeRegressor()
         x_train = self.scaler.fit_transform(self.x_train)
         x_test = self.scaler.fit_transform(self.x_test)
@@ -79,6 +87,7 @@ class Predictor(object):
 
 
     def k_nearest(self, par=[5],smoothing_factor=1):
+        #Trains and tests using KNN.
         neighbors = par[0]
         neigh = KNeighborsRegressor(n_neighbors=int(neighbors))
         neigh.fit(self.x_train, self.y_train)
@@ -89,20 +98,24 @@ class Predictor(object):
 
 
     def plot_real(self,smoothing_factor = 1):
+        #Plots the real output of the solar panel
         real = scipy.ndimage.gaussian_filter(self.y_test,smoothing_factor)*self.offset
         plt.plot(real,label='real output',color="black",linewidth=2.0)
 
     def show_plot(self):
+        #Shows the queued plots with labels and legend.
         plt.legend()
         plt.xlabel("time (days)")
         plt.ylabel("solar panel output (kWh)")
         plt.show()
 
     def calculate_error(self):
+        #Calculates the error of the last predicted model.
         return np.sqrt(np.sum(np.square(self.prediction-(self.y_test*self.offset)))/len(self.y_test))
         #return sum(np.square(self.prediction-self.y_test*self.offset))/len(self.y_test)
 
 def plot_all():
+    #Plots all the real and predicted outputs.
     predictor = Predictor()
     predictor.test_nn("model_real_specific_2", smoothing_factor = 10)
     print("NN",predictor.calculate_error())
@@ -118,6 +131,7 @@ def plot_all():
     predictor.show_plot()
 
 def error_all():
+    #Tests all models and prints the errors of all.
     predictor = Predictor()
     predictor.test_nn("model_real", smoothing_factor = 1)
     print("NN",predictor.calculate_error())
