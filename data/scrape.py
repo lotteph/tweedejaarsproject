@@ -101,7 +101,7 @@ def retrieve_data(begin_date, end_date, panel, df, second, id, sid):
     return df
 
 def main(m, y, end_m, end_y, id, sid):
-    ''' Runs all the functions to create a csv file with all the
+    ''' Runs all the functions to create a panda with all the
         important data from the solarpanels.
     '''
     if m < 10:
